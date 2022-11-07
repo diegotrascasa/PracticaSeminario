@@ -1,0 +1,46 @@
+---
+title: Seminario de Fuentes de datos biomédicas y web semántica
+author:    | 
+ | **David Sainz Gonzalo**
+ | *[email](mailto:dsg1003@alu.ubu.es)*
+ | **Diego Trascasa García**
+ | *[email](mailto:dtg1003@alu.ubu.es)*
+date: "5º Semestre / Curso 2022-2023"
+output:
+  html_document:
+    df_print: paged
+  pdf_document: 
+    toc: yes
+always_allow_html: true
+---
+
+## EFECTO DE LA CALIDAD DE AIRE EN DISTINTAS ENFERMEDADES
+
+Primero realizamos la importación de los datos de las enfermedades, lo hacemos a través de un archivo csv.
+
+```{importación de los datos de enfermedades}
+library(readr)
+X46687 <- read_delim("46687.csv", delim = "\t", 
+                     escape_double = FALSE, trim_ws = TRUE)
+View(X46687)
+```
+Con el bloque de codigo anterior obtenemos una tabla con 6 columnas: 
+Enfermedad, Comunidad Autónoma, Edades, Sexo, Año y Total. Obtemos un total de 12240 entradas.
+
+Después importamos los datos de calidad del aire, a través de un archivo xlsx, es decir, un archivo excel.
+
+```{r importacion de los datos de Calidad del aire}
+library(readxl)
+datos_aire_20220 <- read_excel("~/Downloads/datos_aire_20220.xlsx")
+View(datos_aire_20220)
+```
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
