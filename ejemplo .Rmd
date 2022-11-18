@@ -14,26 +14,67 @@ output:
 always_allow_html: true
 ---
 
-## EFECTO DE LA CALIDAD DE AIRE EN DISTINTAS ENFERMEDADES
+# EFECTO DE LA CALIDAD DE AIRE EN DISTINTAS ENFERMEDADES
 
-Primero realizamos la importación de los datos de las enfermedades, lo hacemos a través de un archivo csv.
+##Importación de los datos de Enfermedades.
+Lo primero que realizamos es la importación de los datos de las enfermedades, lo hacemos a través de un archivo csv.
 
-```{importación de los datos de enfermedades}
+```{r Datos de Enfermedades}
 library(readr)
-X46687 <- read_delim("46687.csv", delim = "\t", 
-                     escape_double = FALSE, trim_ws = TRUE)
-View(X46687)
+X49971 <- read_delim("input/data/Enfermedades/49971.csv", 
+    delim = "\t", escape_double = FALSE, 
+    trim_ws = TRUE)
+View(X49971)
 ```
-Con el bloque de codigo anterior obtenemos una tabla con 6 columnas: 
-Enfermedad, Comunidad Autónoma, Edades, Sexo, Año y Total. Obtemos un total de 12240 entradas.
+Con el bloque de codigo anterior obtenemos una tabla con 7 columnas: 
+Nacional, Comunidades y ciudades autónomas, Causa de Muerte, Sexo, Lugar de Ocurrencia, Año y Total. 
+Obtemos un total de 214,200 entradas.
+Esta tabla no va a ser necesario modificarla para su posterior comparación.
 
-Después importamos los datos de calidad del aire, a través de un archivo xlsx, es decir, un archivo excel.
 
-```{r importacion de los datos de Calidad del aire}
-library(readxl)
-datos_aire_20220 <- read_excel("~/Downloads/datos_aire_20220.xlsx")
-View(datos_aire_20220)
+##Importación de los datos de Calidad de aire.
+
+En este caso vamos a importar los datos de Calidad del aire de forma separada, se encuentran en varias tablas dependiendo del año y las magnitudes de calidad.
+
+Comenzaremos con el año 2020:
+
+```{r}
+library(readr)
+As_DD_2021 <- read_delim("input/data/calidad del aire/2020/As_DD_2021.csv", 
+    delim = ";", escape_double = FALSE, trim_ws = TRUE)
+View(As_DD_2021)
+
+library(readr)
+BaP_DD_2021 <- read_delim("input/data/calidad del aire/2020/BaP_DD_2021.csv", 
+    delim = ";", escape_double = FALSE, trim_ws = TRUE)
+View(BaP_DD_2021)
+
+library(readr)
+Cd_DD_2021 <- read_delim("input/data/calidad del aire/2020/Cd_DD_2021.csv", 
+    delim = ";", escape_double = FALSE, trim_ws = TRUE)
+View(Cd_DD_2021)
+
+library(readr)
+Ni_DD_2021 <- read_delim("input/data/calidad del aire/2020/Ni_DD_2021.csv", 
+    delim = ";", escape_double = FALSE, trim_ws = TRUE)
+View(Ni_DD_2021)
+
+library(readr)
+Pb_DD_2021 <- read_delim("input/data/calidad del aire/2020/Pb_DD_2021.csv", 
+    delim = ";", escape_double = FALSE, trim_ws = TRUE)
+View(Pb_DD_2021)
+
+library(readr)
+PM10_DD_2021 <- read_delim("input/data/calidad del aire/2020/PM10_DD_2021.csv", 
+    delim = ";", escape_double = FALSE, trim_ws = TRUE)
+View(PM10_DD_2021)
+
+library(readr)
+PM25_DD_2021 <- read_delim("input/data/calidad del aire/2020/PM25_DD_2021.csv", 
+    delim = ";", escape_double = FALSE, trim_ws = TRUE)
+View(PM25_DD_2021)
 ```
+
 
 ## Including Plots
 
