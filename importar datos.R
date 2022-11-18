@@ -8,3 +8,6 @@ X02001 <- read_delim("input/data/02001.csv",
                      delim = "\t", escape_double = FALSE, 
                      trim_ws = TRUE)
 View(X02001)
+
+
+222646464
