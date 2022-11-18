@@ -75,6 +75,39 @@ PM25_DD_2021 <- read_delim("input/data/calidad del aire/2020/PM25_DD_2021.csv",
 View(PM25_DD_2021)
 ```
 
+Ahora tenemos que modificar la tabla para conseguir tratar los datos.
+
+```{r}
+##ARSENICO
+tabla <- select(.data = As_DD_2021, PROVINCIA, ANNO, D01:D31 )
+
+tabla <-rename(.data = tabla, AÑO = ANNO)
+
+tab <- tabla %>%
+  group_by(PROVINCIA,AÑO) %>%
+  summarise(across(c(D01:D31), ~ mean(.x, na.rm = TRUE)))
+
+tab$ARSENICO <- apply(tab[ ,c(3:33)], 1, mean, na.rm = TRUE)
+
+tab <- select(.data = tab, PROVINCIA, AÑO, ARSENICO)
+```
+Comenzamos modificando los datos del primer fichero en este caso la variable es el arsénico
+
+
+```{r}
+##BENZOPIRENO
+tabla2 <- select(.data = BaP_DD_2021, PROVINCIA, ANNO, D01:D31)
+
+tabla2 <-rename(.data = tabla2, AÑO = ANNO)
+
+tab2 <- tabla2 %>%
+  group_by(PROVINCIA,AÑO) %>%
+  summarise(across(c(D01:D31), ~ mean(.x, na.rm = TRUE)))
+
+tab2$BENZOPIRENO <- apply(tab2[ ,c(3:33)], 1, mean, na.rm = TRUE)
+
+tab2 <- select(.data = tab2, PROVINCIA, AÑO, BENZOPIRENO)
+```
 
 ## Including Plots
 

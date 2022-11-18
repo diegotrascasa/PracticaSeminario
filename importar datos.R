@@ -1,13 +1,54 @@
-library(readxl)
-datos_aire_20220 <- read_excel("input/data/datos_aire_20220.xlsx")
-View(datos_aire_20220)
-
+library(readr)
+As_DD_2021 <- read_delim("input/data/calidad del aire/2020/As_DD_2021.csv", 
+                         delim = ";", escape_double = FALSE, trim_ws = TRUE)
+View(As_DD_2021)
 
 library(readr)
-X02001 <- read_delim("input/data/02001.csv", 
-                     delim = "\t", escape_double = FALSE, 
-                     trim_ws = TRUE)
-View(X02001)
+BaP_DD_2021 <- read_delim("input/data/calidad del aire/2020/BaP_DD_2021.csv", 
+                          delim = ";", escape_double = FALSE, trim_ws = TRUE)
+View(BaP_DD_2021)
+
+library(readr)
+Cd_DD_2021 <- read_delim("input/data/calidad del aire/2020/Cd_DD_2021.csv", 
+                         delim = ";", escape_double = FALSE, trim_ws = TRUE)
+View(Cd_DD_2021)
+
+library(readr)
+Ni_DD_2021 <- read_delim("input/data/calidad del aire/2020/Ni_DD_2021.csv", 
+                         delim = ";", escape_double = FALSE, trim_ws = TRUE)
+View(Ni_DD_2021)
+
+library(readr)
+Pb_DD_2021 <- read_delim("input/data/calidad del aire/2020/Pb_DD_2021.csv", 
+                         delim = ";", escape_double = FALSE, trim_ws = TRUE)
+View(Pb_DD_2021)
+
+library(readr)
+PM10_DD_2021 <- read_delim("input/data/calidad del aire/2020/PM10_DD_2021.csv", 
+                           delim = ";", escape_double = FALSE, trim_ws = TRUE)
+View(PM10_DD_2021)
+
+library(readr)
+PM25_DD_2021 <- read_delim("input/data/calidad del aire/2020/PM25_DD_2021.csv", 
+                           delim = ";", escape_double = FALSE, trim_ws = TRUE)
+View(PM25_DD_2021)
 
 
-222646464
+
+tabla <- select(.data = As_DD_2021, PROVINCIA, ANNO, D01:D31 )
+
+tabla <-rename(.data = tabla, AÑO = ANNO)
+
+tab <- tabla %>%
+  group_by(PROVINCIA,AÑO) %>%
+  summarise(across(c(D01:D31), ~ mean(.x, na.rm = TRUE)))
+
+tab$ARSENICO <- apply(tab[ ,c(3:33)], 1, mean, na.rm = TRUE)
+
+tab <- select(.data = tab, PROVINCIA, AÑO, ARSENICO)
+  
+
+
+##summarise(.data = As_DD_2021, DATO = mean(height, na.rm = TRUE), Alt_desv = sd(height, na.rm = TRUE))
+
+
