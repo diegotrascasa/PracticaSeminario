@@ -1,4 +1,5 @@
 #IMPORTAR DATOS DEL AIRE
+library(readr)
 As_DD_2021 <- read_delim("input/data/calidad del aire/2020/As_DD_2021.csv", 
                          delim = ";", escape_double = FALSE, trim_ws = TRUE)
 View(As_DD_2021)
@@ -71,23 +72,37 @@ As_DD_2019 <- read_delim("input/data/calidad del aire/2019/As_DD_2019.csv",
                          delim = ";", escape_double = FALSE, trim_ws = TRUE)
 View(As_DD_2019)
 
+
 BaP_DD_2019 <- read_delim("input/data/calidad del aire/2019/BaP_DD_2019.csv", 
                           delim = ";", escape_double = FALSE, trim_ws = TRUE)
 View(BaP_DD_2019)
+
 
 C6H6_DD_2019 <- read_delim("input/data/calidad del aire/2019/C6H6_DD_2019.csv", 
                            delim = ";", escape_double = FALSE, trim_ws = TRUE)
 View(C6H6_DD_2019)
 
+
 Cd_DD_2019 <- read_delim("input/data/calidad del aire/2019/Cd_DD_2019.csv", 
                          delim = ";", escape_double = FALSE, trim_ws = TRUE)
 View(Cd_DD_2019)
+
 
 Ni_DD_2019 <- read_delim("input/data/calidad del aire/2019/Ni_DD_2019.csv", 
                          delim = ";", escape_double = FALSE, trim_ws = TRUE)
 View(Ni_DD_2019)
 
+
 Pb_DD_2019 <- read_delim("input/data/calidad del aire/2019/Pb_DD_2019.csv", 
                          delim = ";", escape_double = FALSE, trim_ws = TRUE)
 View(Pb_DD_2019)
 
+
+PM10_DD_2019 <- read_delim("input/data/calidad del aire/2019/PM10_DD_2019.csv", 
+                           delim = ";", escape_double = FALSE, trim_ws = TRUE)
+View(PM10_DD_2019)
+
+
+PM25_DD_2019 <- read_delim("input/data/calidad del aire/2019/PM25_DD_2019.csv", 
+                           delim = ";", escape_double = FALSE, trim_ws = TRUE)
+View(PM25_DD_2019)
