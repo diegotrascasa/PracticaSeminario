@@ -371,3 +371,40 @@ tabPM25_2018$PM_25 <- apply(tabPM25_2018[ ,c(3:33)], 1, mean, na.rm = TRUE)
 
 tabPM25_2018 <- select(.data = tabPM25_2018, PROVINCIA, AÑO, PM_25)
 print(tabPM25_2018)
+
+
+#2017
+
+As_DD_2017 <- read_delim("input/data/calidad del aire/2017/As_DD_2017.csv", 
+                         delim = ";", escape_double = FALSE, trim_ws = TRUE)
+View(As_DD_2017)
+
+
+B_a_P_DD_2017 <- read_delim("input/data/calidad del aire/2017/B(a)P_DD_2017.csv", 
+                            delim = ";", escape_double = FALSE, trim_ws = TRUE)
+View(B_a_P_DD_2017)
+
+
+Cd_DD_2017 <- read_delim("input/data/calidad del aire/2017/Cd_DD_2017.csv", 
+                         delim = ";", escape_double = FALSE, trim_ws = TRUE)
+View(Cd_DD_2017)
+
+
+Ni_DD_2017 <- read_delim("input/data/calidad del aire/2017/Ni_DD_2017.csv", 
+                         delim = ";", escape_double = FALSE, trim_ws = TRUE)
+View(Ni_DD_2017)
+
+
+Pb_DD_2017 <- read_delim("input/data/calidad del aire/2017/Pb_DD_2017.csv", 
+                         delim = ";", escape_double = FALSE, trim_ws = TRUE)
+View(Pb_DD_2017)
+
+
+PM2_5_DD_2017 <- read_delim("input/data/calidad del aire/2017/PM2.5_DD_2017.csv", 
+                            delim = ";", escape_double = FALSE, trim_ws = TRUE)
+View(PM2_5_DD_2017)
+
+
+PM10_DD_2017 <- read_delim("input/data/calidad del aire/2017/PM10_DD_2017.csv", 
+                           delim = ";", escape_double = FALSE, trim_ws = TRUE)
+View(PM10_DD_2017)
