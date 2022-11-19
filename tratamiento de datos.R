@@ -266,7 +266,7 @@ PM10_DD_2018 <- read_delim("input/data/calidad del aire/2018/PM10_DD_2018.csv",
 View(PM10_DD_2018)
 
 
-##Arsenico 2019
+##Arsenico 2018
 
 tablaAS_2018 <- select(.data = As_DD_2018, PROVINCIA, ANNO, D01:D31 )
 
@@ -282,7 +282,7 @@ tabAS_2018 <- select(.data = tabAS_2018, PROVINCIA, AÑO, ARSENICO)
 
 print (tabAS_2018)
 
-##Benzopireno 2019
+##Benzopireno 2018
 
 tablaBaP_2018 <- select(.data = B_a_P_DD_2018, PROVINCIA, ANNO, D01:D31)
 
@@ -297,7 +297,7 @@ tabBaP_2018$BENZOPIRENO <- apply(tabBaP_2018[ ,c(3:33)], 1, mean, na.rm = TRUE)
 tabBaP_2018 <- select(.data = tabBaP_2018, PROVINCIA, AÑO, BENZOPIRENO)
 print(tabBaP_2018)
 
-##Cadmio 2019
+##Cadmio 2018
 
 tablaCd_2018 <- select(.data = Cd_DD_2018, PROVINCIA, ANNO, D01:D31)
 
@@ -312,7 +312,7 @@ tabCd_2018$CADMIO <- apply(tabCd_2018[ ,c(3:33)], 1, mean, na.rm = TRUE)
 tabCd_2018 <- select(.data = tabCd_2018, PROVINCIA, AÑO, CADMIO)
 print(tabCd_2018)
 
-##Niquel 2019
+##Niquel 2018
 
 tablaNi_2018 <- select(.data = Ni_DD_2018, PROVINCIA, ANNO, D01:D31)
 
@@ -327,7 +327,7 @@ tabNi_2018$NIQUEL <- apply(tabNi_2018[ ,c(3:33)], 1, mean, na.rm = TRUE)
 tabNi_2018 <- select(.data = tabNi_2018, PROVINCIA, AÑO, NIQUEL)
 print(tabNi_2018)
 
-##Plomo 2019
+##Plomo 2018
 
 tablaPb_2018 <- select(.data = Pb_DD_2018, PROVINCIA, ANNO, D01:D31)
 
@@ -342,7 +342,7 @@ tabPb_2018$PLOMO <- apply(tabPb_2018[ ,c(3:33)], 1, mean, na.rm = TRUE)
 tabPb_2018 <- select(.data = tabPb_2018, PROVINCIA, AÑO, PLOMO)
 print(tabPb_2018)
 
-##PM10 2019
+##PM10 2018
 
 tablaPM10_2018 <- select(.data = PM10_DD_2018, PROVINCIA, ANNO, D01:D31)
 
@@ -357,7 +357,7 @@ tabPM10_2018$PM_10 <- apply(tabPM10_2018[ ,c(3:33)], 1, mean, na.rm = TRUE)
 tabPM10_2018 <- select(.data = tabPM10_2018, PROVINCIA, AÑO, PM_10)
 print(tabPM10_2018)
 
-##PM25 2019
+##PM25 2018
 
 tablaPM25_2018 <- select(.data = PM2_5_DD_2018, PROVINCIA, ANNO, D01:D31)
 
@@ -408,3 +408,111 @@ View(PM2_5_DD_2017)
 PM10_DD_2017 <- read_delim("input/data/calidad del aire/2017/PM10_DD_2017.csv", 
                            delim = ";", escape_double = FALSE, trim_ws = TRUE)
 View(PM10_DD_2017)
+
+
+##Arsenico 2017
+
+tablaAS_2017 <- select(.data = As_DD_2017, PROVINCIA, ANNO, D01:D31 )
+
+tablaAS_2017 <-rename(.data = tablaAS_2017, AÑO = ANNO)
+
+tabAS_2017 <- tablaAS_2017 %>%
+  group_by(PROVINCIA,AÑO) %>%
+  summarise(across(c(D01:D31), ~ mean(.x, na.rm = TRUE)))
+
+tabAS_2017$ARSENICO <- apply(tabAS_2017[ ,c(3:33)], 1, mean, na.rm = TRUE)
+
+tabAS_2017 <- select(.data = tabAS_2017, PROVINCIA, AÑO, ARSENICO)
+
+print (tabAS_2017)
+
+##Benzopireno 2017
+
+tablaBaP_2017 <- select(.data = B_a_P_DD_2017, PROVINCIA, ANNO, D01:D31)
+
+tablaBaP_2017 <-rename(.data = tablaBaP_2017, AÑO = ANNO)
+
+tabBaP_2017 <- tablaBaP_2017 %>%
+  group_by(PROVINCIA,AÑO) %>%
+  summarise(across(c(D01:D31), ~ mean(.x, na.rm = TRUE)))
+
+tabBaP_2017$BENZOPIRENO <- apply(tabBaP_2017[ ,c(3:33)], 1, mean, na.rm = TRUE)
+
+tabBaP_2017 <- select(.data = tabBaP_2017, PROVINCIA, AÑO, BENZOPIRENO)
+print(tabBaP_2017)
+
+##Cadmio 2017
+
+tablaCd_2017 <- select(.data = Cd_DD_2017, PROVINCIA, ANNO, D01:D31)
+
+tablaCd_2017 <-rename(.data = tablaCd_2017, AÑO = ANNO)
+
+tabCd_2017 <- tablaCd_2017 %>%
+  group_by(PROVINCIA,AÑO) %>%
+  summarise(across(c(D01:D31), ~ mean(.x, na.rm = TRUE)))
+
+tabCd_2017$CADMIO <- apply(tabCd_2017[ ,c(3:33)], 1, mean, na.rm = TRUE)
+
+tabCd_2017 <- select(.data = tabCd_2017, PROVINCIA, AÑO, CADMIO)
+print(tabCd_2017)
+
+##Niquel 2017
+
+tablaNi_2017 <- select(.data = Ni_DD_2017, PROVINCIA, ANNO, D01:D31)
+
+tablaNi_2017 <-rename(.data = tablaNi_2017, AÑO = ANNO)
+
+tabNi_2017 <- tablaNi_2017 %>%
+  group_by(PROVINCIA,AÑO) %>%
+  summarise(across(c(D01:D31), ~ mean(.x, na.rm = TRUE)))
+
+tabNi_2017$NIQUEL <- apply(tabNi_2017[ ,c(3:33)], 1, mean, na.rm = TRUE)
+
+tabNi_2017 <- select(.data = tabNi_2017, PROVINCIA, AÑO, NIQUEL)
+print(tabNi_2017)
+
+##Plomo 2017
+
+tablaPb_2017 <- select(.data = Pb_DD_2017, PROVINCIA, ANNO, D01:D31)
+
+tablaPb_2017 <-rename(.data = tablaPb_2017, AÑO = ANNO)
+
+tabPb_2017 <- tablaPb_2017 %>%
+  group_by(PROVINCIA,AÑO) %>%
+  summarise(across(c(D01:D31), ~ mean(.x, na.rm = TRUE)))
+
+tabPb_2017$PLOMO <- apply(tabPb_2017[ ,c(3:33)], 1, mean, na.rm = TRUE)
+
+tabPb_2017 <- select(.data = tabPb_2017, PROVINCIA, AÑO, PLOMO)
+print(tabPb_2017)
+
+##PM10 2017
+
+tablaPM10_2017 <- select(.data = PM10_DD_2017, PROVINCIA, ANNO, D01:D31)
+
+tablaPM10_2017 <-rename(.data = tablaPM10_2018, AÑO = ANNO)
+
+tabPM10_2017 <- tablaPM10_2017 %>%
+  group_by(PROVINCIA,AÑO) %>%
+  summarise(across(c(D01:D31), ~ mean(.x, na.rm = TRUE)))
+
+tabPM10_2017$PM_10 <- apply(tabPM10_2017[ ,c(3:33)], 1, mean, na.rm = TRUE)
+
+tabPM10_2017 <- select(.data = tabPM10_2017, PROVINCIA, AÑO, PM_10)
+print(tabPM10_2017)
+
+##PM25 2017
+
+tablaPM25_2017 <- select(.data = PM2_5_DD_2017, PROVINCIA, ANNO, D01:D31)
+
+tablaPM25_2017 <-rename(.data = tablaPM25_2017, AÑO = ANNO)
+
+tabPM25_2017 <- tablaPM25_2017 %>%
+  group_by(PROVINCIA,AÑO) %>%
+  summarise(across(c(D01:D31), ~ mean(.x, na.rm = TRUE)))
+
+tabPM25_2017$PM_25 <- apply(tabPM25_2017[ ,c(3:33)], 1, mean, na.rm = TRUE)
+
+tabPM25_2017 <- select(.data = tabPM25_2017, PROVINCIA, AÑO, PM_25)
+print(tabPM25_2017)
+
