@@ -284,90 +284,90 @@ print (tabAS_2018)
 
 ##Benzopireno 2019
 
-tablaBaP_2019 <- select(.data = BaP_DD_2019, PROVINCIA, ANNO, D01:D31)
+tablaBaP_2018 <- select(.data = B_a_P_DD_2018, PROVINCIA, ANNO, D01:D31)
 
-tablaBaP_2019 <-rename(.data = tablaBaP_2019, AÑO = ANNO)
+tablaBaP_2018 <-rename(.data = tablaBaP_2018, AÑO = ANNO)
 
-tabBaP_2019 <- tablaBaP_2019 %>%
+tabBaP_2018 <- tablaBaP_2018 %>%
   group_by(PROVINCIA,AÑO) %>%
   summarise(across(c(D01:D31), ~ mean(.x, na.rm = TRUE)))
 
-tabBaP_2019$BENZOPIRENO <- apply(tabBaP_2019[ ,c(3:33)], 1, mean, na.rm = TRUE)
+tabBaP_2018$BENZOPIRENO <- apply(tabBaP_2018[ ,c(3:33)], 1, mean, na.rm = TRUE)
 
-tabBaP_2019 <- select(.data = tabBaP_2019, PROVINCIA, AÑO, BENZOPIRENO)
-print(tabBaP_2019)
+tabBaP_2018 <- select(.data = tabBaP_2018, PROVINCIA, AÑO, BENZOPIRENO)
+print(tabBaP_2018)
 
 ##Cadmio 2019
 
-tablaCd_2019 <- select(.data = Cd_DD_2019, PROVINCIA, ANNO, D01:D31)
+tablaCd_2018 <- select(.data = Cd_DD_2018, PROVINCIA, ANNO, D01:D31)
 
-tablaCd_2019 <-rename(.data = tablaCd_2019, AÑO = ANNO)
+tablaCd_2018 <-rename(.data = tablaCd_2018, AÑO = ANNO)
 
-tabCd_2019 <- tablaCd_2019 %>%
+tabCd_2018 <- tablaCd_2018 %>%
   group_by(PROVINCIA,AÑO) %>%
   summarise(across(c(D01:D31), ~ mean(.x, na.rm = TRUE)))
 
-tabCd_2019$CADMIO <- apply(tabCd_2019[ ,c(3:33)], 1, mean, na.rm = TRUE)
+tabCd_2018$CADMIO <- apply(tabCd_2018[ ,c(3:33)], 1, mean, na.rm = TRUE)
 
-tabCd_2019 <- select(.data = tabCd_2019, PROVINCIA, AÑO, CADMIO)
-print(tabCd_2019)
+tabCd_2018 <- select(.data = tabCd_2018, PROVINCIA, AÑO, CADMIO)
+print(tabCd_2018)
 
 ##Niquel 2019
 
-tablaNi_2019 <- select(.data = Ni_DD_2019, PROVINCIA, ANNO, D01:D31)
+tablaNi_2018 <- select(.data = Ni_DD_2018, PROVINCIA, ANNO, D01:D31)
 
-tablaNi_2019 <-rename(.data = tablaNi_2019, AÑO = ANNO)
+tablaNi_2018 <-rename(.data = tablaNi_2018, AÑO = ANNO)
 
-tabNi_2019 <- tablaNi_2019 %>%
+tabNi_2018 <- tablaNi_2018 %>%
   group_by(PROVINCIA,AÑO) %>%
   summarise(across(c(D01:D31), ~ mean(.x, na.rm = TRUE)))
 
-tabNi_2019$NIQUEL <- apply(tabNi_2019[ ,c(3:33)], 1, mean, na.rm = TRUE)
+tabNi_2018$NIQUEL <- apply(tabNi_2018[ ,c(3:33)], 1, mean, na.rm = TRUE)
 
-tabNi_2019 <- select(.data = tabNi_2019, PROVINCIA, AÑO, NIQUEL)
-print(tabNi_2019)
+tabNi_2018 <- select(.data = tabNi_2018, PROVINCIA, AÑO, NIQUEL)
+print(tabNi_2018)
 
 ##Plomo 2019
 
-tablaPb_2019 <- select(.data = Pb_DD_2019, PROVINCIA, ANNO, D01:D31)
+tablaPb_2018 <- select(.data = Pb_DD_2018, PROVINCIA, ANNO, D01:D31)
 
-tablaPb_2019 <-rename(.data = tablaPb_2019, AÑO = ANNO)
+tablaPb_2018 <-rename(.data = tablaPb_2018, AÑO = ANNO)
 
-tabPb_2019 <- tablaPb_2019 %>%
+tabPb_2018 <- tablaPb_2018 %>%
   group_by(PROVINCIA,AÑO) %>%
   summarise(across(c(D01:D31), ~ mean(.x, na.rm = TRUE)))
 
-tabPb_2019$PLOMO <- apply(tabPb_2019[ ,c(3:33)], 1, mean, na.rm = TRUE)
+tabPb_2018$PLOMO <- apply(tabPb_2018[ ,c(3:33)], 1, mean, na.rm = TRUE)
 
-tabPb_2019 <- select(.data = tabPb_2019, PROVINCIA, AÑO, PLOMO)
-print(tabPb_2019)
+tabPb_2018 <- select(.data = tabPb_2018, PROVINCIA, AÑO, PLOMO)
+print(tabPb_2018)
 
 ##PM10 2019
 
-tablaPM10_2019 <- select(.data = PM10_DD_2019, PROVINCIA, ANNO, D01:D31)
+tablaPM10_2018 <- select(.data = PM10_DD_2018, PROVINCIA, ANNO, D01:D31)
 
-tablaPM10_2019 <-rename(.data = tablaPM10_2019, AÑO = ANNO)
+tablaPM10_2018 <-rename(.data = tablaPM10_2018, AÑO = ANNO)
 
-tabPM10_2019 <- tablaPM10_2019 %>%
+tabPM10_2018 <- tablaPM10_2018 %>%
   group_by(PROVINCIA,AÑO) %>%
   summarise(across(c(D01:D31), ~ mean(.x, na.rm = TRUE)))
 
-tabPM10_2019$PM_10 <- apply(tabPM10_2019[ ,c(3:33)], 1, mean, na.rm = TRUE)
+tabPM10_2018$PM_10 <- apply(tabPM10_2018[ ,c(3:33)], 1, mean, na.rm = TRUE)
 
-tabPM10_2019 <- select(.data = tabPM10_2019, PROVINCIA, AÑO, PM_10)
-print(tabPM10_2019)
+tabPM10_2018 <- select(.data = tabPM10_2018, PROVINCIA, AÑO, PM_10)
+print(tabPM10_2018)
 
 ##PM25 2019
 
-tablaPM25_2019 <- select(.data = PM25_DD_2019, PROVINCIA, ANNO, D01:D31)
+tablaPM25_2018 <- select(.data = PM2_5_DD_2018, PROVINCIA, ANNO, D01:D31)
 
-tablaPM25_2019 <-rename(.data = tablaPM25_2019, AÑO = ANNO)
+tablaPM25_2018 <-rename(.data = tablaPM25_2018, AÑO = ANNO)
 
-tabPM25_2019 <- tablaPM25_2019 %>%
+tabPM25_2018 <- tablaPM25_2018 %>%
   group_by(PROVINCIA,AÑO) %>%
   summarise(across(c(D01:D31), ~ mean(.x, na.rm = TRUE)))
 
-tabPM25_2019$PM_25 <- apply(tabPM25_2019[ ,c(3:33)], 1, mean, na.rm = TRUE)
+tabPM25_2018$PM_25 <- apply(tabPM25_2018[ ,c(3:33)], 1, mean, na.rm = TRUE)
 
-tabPM25_2019 <- select(.data = tabPM25_2019, PROVINCIA, AÑO, PM_25)
-print(tabPM25_2019)
+tabPM25_2018 <- select(.data = tabPM25_2018, PROVINCIA, AÑO, PM_25)
+print(tabPM25_2018)
