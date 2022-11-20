@@ -1,5 +1,8 @@
 #IMPORTAR DATOS DEL AIRE
+
 library(readr)
+
+#2020
 As_DD_2021 <- read_delim("input/data/calidad del aire/2020/As_DD_2021.csv", 
                          delim = ";", escape_double = FALSE, trim_ws = TRUE)
 View(As_DD_2021)
@@ -35,35 +38,104 @@ PM25_DD_2021 <- read_delim("input/data/calidad del aire/2020/PM25_DD_2021.csv",
 View(PM25_DD_2021)
 
 
+###Arsenico 2020
 
+tablaAS_2020 <- select(.data = As_DD_2021, PROVINCIA, ANNO, D01:D31 )
 
+tablaAS_2020 <-rename(.data = tablaAS_2020, AÑO = ANNO)
 
-###Arsenico
-
-tabla <- select(.data = As_DD_2021, PROVINCIA, ANNO, D01:D31 )
-
-tabla <-rename(.data = tabla, AÑO = ANNO)
-
-tab <- tabla %>%
+tabAS_2020 <- tablaAS_2020 %>%
   group_by(PROVINCIA,AÑO) %>%
   summarise(across(c(D01:D31), ~ mean(.x, na.rm = TRUE)))
 
-tab$ARSENICO <- apply(tab[ ,c(3:33)], 1, mean, na.rm = TRUE)
+tabAS_2020$ARSENICO <- apply(tabAS_2020[ ,c(3:33)], 1, mean, na.rm = TRUE)
 
-tab <- select(.data = tab, PROVINCIA, AÑO, ARSENICO)
+tabAS_2020 <- select(.data = tabAS_2020, PROVINCIA, AÑO, ARSENICO)
   
-##Benzopireno
-tabla2 <- select(.data = BaP_DD_2021, PROVINCIA, ANNO, D01:D31)
+##Benzopireno 2020
+tablaBaP_2020 <- select(.data = BaP_DD_2021, PROVINCIA, ANNO, D01:D31)
 
-tabla2 <-rename(.data = tabla2, AÑO = ANNO)
+tablaBaP_2020 <-rename(.data = tablaBaP_2020, AÑO = ANNO)
 
-tab2 <- tabla2 %>%
+tabAS_2020 <- tablaBaP_2020 %>%
   group_by(PROVINCIA,AÑO) %>%
   summarise(across(c(D01:D31), ~ mean(.x, na.rm = TRUE)))
 
-tab2$BENZOPIRENO <- apply(tab2[ ,c(3:33)], 1, mean, na.rm = TRUE)
+tabAS_2020$BENZOPIRENO <- apply(tabAS_2020[ ,c(3:33)], 1, mean, na.rm = TRUE)
 
-tab2 <- select(.data = tab2, PROVINCIA, AÑO, BENZOPIRENO)
+tabAS_2020 <- select(.data = tabAS_2020, PROVINCIA, AÑO, BENZOPIRENO)
+
+##Cadmio 2020
+
+tablaCd_2020 <- select(.data = Cd_DD_2021, PROVINCIA, ANNO, D01:D31)
+
+tablaCd_2020 <-rename(.data = tablaCd_2020, AÑO = ANNO)
+
+tabCd_2020 <- tablaCd_2020 %>%
+  group_by(PROVINCIA,AÑO) %>%
+  summarise(across(c(D01:D31), ~ mean(.x, na.rm = TRUE)))
+
+tabCd_2020$CADMIO <- apply(tabCd_2020[ ,c(3:33)], 1, mean, na.rm = TRUE)
+
+tabCd_2020 <- select(.data = tabCd_2020, PROVINCIA, AÑO, CADMIO)
+
+##Niquel 2020
+
+tablaNi_2020 <- select(.data = Ni_DD_2021, PROVINCIA, ANNO, D01:D31)
+
+tablaNi_2020 <-rename(.data = tablaNi_2020, AÑO = ANNO)
+
+tabNi_2020 <- tablaNi_2020 %>%
+  group_by(PROVINCIA,AÑO) %>%
+  summarise(across(c(D01:D31), ~ mean(.x, na.rm = TRUE)))
+
+tabNi_2020$NIQUEL <- apply(tabNi_2020[ ,c(3:33)], 1, mean, na.rm = TRUE)
+
+tabNi_2020 <- select(.data = tabNi_2020, PROVINCIA, AÑO, NIQUEL)
+
+##Plomo 2020
+
+tablaPb_2020 <- select(.data = Pb_DD_2021, PROVINCIA, ANNO, D01:D31)
+
+tablaPb_2020 <-rename(.data = tablaPb_2020, AÑO = ANNO)
+
+tabPb_2020 <- tablaPb_2020 %>%
+  group_by(PROVINCIA,AÑO) %>%
+  summarise(across(c(D01:D31), ~ mean(.x, na.rm = TRUE)))
+
+tabPb_2020$PLOMO <- apply(tabPb_2020[ ,c(3:33)], 1, mean, na.rm = TRUE)
+
+tabPb_2020 <- select(.data = tabPb_2020, PROVINCIA, AÑO, PLOMO)
+
+
+##PM10 2020
+
+tablaPM10_2020 <- select(.data = PM10_DD_2021, PROVINCIA, ANNO, D01:D31)
+
+tablaPM10_2020 <-rename(.data = tablaPM10_2020, AÑO = ANNO)
+
+tabPM10_2020 <- tablaPM10_2020 %>%
+  group_by(PROVINCIA,AÑO) %>%
+  summarise(across(c(D01:D31), ~ mean(.x, na.rm = TRUE)))
+
+tabPM10_2020$PM_10 <- apply(tabPM10_2020[ ,c(3:33)], 1, mean, na.rm = TRUE)
+
+tabPM10_2020 <- select(.data = tabPM10_2020, PROVINCIA, AÑO, PM_10)
+
+##PM25 2020
+
+tablaPM25_2020 <- select(.data = PM25_DD_2021, PROVINCIA, ANNO, D01:D31)
+
+tablaPM25_2020 <-rename(.data = tablaPM25_2020, AÑO = ANNO)
+
+tabPM25_2020 <- tablaPM25_2020 %>%
+  group_by(PROVINCIA,AÑO) %>%
+  summarise(across(c(D01:D31), ~ mean(.x, na.rm = TRUE)))
+
+tabPM25_2020$PM_25 <- apply(tabPM25_2020[ ,c(3:33)], 1, mean, na.rm = TRUE)
+
+tabPM25_2020 <- select(.data = tabPM25_2020, PROVINCIA, AÑO, PM_25)
+
 
 
 #2019
