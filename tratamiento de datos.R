@@ -793,6 +793,12 @@ print (join2016.6)
 #union de todas las tablas creadas antes
 
 Calidad1 <- union_all(join2020.6,join2019.6)
-view (Calidad1)
+
 Calidad2 <- union_all(Calidad1,join2018.6)
-view(Calidad2)
+
+Calidad3 <- union_all(Calidad2,join2017.6)
+
+CalidadDelAire <- union_all(Calidad3,join2016.6)
+
+View(CalidadDelAire)
+
