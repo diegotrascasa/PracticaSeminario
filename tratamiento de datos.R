@@ -141,6 +141,19 @@ tabPM25_2020$PM_25 <- apply(tabPM25_2020[ ,c(3:33)], 1, mean, na.rm = TRUE)
 
 tabPM25_2020 <- select(.data = tabPM25_2020, PROVINCIA, AÑO, PM_25)
 
+#union de los datos
+join2020.1 <- full_join (x=tabAS_2020,y=tabBaP_2020, by=c("PROVINCIA","AÑO"))
+
+join2020.2 <- full_join (x=join2020.1,y=tabCd_2020, by=c("PROVINCIA","AÑO"))
+
+join2020.3 <- full_join (x=join2020.2,y=tabNi_2020, by=c("PROVINCIA","AÑO"))
+
+join2020.4 <- full_join (x=join2020.3,y=tabPb_2020, by=c("PROVINCIA","AÑO"))
+
+join2020.5 <- full_join (x=join2020.4,y=tabPM10_2020, by=c("PROVINCIA","AÑO"))
+
+join2020.6 <- full_join (x=join2020.5,y=tabPM25_2020, by=c("PROVINCIA","AÑO"))
+print (join2020.6)
 
 #2019
 
