@@ -633,6 +633,19 @@ tabPM25_2017$PM_25 <- apply(tabPM25_2017[ ,c(3:33)], 1, mean, na.rm = TRUE)
 tabPM25_2017 <- select(.data = tabPM25_2017, PROVINCIA, AÑO, PM_25)
 print(tabPM25_2017)
 
+join2017.1 <- full_join (x=tabAS_2017,y=tabBaP_2017, by=c("PROVINCIA","AÑO"))
+
+join2017.2 <- full_join (x=join2017.1,y=tabCd_2017, by=c("PROVINCIA","AÑO"))
+
+join2017.3 <- full_join (x=join2017.2,y=tabNi_2017, by=c("PROVINCIA","AÑO"))
+
+join2017.4 <- full_join (x=join2017.3,y=tabPb_2017, by=c("PROVINCIA","AÑO"))
+
+join2017.5 <- full_join (x=join2017.4,y=tabPM10_2017, by=c("PROVINCIA","AÑO"))
+
+join2017.6 <- full_join (x=join2017.5,y=tabPM25_2017, by=c("PROVINCIA","AÑO"))
+
+print (join2017.6)
 #2016
 
 library(readxl)
@@ -761,6 +774,7 @@ tabPM25_2016$PM_25 <- apply(tabPM25_2016[ ,c(3:33)], 1, mean, na.rm = TRUE)
 
 tabPM25_2016 <- select(.data = tabPM25_2016, PROVINCIA, AÑO, PM_25)
 print(tabPM25_2016)
+
 
 
 
