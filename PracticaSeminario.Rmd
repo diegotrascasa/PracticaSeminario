@@ -177,8 +177,28 @@ tabPM25_2020 <- select(.data = tabPM25_2020, PROVINCIA, AÑO, PM_25)
 ```
 
 Por cada magnitud de calidad de aire obtenemos una tabla con tres colummnas: provincia, año y dato. De la siguiente manera.
+# insertar tabla aqui tabAs_2020
 
+Para unir las 7 tablas en una única realizamos un full_join de dos en dos. De la siguiente manera:
+```{r}
+#union de los datos
+join2020.1 <- full_join (x=tabAS_2020,y=tabBaP_2020, by=c("PROVINCIA","AÑO"))
 
+join2020.2 <- full_join (x=join2020.1,y=tabCd_2020, by=c("PROVINCIA","AÑO"))
+
+join2020.3 <- full_join (x=join2020.2,y=tabNi_2020, by=c("PROVINCIA","AÑO"))
+
+join2020.4 <- full_join (x=join2020.3,y=tabPb_2020, by=c("PROVINCIA","AÑO"))
+
+join2020.5 <- full_join (x=join2020.4,y=tabPM10_2020, by=c("PROVINCIA","AÑO"))
+
+join2020.6 <- full_join (x=join2020.5,y=tabPM25_2020, by=c("PROVINCIA","AÑO"))
+print (join2020.6)
+```
+A partir del código anterior obtenemos una tabla con 9 columnas que se corresponden a:
+PROVINCIA, AÑO, ARSENICO, BENZOPIRENO, CADMIO, NIQUEL, PLOMO, PM_10, PM_25.
+
+# insertar aqui la tabla join2020.6 para poder visualizarla.
 
 ```{r}
 ##BENZOPIRENO
