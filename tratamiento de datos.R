@@ -5,46 +5,31 @@ library(dplyr)
 library (tidyverse)
 library(tidyselect)
 
-#2020
+#2020 ---------------------------------------------------------------------------------------------------
 As_DD_2021 <- read_delim("input/data/calidad del aire/2020/As_DD_2021.csv", 
                          delim = ";", escape_double = FALSE, trim_ws = TRUE)
 View(As_DD_2021)
 
-
 BaP_DD_2021 <- read_delim("input/data/calidad del aire/2020/BaP_DD_2021.csv", 
                           delim = ";", escape_double = FALSE, trim_ws = TRUE)
-
-
 
 Cd_DD_2021 <- read_delim("input/data/calidad del aire/2020/Cd_DD_2021.csv", 
                          delim = ";", escape_double = FALSE, trim_ws = TRUE)
 
-
-
 Ni_DD_2021 <- read_delim("input/data/calidad del aire/2020/Ni_DD_2021.csv", 
                          delim = ";", escape_double = FALSE, trim_ws = TRUE)
-
-
 
 Pb_DD_2021 <- read_delim("input/data/calidad del aire/2020/Pb_DD_2021.csv", 
                          delim = ";", escape_double = FALSE, trim_ws = TRUE)
 
-
-
 PM10_DD_2021 <- read_delim("input/data/calidad del aire/2020/PM10_DD_2021.csv", 
                            delim = ";", escape_double = FALSE, trim_ws = TRUE)
-
-
 
 PM25_DD_2021 <- read_delim("input/data/calidad del aire/2020/PM25_DD_2021.csv", 
                            delim = ";", escape_double = FALSE, trim_ws = TRUE)
 
 
-
-
-###Arsenico 2020
-library(dplyr)
-
+##Arsenico 2020
 tablaAS_2020 <- select(.data = As_DD_2021, PROVINCIA, ANNO, D01:D31 )
 
 tablaAS_2020 <-rename(.data = tablaAS_2020, AÑO = ANNO)
@@ -155,46 +140,32 @@ join2020.5 <- full_join (x=join2020.4,y=tabPM10_2020, by=c("PROVINCIA","AÑO"))
 join2020.6 <- full_join (x=join2020.5,y=tabPM25_2020, by=c("PROVINCIA","AÑO"))
 print (join2020.6)
 
-#2019
+#2019 ---------------------------------------------------------------------------------------------
 
 As_DD_2019 <- read_delim("input/data/calidad del aire/2019/As_DD_2019.csv", 
                          delim = ";", escape_double = FALSE, trim_ws = TRUE)
 View(As_DD_2019)
 
-
 BaP_DD_2019 <- read_delim("input/data/calidad del aire/2019/BaP_DD_2019.csv", 
                           delim = ";", escape_double = FALSE, trim_ws = TRUE)
-
-
 
 C6H6_DD_2019 <- read_delim("input/data/calidad del aire/2019/C6H6_DD_2019.csv", 
                            delim = ";", escape_double = FALSE, trim_ws = TRUE)
 
-
-
 Cd_DD_2019 <- read_delim("input/data/calidad del aire/2019/Cd_DD_2019.csv", 
                          delim = ";", escape_double = FALSE, trim_ws = TRUE)
-
-
 
 Ni_DD_2019 <- read_delim("input/data/calidad del aire/2019/Ni_DD_2019.csv", 
                          delim = ";", escape_double = FALSE, trim_ws = TRUE)
 
-
-
 Pb_DD_2019 <- read_delim("input/data/calidad del aire/2019/Pb_DD_2019.csv", 
                          delim = ";", escape_double = FALSE, trim_ws = TRUE)
-
-
 
 PM10_DD_2019 <- read_delim("input/data/calidad del aire/2019/PM10_DD_2019.csv", 
                            delim = ";", escape_double = FALSE, trim_ws = TRUE)
 
-
-
 PM25_DD_2019 <- read_delim("input/data/calidad del aire/2019/PM25_DD_2019.csv", 
                            delim = ";", escape_double = FALSE, trim_ws = TRUE)
-
 
 
 ##Arsenico 2019
@@ -333,41 +304,30 @@ join2019.5 <- full_join (x=join2019.4,y=tabPM10_2019, by=c("PROVINCIA","AÑO"))
 join2019.6 <- full_join (x=join2019.5,y=tabPM25_2019, by=c("PROVINCIA","AÑO"))
 print (join2019.6)
 
-#2018 Datos 
+
+#2018 ------------------------------------------------------------------------------------- 
 
 As_DD_2018 <- read_delim("input/data/calidad del aire/2018/As_DD_2018.csv", 
                          delim = ";", escape_double = FALSE, trim_ws = TRUE)
 View(As_DD_2018)
 
-
 B_a_P_DD_2018 <- read_delim("input/data/calidad del aire/2018/B(a)P_DD_2018.csv", 
                             delim = ";", escape_double = FALSE, trim_ws = TRUE)
-
-
 
 Cd_DD_2018 <- read_delim("input/data/calidad del aire/2018/Cd_DD_2018.csv", 
                          delim = ";", escape_double = FALSE, trim_ws = TRUE)
 
-
-
 Ni_DD_2018 <- read_delim("input/data/calidad del aire/2018/Ni_DD_2018.csv", 
                          delim = ";", escape_double = FALSE, trim_ws = TRUE)
-
-
 
 Pb_DD_2018 <- read_delim("input/data/calidad del aire/2018/Pb_DD_2018.csv", 
                          delim = ";", escape_double = FALSE, trim_ws = TRUE)
 
-
-
 PM2_5_DD_2018 <- read_delim("input/data/calidad del aire/2018/PM2.5_DD_2018.csv", 
                             delim = ";", escape_double = FALSE, trim_ws = TRUE)
 
-
-
 PM10_DD_2018 <- read_delim("input/data/calidad del aire/2018/PM10_DD_2018.csv", 
                            delim = ";", escape_double = FALSE, trim_ws = TRUE)
-
 
 
 ##Arsenico 2018
@@ -490,41 +450,29 @@ join2018.6 <- full_join (x=join2018.5,y=tabPM25_2018, by=c("PROVINCIA","AÑO"))
 
 print (join2018.6)
 
-#2017
+#2017 ----------------------------------------------------------------------------
 
 As_DD_2017 <- read_delim("input/data/calidad del aire/2017/As_DD_2017.csv", 
                          delim = ";", escape_double = FALSE, trim_ws = TRUE)
 View(As_DD_2017)
 
-
 B_a_P_DD_2017 <- read_delim("input/data/calidad del aire/2017/B(a)P_DD_2017.csv", 
                             delim = ";", escape_double = FALSE, trim_ws = TRUE)
-
-
 
 Cd_DD_2017 <- read_delim("input/data/calidad del aire/2017/Cd_DD_2017.csv", 
                          delim = ";", escape_double = FALSE, trim_ws = TRUE)
 
-
-
 Ni_DD_2017 <- read_delim("input/data/calidad del aire/2017/Ni_DD_2017.csv", 
                          delim = ";", escape_double = FALSE, trim_ws = TRUE)
-
-
 
 Pb_DD_2017 <- read_delim("input/data/calidad del aire/2017/Pb_DD_2017.csv", 
                          delim = ";", escape_double = FALSE, trim_ws = TRUE)
 
-
-
 PM2_5_DD_2017 <- read_delim("input/data/calidad del aire/2017/PM2.5_DD_2017.csv", 
                             delim = ";", escape_double = FALSE, trim_ws = TRUE)
 
-
-
 PM10_DD_2017 <- read_delim("input/data/calidad del aire/2017/PM10_DD_2017.csv", 
                            delim = ";", escape_double = FALSE, trim_ws = TRUE)
-
 
 
 ##Arsenico 2017
@@ -654,21 +602,15 @@ View(As_DD_2016)
 
 B_a_P_DD_2016 <- read_excel("input/data/calidad del aire/2016/B(a)P_DD_2016.xlsx")
 
-
 Cd_DD_2016 <- read_excel("input/data/calidad del aire/2016/Cd_DD_2016.xlsx")
-
 
 Ni_DD_2016 <- read_excel("input/data/calidad del aire/2016/Ni_DD_2016.xlsx")
 
-
 Pb_DD_2016 <- read_excel("input/data/calidad del aire/2016/Pb_DD_2016.xlsx")
-
 
 PM10_DD_2016 <- read_excel("input/data/calidad del aire/2016/PM10_DD_2016.xlsx")
 
-
 PM25_DD_2016 <- read_excel("input/data/calidad del aire/2016/PM25_DD_2016.xlsx")
-
 
 ##Arsenico 2016
 
