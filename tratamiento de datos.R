@@ -749,7 +749,7 @@ print(tabPM10_2016)
 
 ##PM25 2016
 
-tablaPM25_2016<- select(.data = PM2_5_DD_2016,PROVINCIA, ANNO, D01:D31)
+tablaPM25_2016<- select(.data = PM25_DD_2016,PROVINCIA, ANNO, D01:D31)
 
 tablaPM25_2016 <-rename(.data = tablaPM25_2016, AÑO = ANNO)
 
@@ -760,4 +760,12 @@ tabPM25_2016<- tablaPM25_2016 %>%
 tabPM25_2016$PM_25 <- apply(tabPM25_2016[ ,c(3:33)], 1, mean, na.rm = TRUE)
 
 tabPM25_2016 <- select(.data = tabPM25_2016, PROVINCIA, AÑO, PM_25)
-print(tabAPM25_2016)
+print(tabPM25_2016)
+
+
+
+
+Calidad1 <- union_all(join2020.6,join2019.6)
+view (Calidad1)
+Calidad2 <- union_all(Calidad1,join2018.6)
+view(Calidad2)
