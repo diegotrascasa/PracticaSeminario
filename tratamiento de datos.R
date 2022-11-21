@@ -1,6 +1,9 @@
 #IMPORTAR DATOS DEL AIRE
 
 library(readr)
+library(dplyr)
+library (tidyverse)
+library(tidyselect)
 
 #2020
 As_DD_2021 <- read_delim("input/data/calidad del aire/2020/As_DD_2021.csv", 
@@ -300,6 +303,21 @@ tabPM25_2019$PM_25 <- apply(tabPM25_2019[ ,c(3:33)], 1, mean, na.rm = TRUE)
 
 tabPM25_2019 <- select(.data = tabPM25_2019, PROVINCIA, AÑO, PM_25)
 print(tabPM25_2019)
+
+
+
+join2019.1 <- full_join (x=tabAS_2019,y=tabBaP_2019, by=c("PROVINCIA","AÑO"))
+print (join2019.1)
+join2019.2 <- full_join (x=join2019.1,y=tabCd_2019, by=c("PROVINCIA","AÑO"))
+print (join2019.2)
+join2019.3 <- full_join (x=join2019.2,y=tabNi_2019, by=c("PROVINCIA","AÑO"))
+print (join2019.3)
+join2019.4 <- full_join (x=join2019.3,y=tabPb_2019, by=c("PROVINCIA","AÑO"))
+print (join2019.4)
+join2019.5 <- full_join (x=join2019.4,y=tabPM10_2019, by=c("PROVINCIA","AÑO"))
+print (join2019.5)
+join2019.6 <- full_join (x=join2019.5,y=tabPM25_2019, by=c("PROVINCIA","AÑO"))
+print (join2019.6)
 
 #2018 Datos 
 
