@@ -476,7 +476,19 @@ tabPM25_2018$PM_25 <- apply(tabPM25_2018[ ,c(3:33)], 1, mean, na.rm = TRUE)
 tabPM25_2018 <- select(.data = tabPM25_2018, PROVINCIA, AÑO, PM_25)
 print(tabPM25_2018)
 
+join2018.1 <- full_join (x=tabAS_2018,y=tabBaP_2018, by=c("PROVINCIA","AÑO"))
 
+join2018.2 <- full_join (x=join2018.1,y=tabCd_2018, by=c("PROVINCIA","AÑO"))
+
+join2018.3 <- full_join (x=join2018.2,y=tabNi_2018, by=c("PROVINCIA","AÑO"))
+
+join2018.4 <- full_join (x=join2018.3,y=tabPb_2018, by=c("PROVINCIA","AÑO"))
+
+join2018.5 <- full_join (x=join2018.4,y=tabPM10_2018, by=c("PROVINCIA","AÑO"))
+
+join2018.6 <- full_join (x=join2018.5,y=tabPM25_2018, by=c("PROVINCIA","AÑO"))
+
+print (join2018.6)
 
 #2017
 
@@ -487,32 +499,32 @@ View(As_DD_2017)
 
 B_a_P_DD_2017 <- read_delim("input/data/calidad del aire/2017/B(a)P_DD_2017.csv", 
                             delim = ";", escape_double = FALSE, trim_ws = TRUE)
-View(B_a_P_DD_2017)
+
 
 
 Cd_DD_2017 <- read_delim("input/data/calidad del aire/2017/Cd_DD_2017.csv", 
                          delim = ";", escape_double = FALSE, trim_ws = TRUE)
-View(Cd_DD_2017)
+
 
 
 Ni_DD_2017 <- read_delim("input/data/calidad del aire/2017/Ni_DD_2017.csv", 
                          delim = ";", escape_double = FALSE, trim_ws = TRUE)
-View(Ni_DD_2017)
+
 
 
 Pb_DD_2017 <- read_delim("input/data/calidad del aire/2017/Pb_DD_2017.csv", 
                          delim = ";", escape_double = FALSE, trim_ws = TRUE)
-View(Pb_DD_2017)
+
 
 
 PM2_5_DD_2017 <- read_delim("input/data/calidad del aire/2017/PM2.5_DD_2017.csv", 
                             delim = ";", escape_double = FALSE, trim_ws = TRUE)
-View(PM2_5_DD_2017)
+
 
 
 PM10_DD_2017 <- read_delim("input/data/calidad del aire/2017/PM10_DD_2017.csv", 
                            delim = ";", escape_double = FALSE, trim_ws = TRUE)
-View(PM10_DD_2017)
+
 
 
 ##Arsenico 2017
@@ -595,7 +607,7 @@ print(tabPb_2017)
 
 tablaPM10_2017 <- select(.data = PM10_DD_2017, PROVINCIA, ANNO, D01:D31)
 
-tablaPM10_2017 <-rename(.data = tablaPM10_2018, AÑO = ANNO)
+tablaPM10_2017 <-rename(.data = tablaPM10_2017, AÑO = ANNO)
 
 tabPM10_2017 <- tablaPM10_2017 %>%
   group_by(PROVINCIA,AÑO) %>%
@@ -628,22 +640,22 @@ As_DD_2016 <- read_excel("input/data/calidad del aire/2016/As_DD_2016.xlsx")
 View(As_DD_2016)
 
 B_a_P_DD_2016 <- read_excel("input/data/calidad del aire/2016/B(a)P_DD_2016.xlsx")
-View(B_a_P_DD_2016)
+
 
 Cd_DD_2016 <- read_excel("input/data/calidad del aire/2016/Cd_DD_2016.xlsx")
-View(Cd_DD_2016)
+
 
 Ni_DD_2016 <- read_excel("input/data/calidad del aire/2016/Ni_DD_2016.xlsx")
-View(Ni_DD_2016)
+
 
 Pb_DD_2016 <- read_excel("input/data/calidad del aire/2016/Pb_DD_2016.xlsx")
-View(Pb_DD_2016)
+
 
 PM10_DD_2016 <- read_excel("input/data/calidad del aire/2016/PM10_DD_2016.xlsx")
-View(PM10_DD_2016)
+
 
 PM25_DD_2016 <- read_excel("input/data/calidad del aire/2016/PM25_DD_2016.xlsx")
-View(PM25_DD_2016)
+
 
 ##Arsenico 2016
 
@@ -658,7 +670,7 @@ tabAS_2016<- tablaAS_2016 %>%
 tabAS_2016$ARSENICO <- apply(tabAS_2016[ ,c(3:33)], 1, mean, na.rm = TRUE)
 
 tabAS_2016 <- select(.data = tabAS_2016, PROVINCIA, AÑO, ARSENICO)
-
+print(tabAS_2016)
 
 ##Benzopireno 2016
 
@@ -673,7 +685,7 @@ tabBaP_2016<- tablaBaP_2016 %>%
 tabBaP_2016$BENZOPIRENO <- apply(tabBaP_2016[ ,c(3:33)], 1, mean, na.rm = TRUE)
 
 tabBaP_2016 <- select(.data = tabBaP_2016, PROVINCIA, AÑO, BENZOPIRENO)
-
+print(tabBaP_2016)
 
 ##Cadmio 2016
 
@@ -688,7 +700,7 @@ tabCd_2016<- tablaCd_2016 %>%
 tabCd_2016$CADMIO <- apply(tabCd_2016[ ,c(3:33)], 1, mean, na.rm = TRUE)
 
 tabCd_2016 <- select(.data = tabCd_2016, PROVINCIA, AÑO, CADMIO)
-
+print(tabCd_2016)
 
 ##Niquel 2016
 
@@ -703,7 +715,7 @@ tabNi_2016<- tablaNi_2016 %>%
 tabNi_2016$NIQUEL <- apply(tabNi_2016[ ,c(3:33)], 1, mean, na.rm = TRUE)
 
 tabNi_2016 <- select(.data = tabNi_2016, PROVINCIA, AÑO, NIQUEL)
-
+print(tabNi_2016)
 
 ##Plomo 2016
 
@@ -718,7 +730,7 @@ tabPb_2016<- tablaPb_2016 %>%
 tabPb_2016$PLOMO <- apply(tabPb_2016[ ,c(3:33)], 1, mean, na.rm = TRUE)
 
 tabPb_2016 <- select(.data = tabPb_2016, PROVINCIA, AÑO, PLOMO)
-
+print(tabPb_2016)
 
 ##PM10 2016
 
@@ -733,7 +745,7 @@ tabPM10_2016<- tablaPM10_2016 %>%
 tabPM10_2016$PM_10 <- apply(tabPM10_2016[ ,c(3:33)], 1, mean, na.rm = TRUE)
 
 tabPM10_2016 <- select(.data = tabPM10_2016, PROVINCIA, AÑO, PM_10)
-
+print(tabPM10_2016)
 
 ##PM25 2016
 
@@ -748,3 +760,4 @@ tabPM25_2016<- tablaPM25_2016 %>%
 tabPM25_2016$PM_25 <- apply(tabPM25_2016[ ,c(3:33)], 1, mean, na.rm = TRUE)
 
 tabPM25_2016 <- select(.data = tabPM25_2016, PROVINCIA, AÑO, PM_25)
+print(tabAPM25_2016)
