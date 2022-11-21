@@ -732,7 +732,7 @@ join2016.6 <- full_join (x=join2016.5,y=tabPM25_2016, by=c("PROVINCIA","AÑO"))
 print (join2016.6)
 
 
-#union de todas las tablas creadas antes
+#union de todas las tablas creadas anteriormente
 
 Calidad1 <- union_all(join2020.6,join2019.6)
 
@@ -740,7 +740,18 @@ Calidad2 <- union_all(Calidad1,join2018.6)
 
 Calidad3 <- union_all(Calidad2,join2017.6)
 
-CalidadDelAire <- union_all(Calidad3,join2016.6)
+Calidad4 <- union_all(Calidad3,join2016.6)
 
-View(CalidadDelAire)
+View(Calidad4)
+
+#cambiar el número de la provincia por el nombre de la provincia y la comunidad.
+
+library(readxl)
+provincia_con_numero <- read_excel("input/data/calidad del aire/provincia con numero.xlsx", 
+                                   sheet = "Estaciones evaluación 2019")
+View(provincia_con_numero)
+
+calidadFinal = full_join (x=Calidad4, y=provincia_con_numero, by=c("PROVINCIA"))
+
+
 
