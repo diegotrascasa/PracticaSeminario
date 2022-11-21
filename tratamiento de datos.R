@@ -775,9 +775,22 @@ tabPM25_2016$PM_25 <- apply(tabPM25_2016[ ,c(3:33)], 1, mean, na.rm = TRUE)
 tabPM25_2016 <- select(.data = tabPM25_2016, PROVINCIA, AÑO, PM_25)
 print(tabPM25_2016)
 
+join2016.1 <- full_join (x=tabAS_2016,y=tabBaP_2016, by=c("PROVINCIA","AÑO"))
+
+join2016.2 <- full_join (x=join2016.1,y=tabCd_2016, by=c("PROVINCIA","AÑO"))
+
+join2016.3 <- full_join (x=join2016.2,y=tabNi_2016, by=c("PROVINCIA","AÑO"))
+
+join2016.4 <- full_join (x=join2016.3,y=tabPb_2016, by=c("PROVINCIA","AÑO"))
+
+join2016.5 <- full_join (x=join2016.4,y=tabPM10_2016, by=c("PROVINCIA","AÑO"))
+
+join2016.6 <- full_join (x=join2016.5,y=tabPM25_2016, by=c("PROVINCIA","AÑO"))
+
+print (join2016.6)
 
 
-
+#union de todas las tablas creadas antes
 
 Calidad1 <- union_all(join2020.6,join2019.6)
 view (Calidad1)
