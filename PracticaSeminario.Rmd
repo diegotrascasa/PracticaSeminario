@@ -36,7 +36,7 @@ Esta tabla no va a ser necesario modificarla para su posterior comparación.
 
 En este caso vamos a importar los datos de Calidad del aire de forma separada, se encuentran en varias tablas dependiendo del año y las magnitudes de calidad.
 
-Comenzaremos con el año 2020:
+Año 2020:
 
 ```{r}
 library(readr)

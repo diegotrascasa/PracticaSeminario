@@ -38,7 +38,9 @@ PM25_DD_2021 <- read_delim("input/data/calidad del aire/2020/PM25_DD_2021.csv",
 View(PM25_DD_2021)
 
 
+
 ###Arsenico 2020
+library(dplyr)
 
 tablaAS_2020 <- select(.data = As_DD_2021, PROVINCIA, ANNO, D01:D31 )
 
@@ -51,19 +53,19 @@ tabAS_2020 <- tablaAS_2020 %>%
 tabAS_2020$ARSENICO <- apply(tabAS_2020[ ,c(3:33)], 1, mean, na.rm = TRUE)
 
 tabAS_2020 <- select(.data = tabAS_2020, PROVINCIA, AÑO, ARSENICO)
-  
+
 ##Benzopireno 2020
 tablaBaP_2020 <- select(.data = BaP_DD_2021, PROVINCIA, ANNO, D01:D31)
 
 tablaBaP_2020 <-rename(.data = tablaBaP_2020, AÑO = ANNO)
 
-tabAS_2020 <- tablaBaP_2020 %>%
+tabBaP_2020 <- tablaBaP_2020 %>%
   group_by(PROVINCIA,AÑO) %>%
   summarise(across(c(D01:D31), ~ mean(.x, na.rm = TRUE)))
 
-tabAS_2020$BENZOPIRENO <- apply(tabAS_2020[ ,c(3:33)], 1, mean, na.rm = TRUE)
+tabBaP_2020$BENZOPIRENO <- apply(tabBaP_2020[ ,c(3:33)], 1, mean, na.rm = TRUE)
 
-tabAS_2020 <- select(.data = tabAS_2020, PROVINCIA, AÑO, BENZOPIRENO)
+tabBaP_2020 <- select(.data = tabBaP_2020, PROVINCIA, AÑO, BENZOPIRENO)
 
 ##Cadmio 2020
 
@@ -135,7 +137,6 @@ tabPM25_2020 <- tablaPM25_2020 %>%
 tabPM25_2020$PM_25 <- apply(tabPM25_2020[ ,c(3:33)], 1, mean, na.rm = TRUE)
 
 tabPM25_2020 <- select(.data = tabPM25_2020, PROVINCIA, AÑO, PM_25)
-
 
 
 #2019
