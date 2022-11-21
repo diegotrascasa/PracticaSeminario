@@ -13,32 +13,32 @@ View(As_DD_2021)
 
 BaP_DD_2021 <- read_delim("input/data/calidad del aire/2020/BaP_DD_2021.csv", 
                           delim = ";", escape_double = FALSE, trim_ws = TRUE)
-View(BaP_DD_2021)
+
 
 
 Cd_DD_2021 <- read_delim("input/data/calidad del aire/2020/Cd_DD_2021.csv", 
                          delim = ";", escape_double = FALSE, trim_ws = TRUE)
-View(Cd_DD_2021)
+
 
 
 Ni_DD_2021 <- read_delim("input/data/calidad del aire/2020/Ni_DD_2021.csv", 
                          delim = ";", escape_double = FALSE, trim_ws = TRUE)
-View(Ni_DD_2021)
+
 
 
 Pb_DD_2021 <- read_delim("input/data/calidad del aire/2020/Pb_DD_2021.csv", 
                          delim = ";", escape_double = FALSE, trim_ws = TRUE)
-View(Pb_DD_2021)
+
 
 
 PM10_DD_2021 <- read_delim("input/data/calidad del aire/2020/PM10_DD_2021.csv", 
                            delim = ";", escape_double = FALSE, trim_ws = TRUE)
-View(PM10_DD_2021)
+
 
 
 PM25_DD_2021 <- read_delim("input/data/calidad del aire/2020/PM25_DD_2021.csv", 
                            delim = ";", escape_double = FALSE, trim_ws = TRUE)
-View(PM25_DD_2021)
+
 
 
 
@@ -164,37 +164,37 @@ View(As_DD_2019)
 
 BaP_DD_2019 <- read_delim("input/data/calidad del aire/2019/BaP_DD_2019.csv", 
                           delim = ";", escape_double = FALSE, trim_ws = TRUE)
-View(BaP_DD_2019)
+
 
 
 C6H6_DD_2019 <- read_delim("input/data/calidad del aire/2019/C6H6_DD_2019.csv", 
                            delim = ";", escape_double = FALSE, trim_ws = TRUE)
-View(C6H6_DD_2019)
+
 
 
 Cd_DD_2019 <- read_delim("input/data/calidad del aire/2019/Cd_DD_2019.csv", 
                          delim = ";", escape_double = FALSE, trim_ws = TRUE)
-View(Cd_DD_2019)
+
 
 
 Ni_DD_2019 <- read_delim("input/data/calidad del aire/2019/Ni_DD_2019.csv", 
                          delim = ";", escape_double = FALSE, trim_ws = TRUE)
-View(Ni_DD_2019)
+
 
 
 Pb_DD_2019 <- read_delim("input/data/calidad del aire/2019/Pb_DD_2019.csv", 
                          delim = ";", escape_double = FALSE, trim_ws = TRUE)
-View(Pb_DD_2019)
+
 
 
 PM10_DD_2019 <- read_delim("input/data/calidad del aire/2019/PM10_DD_2019.csv", 
                            delim = ";", escape_double = FALSE, trim_ws = TRUE)
-View(PM10_DD_2019)
+
 
 
 PM25_DD_2019 <- read_delim("input/data/calidad del aire/2019/PM25_DD_2019.csv", 
                            delim = ";", escape_double = FALSE, trim_ws = TRUE)
-View(PM25_DD_2019)
+
 
 
 ##Arsenico 2019
@@ -321,15 +321,15 @@ print(tabPM25_2019)
 
 
 join2019.1 <- full_join (x=tabAS_2019,y=tabBaP_2019, by=c("PROVINCIA","AÑO"))
-print (join2019.1)
+
 join2019.2 <- full_join (x=join2019.1,y=tabCd_2019, by=c("PROVINCIA","AÑO"))
-print (join2019.2)
+
 join2019.3 <- full_join (x=join2019.2,y=tabNi_2019, by=c("PROVINCIA","AÑO"))
-print (join2019.3)
+
 join2019.4 <- full_join (x=join2019.3,y=tabPb_2019, by=c("PROVINCIA","AÑO"))
-print (join2019.4)
+
 join2019.5 <- full_join (x=join2019.4,y=tabPM10_2019, by=c("PROVINCIA","AÑO"))
-print (join2019.5)
+
 join2019.6 <- full_join (x=join2019.5,y=tabPM25_2019, by=c("PROVINCIA","AÑO"))
 print (join2019.6)
 
@@ -342,32 +342,32 @@ View(As_DD_2018)
 
 B_a_P_DD_2018 <- read_delim("input/data/calidad del aire/2018/B(a)P_DD_2018.csv", 
                             delim = ";", escape_double = FALSE, trim_ws = TRUE)
-View(B_a_P_DD_2018)
+
 
 
 Cd_DD_2018 <- read_delim("input/data/calidad del aire/2018/Cd_DD_2018.csv", 
                          delim = ";", escape_double = FALSE, trim_ws = TRUE)
-View(Cd_DD_2018)
+
 
 
 Ni_DD_2018 <- read_delim("input/data/calidad del aire/2018/Ni_DD_2018.csv", 
                          delim = ";", escape_double = FALSE, trim_ws = TRUE)
-View(Ni_DD_2018)
+
 
 
 Pb_DD_2018 <- read_delim("input/data/calidad del aire/2018/Pb_DD_2018.csv", 
                          delim = ";", escape_double = FALSE, trim_ws = TRUE)
-View(Pb_DD_2018)
+
 
 
 PM2_5_DD_2018 <- read_delim("input/data/calidad del aire/2018/PM2.5_DD_2018.csv", 
                             delim = ";", escape_double = FALSE, trim_ws = TRUE)
-View(PM2_5_DD_2018)
+
 
 
 PM10_DD_2018 <- read_delim("input/data/calidad del aire/2018/PM10_DD_2018.csv", 
                            delim = ";", escape_double = FALSE, trim_ws = TRUE)
-View(PM10_DD_2018)
+
 
 
 ##Arsenico 2018
@@ -475,6 +475,7 @@ tabPM25_2018$PM_25 <- apply(tabPM25_2018[ ,c(3:33)], 1, mean, na.rm = TRUE)
 
 tabPM25_2018 <- select(.data = tabPM25_2018, PROVINCIA, AÑO, PM_25)
 print(tabPM25_2018)
+
 
 
 #2017
