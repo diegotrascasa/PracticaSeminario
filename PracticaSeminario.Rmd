@@ -39,47 +39,35 @@ En este caso vamos a importar los datos de Calidad del aire de forma separada, s
 Año 2020:
 
 ```{r}
-library(readr)
-As_DD_2021 <- read_delim("input/data/calidad del aire/2020/As_DD_2021.csv", 
-    delim = ";", escape_double = FALSE, trim_ws = TRUE)
-View(As_DD_2021)
+#2020 ---------------------------------------------------------------------------------------------------
+As_DD_2020 <- read_delim("input/data/calidad del aire/2020/As_DD_2020.csv", 
+                         delim = ";", escape_double = FALSE, trim_ws = TRUE)
+View(As_DD_2020)
 
-library(readr)
-BaP_DD_2021 <- read_delim("input/data/calidad del aire/2020/BaP_DD_2021.csv", 
-    delim = ";", escape_double = FALSE, trim_ws = TRUE)
-View(BaP_DD_2021)
+BaP_DD_2020 <- read_delim("input/data/calidad del aire/2020/BaP_DD_2020.csv", 
+                          delim = ";", escape_double = FALSE, trim_ws = TRUE)
 
-library(readr)
-Cd_DD_2021 <- read_delim("input/data/calidad del aire/2020/Cd_DD_2021.csv", 
-    delim = ";", escape_double = FALSE, trim_ws = TRUE)
-View(Cd_DD_2021)
+Cd_DD_2020 <- read_delim("input/data/calidad del aire/2020/Cd_DD_2020.csv", 
+                         delim = ";", escape_double = FALSE, trim_ws = TRUE)
 
-library(readr)
-Ni_DD_2021 <- read_delim("input/data/calidad del aire/2020/Ni_DD_2021.csv", 
-    delim = ";", escape_double = FALSE, trim_ws = TRUE)
-View(Ni_DD_2021)
+Ni_DD_2020 <- read_delim("input/data/calidad del aire/2020/Ni_DD_2020.csv", 
+                         delim = ";", escape_double = FALSE, trim_ws = TRUE)
 
-library(readr)
-Pb_DD_2021 <- read_delim("input/data/calidad del aire/2020/Pb_DD_2021.csv", 
-    delim = ";", escape_double = FALSE, trim_ws = TRUE)
-View(Pb_DD_2021)
+Pb_DD_2020 <- read_delim("input/data/calidad del aire/2020/Pb_DD_2020.csv", 
+                         delim = ";", escape_double = FALSE, trim_ws = TRUE)
 
-library(readr)
-PM10_DD_2021 <- read_delim("input/data/calidad del aire/2020/PM10_DD_2021.csv", 
-    delim = ";", escape_double = FALSE, trim_ws = TRUE)
-View(PM10_DD_2021)
+PM10_DD_2020 <- read_delim("input/data/calidad del aire/2020/PM10_DD_2020.csv", 
+                           delim = ";", escape_double = FALSE, trim_ws = TRUE)
 
-library(readr)
-PM25_DD_2021 <- read_delim("input/data/calidad del aire/2020/PM25_DD_2021.csv", 
-    delim = ";", escape_double = FALSE, trim_ws = TRUE)
-View(PM25_DD_2021)
+PM25_DD_2020 <- read_delim("input/data/calidad del aire/2020/PM25_DD_2020.csv", 
+                           delim = ";", escape_double = FALSE, trim_ws = TRUE)
 ```
 
 Ahora tenemos que modificar las distintas tablas importadas anteriormente para conseguir tratar los datos de calidad de aire en una única tabla.
 
 ```{r}
 ##Arsenico 2020
-tablaAS_2020 <- select(.data = As_DD_2021, PROVINCIA, ANNO, D01:D31 )
+tablaAS_2020 <- select(.data = As_DD_2020, PROVINCIA, ANNO, D01:D31 )
 
 tablaAS_2020 <-rename(.data = tablaAS_2020, AÑO = ANNO)
 
@@ -92,7 +80,7 @@ tabAS_2020$ARSENICO <- apply(tabAS_2020[ ,c(3:33)], 1, mean, na.rm = TRUE)
 tabAS_2020 <- select(.data = tabAS_2020, PROVINCIA, AÑO, ARSENICO)
 
 ##Benzopireno 2020
-tablaBaP_2020 <- select(.data = BaP_DD_2021, PROVINCIA, ANNO, D01:D31)
+tablaBaP_2020 <- select(.data = BaP_DD_2020, PROVINCIA, ANNO, D01:D31)
 
 tablaBaP_2020 <-rename(.data = tablaBaP_2020, AÑO = ANNO)
 
@@ -106,7 +94,7 @@ tabBaP_2020 <- select(.data = tabBaP_2020, PROVINCIA, AÑO, BENZOPIRENO)
 
 ##Cadmio 2020
 
-tablaCd_2020 <- select(.data = Cd_DD_2021, PROVINCIA, ANNO, D01:D31)
+tablaCd_2020 <- select(.data = Cd_DD_2020, PROVINCIA, ANNO, D01:D31)
 
 tablaCd_2020 <-rename(.data = tablaCd_2020, AÑO = ANNO)
 
@@ -120,7 +108,7 @@ tabCd_2020 <- select(.data = tabCd_2020, PROVINCIA, AÑO, CADMIO)
 
 ##Niquel 2020
 
-tablaNi_2020 <- select(.data = Ni_DD_2021, PROVINCIA, ANNO, D01:D31)
+tablaNi_2020 <- select(.data = Ni_DD_2020, PROVINCIA, ANNO, D01:D31)
 
 tablaNi_2020 <-rename(.data = tablaNi_2020, AÑO = ANNO)
 
@@ -134,7 +122,7 @@ tabNi_2020 <- select(.data = tabNi_2020, PROVINCIA, AÑO, NIQUEL)
 
 ##Plomo 2020
 
-tablaPb_2020 <- select(.data = Pb_DD_2021, PROVINCIA, ANNO, D01:D31)
+tablaPb_2020 <- select(.data = Pb_DD_2020, PROVINCIA, ANNO, D01:D31)
 
 tablaPb_2020 <-rename(.data = tablaPb_2020, AÑO = ANNO)
 
@@ -149,7 +137,7 @@ tabPb_2020 <- select(.data = tabPb_2020, PROVINCIA, AÑO, PLOMO)
 
 ##PM10 2020
 
-tablaPM10_2020 <- select(.data = PM10_DD_2021, PROVINCIA, ANNO, D01:D31)
+tablaPM10_2020 <- select(.data = PM10_DD_2020, PROVINCIA, ANNO, D01:D31)
 
 tablaPM10_2020 <-rename(.data = tablaPM10_2020, AÑO = ANNO)
 
@@ -163,7 +151,7 @@ tabPM10_2020 <- select(.data = tabPM10_2020, PROVINCIA, AÑO, PM_10)
 
 ##PM25 2020
 
-tablaPM25_2020 <- select(.data = PM25_DD_2021, PROVINCIA, ANNO, D01:D31)
+tablaPM25_2020 <- select(.data = PM25_DD_2020, PROVINCIA, ANNO, D01:D31)
 
 tablaPM25_2020 <-rename(.data = tablaPM25_2020, AÑO = ANNO)
 

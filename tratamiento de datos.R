@@ -6,33 +6,33 @@ library (tidyverse)
 library(tidyselect)
 
 #2020 ---------------------------------------------------------------------------------------------------
-As_DD_2021 <- read_delim("input/data/calidad del aire/2020/As_DD_2021.csv", 
+As_DD_2020 <- read_delim("input/data/calidad del aire/2020/As_DD_2020.csv", 
                          delim = ";", escape_double = FALSE, trim_ws = TRUE)
-View(As_DD_2021)
+View(As_DD_2020)
 
-BaP_DD_2021 <- read_delim("input/data/calidad del aire/2020/BaP_DD_2021.csv", 
+BaP_DD_2020 <- read_delim("input/data/calidad del aire/2020/BaP_DD_2020.csv", 
                           delim = ";", escape_double = FALSE, trim_ws = TRUE)
 
-Cd_DD_2021 <- read_delim("input/data/calidad del aire/2020/Cd_DD_2021.csv", 
+Cd_DD_2020 <- read_delim("input/data/calidad del aire/2020/Cd_DD_2020.csv", 
                          delim = ";", escape_double = FALSE, trim_ws = TRUE)
 
-Ni_DD_2021 <- read_delim("input/data/calidad del aire/2020/Ni_DD_2021.csv", 
+Ni_DD_2020 <- read_delim("input/data/calidad del aire/2020/Ni_DD_2020.csv", 
                          delim = ";", escape_double = FALSE, trim_ws = TRUE)
 
-Pb_DD_2021 <- read_delim("input/data/calidad del aire/2020/Pb_DD_2021.csv", 
+Pb_DD_2020 <- read_delim("input/data/calidad del aire/2020/Pb_DD_2020.csv", 
                          delim = ";", escape_double = FALSE, trim_ws = TRUE)
 
-PM10_DD_2021 <- read_delim("input/data/calidad del aire/2020/PM10_DD_2021.csv", 
+PM10_DD_2020 <- read_delim("input/data/calidad del aire/2020/PM10_DD_2020.csv", 
                            delim = ";", escape_double = FALSE, trim_ws = TRUE)
 
-PM25_DD_2021 <- read_delim("input/data/calidad del aire/2020/PM25_DD_2021.csv", 
+PM25_DD_2020 <- read_delim("input/data/calidad del aire/2020/PM25_DD_2020.csv", 
                            delim = ";", escape_double = FALSE, trim_ws = TRUE)
 
 
 ##Arsenico 2020
-tablaAS_2020 <- select(.data = As_DD_2021, PROVINCIA, ANNO, D01:D31 )
+tablaAS_2020 <- select(.data = As_DD_2020, PROVINCIA, ANNO, D01:D31 )
 
-tablaAS_2020 <-rename(.data = tablaAS_2020, AÑO = ANNO)
+tablaAS_2020 <- mutate(tablaAS_2020, AÑO = 2020)
 
 tabAS_2020 <- tablaAS_2020 %>%
   group_by(PROVINCIA,AÑO) %>%
@@ -43,9 +43,9 @@ tabAS_2020$ARSENICO <- apply(tabAS_2020[ ,c(3:33)], 1, mean, na.rm = TRUE)
 tabAS_2020 <- select(.data = tabAS_2020, PROVINCIA, AÑO, ARSENICO)
 
 ##Benzopireno 2020
-tablaBaP_2020 <- select(.data = BaP_DD_2021, PROVINCIA, ANNO, D01:D31)
+tablaBaP_2020 <- select(.data = BaP_DD_2020, PROVINCIA, ANNO, D01:D31)
 
-tablaBaP_2020 <-rename(.data = tablaBaP_2020, AÑO = ANNO)
+tablaBaP_2020 <- mutate(tablaBaP_2020, AÑO = 2020)
 
 tabBaP_2020 <- tablaBaP_2020 %>%
   group_by(PROVINCIA,AÑO) %>%
@@ -57,9 +57,9 @@ tabBaP_2020 <- select(.data = tabBaP_2020, PROVINCIA, AÑO, BENZOPIRENO)
 
 ##Cadmio 2020
 
-tablaCd_2020 <- select(.data = Cd_DD_2021, PROVINCIA, ANNO, D01:D31)
+tablaCd_2020 <- select(.data = Cd_DD_2020, PROVINCIA, ANNO, D01:D31)
 
-tablaCd_2020 <-rename(.data = tablaCd_2020, AÑO = ANNO)
+tablaCd_2020 <- mutate(tablaCd_2020, AÑO = 2020)
 
 tabCd_2020 <- tablaCd_2020 %>%
   group_by(PROVINCIA,AÑO) %>%
@@ -71,9 +71,9 @@ tabCd_2020 <- select(.data = tabCd_2020, PROVINCIA, AÑO, CADMIO)
 
 ##Niquel 2020
 
-tablaNi_2020 <- select(.data = Ni_DD_2021, PROVINCIA, ANNO, D01:D31)
+tablaNi_2020 <- select(.data = Ni_DD_2020, PROVINCIA, ANNO, D01:D31)
 
-tablaNi_2020 <-rename(.data = tablaNi_2020, AÑO = ANNO)
+tablaNi_2020 <- mutate(tablaNi_2020, AÑO = 2020)
 
 tabNi_2020 <- tablaNi_2020 %>%
   group_by(PROVINCIA,AÑO) %>%
@@ -85,9 +85,9 @@ tabNi_2020 <- select(.data = tabNi_2020, PROVINCIA, AÑO, NIQUEL)
 
 ##Plomo 2020
 
-tablaPb_2020 <- select(.data = Pb_DD_2021, PROVINCIA, ANNO, D01:D31)
+tablaPb_2020 <- select(.data = Pb_DD_2020, PROVINCIA, ANNO, D01:D31)
 
-tablaPb_2020 <-rename(.data = tablaPb_2020, AÑO = ANNO)
+tablaPb_2020 <- mutate(tablaPb_2020, AÑO = 2020)
 
 tabPb_2020 <- tablaPb_2020 %>%
   group_by(PROVINCIA,AÑO) %>%
@@ -100,9 +100,9 @@ tabPb_2020 <- select(.data = tabPb_2020, PROVINCIA, AÑO, PLOMO)
 
 ##PM10 2020
 
-tablaPM10_2020 <- select(.data = PM10_DD_2021, PROVINCIA, ANNO, D01:D31)
+tablaPM10_2020 <- select(.data = PM10_DD_2020, PROVINCIA, ANNO, D01:D31)
 
-tablaPM10_2020 <-rename(.data = tablaPM10_2020, AÑO = ANNO)
+tablaPM10_2020 <- mutate(tablaPM10_2020, AÑO = 2020)
 
 tabPM10_2020 <- tablaPM10_2020 %>%
   group_by(PROVINCIA,AÑO) %>%
@@ -114,9 +114,9 @@ tabPM10_2020 <- select(.data = tabPM10_2020, PROVINCIA, AÑO, PM_10)
 
 ##PM25 2020
 
-tablaPM25_2020 <- select(.data = PM25_DD_2021, PROVINCIA, ANNO, D01:D31)
+tablaPM25_2020 <- select(.data = PM25_DD_2020, PROVINCIA, ANNO, D01:D31)
 
-tablaPM25_2020 <-rename(.data = tablaPM25_2020, AÑO = ANNO)
+tablaPM25_2020 <- mutate(tablaPM25_2020, AÑO = 2020)
 
 tabPM25_2020 <- tablaPM25_2020 %>%
   group_by(PROVINCIA,AÑO) %>%
