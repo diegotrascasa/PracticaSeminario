@@ -200,20 +200,25 @@ PROVINCIA, AÑO, ARSENICO, BENZOPIRENO, CADMIO, NIQUEL, PLOMO, PM_10, PM_25.
 
 # insertar aqui la tabla join2020.6 para poder visualizarla.
 
-```{r}
-##BENZOPIRENO
-tabla2 <- select(.data = BaP_DD_2021, PROVINCIA, ANNO, D01:D31)
 
-tabla2 <-rename(.data = tabla2, AÑO = ANNO)
 
-tab2 <- tabla2 %>%
-  group_by(PROVINCIA,AÑO) %>%
-  summarise(across(c(D01:D31), ~ mean(.x, na.rm = TRUE)))
 
-tab2$BENZOPIRENO <- apply(tab2[ ,c(3:33)], 1, mean, na.rm = TRUE)
 
-tab2 <- select(.data = tab2, PROVINCIA, AÑO, BENZOPIRENO)
-```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 ## Including Plots
 
