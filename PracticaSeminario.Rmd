@@ -791,7 +791,24 @@ print (join2016.6)
 
 Asi lo que obtenemos son 5 tablas. Cada una de ellas se corresponde a un año de calidad de aire con todas sus magnitudes. Ahora lo que tenemos que hacer es juntarlas. Para ello, coo todas ellas tienen los mismos nombres en las columnas utilzaremos union_all.
 
+```{r}
+#union de todas las tablas creadas anteriormente
 
+Calidad1 <- union_all(join2020.6,join2019.6)
+
+Calidad2 <- union_all(Calidad1,join2018.6)
+
+Calidad3 <- union_all(Calidad2,join2017.6)
+
+Calidad4 <- union_all(Calidad3,join2016.6)
+
+View(Calidad4)
+```
+
+
+A partir del codigo anterior obtenemos una única tabla con los datos de calidad de aire de los 5 años. De la siguiente manera:
+
+#Incluir tabla de Calidad4
 
 
 
