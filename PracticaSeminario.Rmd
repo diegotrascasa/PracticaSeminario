@@ -789,6 +789,8 @@ join2016.6 <- full_join (x=join2016.5,y=tabPM25_2016, by=c("PROVINCIA","AÑO"))
 print (join2016.6)
 ```
 
+Asi lo que obtenemos son 5 tablas. Cada una de ellas se corresponde a un año de calidad de aire con todas sus magnitudes. Ahora lo que tenemos que hacer es juntarlas. Para ello, coo todas ellas tienen los mismos nombres en las columnas utilzaremos union_all.
+
 
 
 
