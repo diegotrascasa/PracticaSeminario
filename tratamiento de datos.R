@@ -754,4 +754,4 @@ View(provincia_con_numero)
 calidadFinal = full_join (x=Calidad4, y=provincia_con_numero, by=c("PROVINCIA"))
 
 
-
+view(calidadFinal)
