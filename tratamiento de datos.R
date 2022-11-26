@@ -753,5 +753,25 @@ View(provincia_con_numero)
 
 calidadFinal = full_join (x=Calidad4, y=provincia_con_numero, by=c("PROVINCIA"))
 
+#Importar datos de las enfermedades
+library(readr)
+X49971 <- read_delim("input/data/Enfermedades/49971.csv", 
+                     delim = "\t", escape_double = FALSE, 
+                     trim_ws = TRUE)
+View(X49971)
+
+
 
 view(calidadFinal)
+x <-
+X49971%>%
+  group_by(`Comunidades y Ciudades Autónomas`) %>%
+  group_by(`Causa de muerte (lista reducida)`) %>%
+  group_by(año) %>%
+  summarise(
+  Av_casos = mean(Total, na.rm = TRUE),
+            )
+  
+View(x)
+  
+  
