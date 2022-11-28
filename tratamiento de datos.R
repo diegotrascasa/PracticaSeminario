@@ -828,5 +828,10 @@ library(ggplot2)
 ggplot(data = ejercicio1num, aes(x = PM_25, y = Total)) +
   geom_point(aes(colour = AÑO)) +
   stat_smooth() +
-  theme_classic()
-
+  theme_classic() +
+  labs(
+    x = "PM 2'5 (µg/m3)",
+    y = "Numero de muertes",
+    title = 'Muertes por neumonia vs PM 2,5',
+    colour = 'Años'
+  )
