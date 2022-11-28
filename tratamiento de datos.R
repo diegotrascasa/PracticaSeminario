@@ -144,7 +144,6 @@ print (join2020.6)
 
 As_DD_2019 <- read_delim("input/data/calidad del aire/2019/As_DD_2019.csv", 
                          delim = ";", escape_double = FALSE, trim_ws = TRUE)
-View(As_DD_2019)
 
 BaP_DD_2019 <- read_delim("input/data/calidad del aire/2019/BaP_DD_2019.csv", 
                           delim = ";", escape_double = FALSE, trim_ws = TRUE)
@@ -182,7 +181,6 @@ tabAS_2019$ARSENICO <- apply(tabAS_2019[ ,c(3:33)], 1, mean, na.rm = TRUE)
 
 tabAS_2019 <- select(.data = tabAS_2019, PROVINCIA, AÑO, ARSENICO)
 
-print (tabAS_2019)
 
 ##Benzopireno 2019
 
@@ -197,7 +195,6 @@ tabBaP_2019 <- tablaBaP_2019 %>%
 tabBaP_2019$BENZOPIRENO <- apply(tabBaP_2019[ ,c(3:33)], 1, mean, na.rm = TRUE)
 
 tabBaP_2019 <- select(.data = tabBaP_2019, PROVINCIA, AÑO, BENZOPIRENO)
-print(tabBaP_2019)
 
 ##Benceno 2019
 
@@ -212,7 +209,6 @@ tabC6H6_2019 <- tablaC6H6_2019 %>%
 tabC6H6_2019$BENCENO <- apply(tabC6H6_2019[ ,c(3:33)], 1, mean, na.rm = TRUE)
 
 tabC6H6_2019 <- select(.data = tabC6H6_2019, PROVINCIA, AÑO, BENCENO)
-print(tabC6H6_2019)
 
 ##Cadmio 2019
 
@@ -227,7 +223,6 @@ tabCd_2019 <- tablaCd_2019 %>%
 tabCd_2019$CADMIO <- apply(tabCd_2019[ ,c(3:33)], 1, mean, na.rm = TRUE)
 
 tabCd_2019 <- select(.data = tabCd_2019, PROVINCIA, AÑO, CADMIO)
-print(tabCd_2019)
 
 ##Niquel 2019
 
@@ -242,7 +237,6 @@ tabNi_2019 <- tablaNi_2019 %>%
 tabNi_2019$NIQUEL <- apply(tabNi_2019[ ,c(3:33)], 1, mean, na.rm = TRUE)
 
 tabNi_2019 <- select(.data = tabNi_2019, PROVINCIA, AÑO, NIQUEL)
-print(tabNi_2019)
 
 ##Plomo 2019
 
@@ -257,7 +251,6 @@ tabPb_2019 <- tablaPb_2019 %>%
 tabPb_2019$PLOMO <- apply(tabPb_2019[ ,c(3:33)], 1, mean, na.rm = TRUE)
 
 tabPb_2019 <- select(.data = tabPb_2019, PROVINCIA, AÑO, PLOMO)
-print(tabPb_2019)
 
 ##PM10 2019
 
@@ -272,7 +265,6 @@ tabPM10_2019 <- tablaPM10_2019 %>%
 tabPM10_2019$PM_10 <- apply(tabPM10_2019[ ,c(3:33)], 1, mean, na.rm = TRUE)
 
 tabPM10_2019 <- select(.data = tabPM10_2019, PROVINCIA, AÑO, PM_10)
-print(tabPM10_2019)
 
 ##PM25 2019
 
@@ -287,7 +279,6 @@ tabPM25_2019 <- tablaPM25_2019 %>%
 tabPM25_2019$PM_25 <- apply(tabPM25_2019[ ,c(3:33)], 1, mean, na.rm = TRUE)
 
 tabPM25_2019 <- select(.data = tabPM25_2019, PROVINCIA, AÑO, PM_25)
-print(tabPM25_2019)
 
 
 
@@ -309,7 +300,6 @@ print (join2019.6)
 
 As_DD_2018 <- read_delim("input/data/calidad del aire/2018/As_DD_2018.csv", 
                          delim = ";", escape_double = FALSE, trim_ws = TRUE)
-View(As_DD_2018)
 
 B_a_P_DD_2018 <- read_delim("input/data/calidad del aire/2018/B(a)P_DD_2018.csv", 
                             delim = ";", escape_double = FALSE, trim_ws = TRUE)
@@ -454,7 +444,6 @@ print (join2018.6)
 
 As_DD_2017 <- read_delim("input/data/calidad del aire/2017/As_DD_2017.csv", 
                          delim = ";", escape_double = FALSE, trim_ws = TRUE)
-View(As_DD_2017)
 
 B_a_P_DD_2017 <- read_delim("input/data/calidad del aire/2017/B(a)P_DD_2017.csv", 
                             delim = ";", escape_double = FALSE, trim_ws = TRUE)
@@ -598,7 +587,6 @@ print (join2017.6)
 
 library(readxl)
 As_DD_2016 <- read_excel("input/data/calidad del aire/2016/As_DD_2016.xlsx")
-View(As_DD_2016)
 
 B_a_P_DD_2016 <- read_excel("input/data/calidad del aire/2016/B(a)P_DD_2016.xlsx")
 
@@ -742,7 +730,6 @@ Calidad3 <- union_all(Calidad2,join2017.6)
 
 Calidad4 <- union_all(Calidad3,join2016.6)
 
-View(Calidad4)
 
 #cambiar el número de la provincia por el nombre de la provincia y la comunidad.
 
@@ -753,18 +740,17 @@ print(provincia_con_numero)
 
 calidadFinal = full_join (x=Calidad4, y=provincia_con_numero, by=c("PROVINCIA"))
 
+view(calidadFinal)
 #Importar datos de las enfermedades
 library(readr)
 X49971 <- read_delim("input/data/Enfermedades/49971.csv", 
                      delim = "\t", escape_double = FALSE, 
                      trim_ws = TRUE)
-View(X49971)
 
 
 #Camniar nombre de las columnas de la base de datos de las enfermedades para su mas facil acceso
 colnames(X49971)<- c('Nacional','CCAA','Causa_muerte','Sexo','Lugar','Año','Total')
 Enfermedades <- X49971
-View(Enfermedades)
 
 Enfermedades <-
   Enfermedades %>% 
@@ -811,9 +797,6 @@ EnfTotal1 <- union_all(Enf1,Enf2)
 EnfTotal <- union_all (EnfTotal1,Enf3)
 
 View(EnfTotal)
-
-
-#Filtramos para tener datos de ambos sexos en conjunto
 
 
 
