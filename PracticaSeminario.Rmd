@@ -810,7 +810,22 @@ A partir del codigo anterior obtenemos una única tabla con los datos de calidad
 
 #Incluir tabla de Calidad4
 
+Ahora en la columna provincia queremos cambiar el número que se corresponde a cada provincia por el nombre de esta. Para ello vamos a emplear una tabla con los dos datos, tanto el número como la provincia. 
+```{r}
+#cambiar el número de la provincia por el nombre de la provincia y la comunidad.
 
+library(readxl)
+provincia_con_numero <- read_excel("input/data/calidad del aire/provincia con numero.xlsx", 
+                                   sheet = "Estaciones evaluación 2019")
+View(provincia_con_numero)
+
+calidadFinal = full_join (x=Calidad4, y=provincia_con_numero, by=c("PROVINCIA"))
+
+```
+
+En el codigo anterior lo que hemos hecho es importar la tabla con los dos valores y al hacer un full_join con el nombre de provincia conseguimos juntar las dos tablas. Conseguimos una tabla calidadFinal.
+
+#insertar tabla calidadFinal
 
 
 
