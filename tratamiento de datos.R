@@ -749,7 +749,7 @@ View(Calidad4)
 library(readxl)
 provincia_con_numero <- read_excel("input/data/calidad del aire/provincia con numero.xlsx", 
                                    sheet = "Estaciones evaluación 2019")
-View(provincia_con_numero)
+print(provincia_con_numero)
 
 calidadFinal = full_join (x=Calidad4, y=provincia_con_numero, by=c("PROVINCIA"))
 
@@ -765,6 +765,28 @@ View(X49971)
 colnames(X49971)<- c('Nacional','CCAA','Causa_muerte','Sexo','Lugar','Año','Total')
 Enfermedades <- X49971
 View(Enfermedades)
+
+Enfermedades <-
+  Enfermedades %>% 
+  mutate(N_CCAA = case_when(CCAA == "Andalucía"  ~ "ANDALUCÍA",
+                            CCAA == "Aragón"  ~ "ARAGÓN",
+                            CCAA == "Asturias, Principado de" ~ "ASTURIAS (PRINCIPADO DE)",
+                            CCAA == "Balears, Illes"  ~ "BALEARES (ISLAS)",
+                            CCAA == "Canarias"  ~ "CANARIAS",
+                            CCAA == "Cantabria"  ~ "CANTABRIA",
+                            CCAA == "Castilla y León" ~ "CASTILLA Y LEÓN",
+                            CCAA == "Castilla-La Mancha"  ~ "CASTILLA-LA MANCHA",
+                            CCAA == "Cataluña"  ~ "CATALUÑA",
+                            CCAA == "Comunitat Valenciana"  ~ "COMUNIDAD VALENCIANA",
+                            CCAA == "Extremadura"  ~ "EXTREMADURA",
+                            CCAA == "Galicia"  ~ "GALICIA",
+                            CCAA == "Madrid, Comunidad de"  ~ "MADRID",
+                            CCAA == "Murcia, Región de"  ~ "MURCIA (REGIÓN DE)",
+                            CCAA == "Navarra, Comunidad Foral de"  ~ "NAVARRA (COMUNIDAD FORAL)",
+                            CCAA == "País Vasco"  ~ "PAÍS VASCO",
+                            CCAA == "Rioja, La"  ~ "RIOJA (LA)",
+                            CCAA == "Ceuta"  ~ "CEUTA",
+                            CCAA == "Melilla"  ~ "MELILLA"))
 
 #Filtrado de la base de datos para tener datos mas manejables y los que necesitamos
 #Filtramos para tener datos de ambos sexos en conjunto
