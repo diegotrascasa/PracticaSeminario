@@ -741,6 +741,12 @@ print(provincia_con_numero)
 calidadFinal = full_join (x=Calidad4, y=provincia_con_numero, by=c("PROVINCIA"))
 
 view(calidadFinal)
+
+#poner un valor para cada comunidad y año
+estudioPM_25<- calidadFinal %>%
+  group_by(N_CCAA,AÑO) %>%
+  summarise(mean(PM_25, na.rm = TRUE))
+
 #Importar datos de las enfermedades
 library(readr)
 X49971 <- read_delim("input/data/Enfermedades/49971.csv", 
