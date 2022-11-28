@@ -758,14 +758,48 @@ library(readr)
 X49971 <- read_delim("input/data/Enfermedades/49971.csv", 
                      delim = "\t", escape_double = FALSE, 
                      trim_ws = TRUE)
+View(X49971)
 
-colnames(X49971)<- c('Nacional','Provincias','Causa_muerte','Lugar','Año','Total')
+
+#Camniar nombre de las columnas de la base de datos de las enfermedades para su mas facil acceso
+colnames(X49971)<- c('Nacional','CCAA','Causa_muerte','Sexo','Lugar','Año','Total')
 Enfermedades <- X49971
 View(Enfermedades)
 
+#Filtrado de la base de datos para tener datos mas manejables y los que necesitamos
+#Filtrado de las enfermedades que vamosa  tratar
 Enfermedades %>%
-  filter(.data, Causa_muerte =="067 Otras enfermedades del sistema respiratorio") %>%
-  print()
+  filter(Lugar == "Total") %>% 
+  filter(Sexo == "Total") %>%
+  filter(Causa_muerte=="062-067 X.Enfermedades del sistema respiratorio")-> Enf1
+
+
+
+  view(Enf1)
   
+Enfermedades %>%
+  filter(Lugar == "Total") %>%
+  filter(Sexo == "Total") %>%
+  filter(Causa_muerte=="009-041 II.Tumores")-> Enf2
+
+Enfermedades %>%
+  filter(Lugar == "Total") %>%
+  filter(Sexo == "Total") %>%
+  filter(Causa_muerte=="053-061 IX.Enfermedades del sistema circulatorio")-> Enf3
+
+EnfTotal1 -> union_all(Enf1,Enf2)
+EnfTotal -> union_all (EnfTotal1,Enf3)
+
+View(EnfTotal)
+
+
+#Filtramos para tener datos de ambos sexos en conjunto
+Enf%>%
+  filter(Sexo=="Total") -> EnfTotal
+
+view(EnfTotal)
+
+
+
   
   
