@@ -830,9 +830,9 @@ View(EnfTotal)
 #poner un valor para cada comunidad y año
 estudioPM_25<- calidadFinal %>%
   group_by(N_CCAA,AÑO) %>%
-  summarise(mean(PM_25, na.rm = TRUE))
+  summarise(PM_25 = mean(PM_25, na.rm = TRUE))
 
-
+#enfermedad a estudiar
 Enfermedades %>%
   filter(Lugar == "Total") %>% 
   filter(Sexo == "Total") %>%
