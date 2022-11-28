@@ -14,13 +14,21 @@ output:
 always_allow_html: true
 ---
 
+Comenzamos importando toso
+```{r, warning=FALSE, message=FALSE}
+library(readr)
+library(dplyr)
+library (tidyverse)
+library(tidyselect)
+```
+
+
 # EFECTO DE LA CALIDAD DE AIRE EN DISTINTAS ENFERMEDADES
 
 ##Importación de los datos de Enfermedades.
 Lo primero que realizamos es la importación de los datos de las enfermedades, lo hacemos a través de un archivo csv.
 
 ```{r Datos de Enfermedades}
-library(readr)
 X49971 <- read_delim("input/data/Enfermedades/49971.csv", 
     delim = "\t", escape_double = FALSE, 
     trim_ws = TRUE)
@@ -802,7 +810,7 @@ Calidad3 <- union_all(Calidad2,join2017.6)
 
 Calidad4 <- union_all(Calidad3,join2016.6)
 
-View(Calidad4)
+print(Calidad4)
 ```
 
 
@@ -826,6 +834,7 @@ calidadFinal = full_join (x=Calidad4, y=provincia_con_numero, by=c("PROVINCIA"))
 En el codigo anterior lo que hemos hecho es importar la tabla con los dos valores y al hacer un full_join con el nombre de provincia conseguimos juntar las dos tablas. Conseguimos una tabla calidadFinal.
 
 #insertar tabla calidadFinal
+
 
 
 
