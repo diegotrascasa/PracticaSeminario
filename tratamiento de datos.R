@@ -767,16 +767,14 @@ Enfermedades <- X49971
 View(Enfermedades)
 
 #Filtrado de la base de datos para tener datos mas manejables y los que necesitamos
-#Filtrado de las enfermedades que vamosa  tratar
+#Filtramos para tener datos de ambos sexos en conjunto
+#Filtrado por Total de datos
+#Filtrado de las enfermedades que vamos a  tratar
 Enfermedades %>%
   filter(Lugar == "Total") %>% 
   filter(Sexo == "Total") %>%
   filter(Causa_muerte=="062-067 X.Enfermedades del sistema respiratorio")-> Enf1
 
-
-
-  view(Enf1)
-  
 Enfermedades %>%
   filter(Lugar == "Total") %>%
   filter(Sexo == "Total") %>%
@@ -787,17 +785,14 @@ Enfermedades %>%
   filter(Sexo == "Total") %>%
   filter(Causa_muerte=="053-061 IX.Enfermedades del sistema circulatorio")-> Enf3
 
-EnfTotal1 -> union_all(Enf1,Enf2)
-EnfTotal -> union_all (EnfTotal1,Enf3)
+EnfTotal1 <- union_all(Enf1,Enf2)
+EnfTotal <- union_all (EnfTotal1,Enf3)
 
 View(EnfTotal)
 
 
 #Filtramos para tener datos de ambos sexos en conjunto
-Enf%>%
-  filter(Sexo=="Total") -> EnfTotal
 
-view(EnfTotal)
 
 
 
