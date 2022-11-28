@@ -137,7 +137,6 @@ join2020.4 <- full_join (x=join2020.3,y=tabPb_2020, by=c("PROVINCIA","AÑO"))
 join2020.5 <- full_join (x=join2020.4,y=tabPM10_2020, by=c("PROVINCIA","AÑO"))
 
 join2020.6 <- full_join (x=join2020.5,y=tabPM25_2020, by=c("PROVINCIA","AÑO"))
-print (join2020.6)
 
 #2019 ---------------------------------------------------------------------------------------------
 
@@ -292,7 +291,6 @@ join2019.4 <- full_join (x=join2019.3,y=tabPb_2019, by=c("PROVINCIA","AÑO"))
 join2019.5 <- full_join (x=join2019.4,y=tabPM10_2019, by=c("PROVINCIA","AÑO"))
 
 join2019.6 <- full_join (x=join2019.5,y=tabPM25_2019, by=c("PROVINCIA","AÑO"))
-print (join2019.6)
 
 
 #2018 ------------------------------------------------------------------------------------- 
@@ -333,7 +331,6 @@ tabAS_2018$ARSENICO <- apply(tabAS_2018[ ,c(3:33)], 1, mean, na.rm = TRUE)
 
 tabAS_2018 <- select(.data = tabAS_2018, PROVINCIA, AÑO, ARSENICO)
 
-print (tabAS_2018)
 
 ##Benzopireno 2018
 
@@ -348,7 +345,6 @@ tabBaP_2018 <- tablaBaP_2018 %>%
 tabBaP_2018$BENZOPIRENO <- apply(tabBaP_2018[ ,c(3:33)], 1, mean, na.rm = TRUE)
 
 tabBaP_2018 <- select(.data = tabBaP_2018, PROVINCIA, AÑO, BENZOPIRENO)
-print(tabBaP_2018)
 
 ##Cadmio 2018
 
@@ -363,7 +359,6 @@ tabCd_2018 <- tablaCd_2018 %>%
 tabCd_2018$CADMIO <- apply(tabCd_2018[ ,c(3:33)], 1, mean, na.rm = TRUE)
 
 tabCd_2018 <- select(.data = tabCd_2018, PROVINCIA, AÑO, CADMIO)
-print(tabCd_2018)
 
 ##Niquel 2018
 
@@ -378,7 +373,6 @@ tabNi_2018 <- tablaNi_2018 %>%
 tabNi_2018$NIQUEL <- apply(tabNi_2018[ ,c(3:33)], 1, mean, na.rm = TRUE)
 
 tabNi_2018 <- select(.data = tabNi_2018, PROVINCIA, AÑO, NIQUEL)
-print(tabNi_2018)
 
 ##Plomo 2018
 
@@ -393,7 +387,6 @@ tabPb_2018 <- tablaPb_2018 %>%
 tabPb_2018$PLOMO <- apply(tabPb_2018[ ,c(3:33)], 1, mean, na.rm = TRUE)
 
 tabPb_2018 <- select(.data = tabPb_2018, PROVINCIA, AÑO, PLOMO)
-print(tabPb_2018)
 
 ##PM10 2018
 
@@ -408,7 +401,6 @@ tabPM10_2018 <- tablaPM10_2018 %>%
 tabPM10_2018$PM_10 <- apply(tabPM10_2018[ ,c(3:33)], 1, mean, na.rm = TRUE)
 
 tabPM10_2018 <- select(.data = tabPM10_2018, PROVINCIA, AÑO, PM_10)
-print(tabPM10_2018)
 
 ##PM25 2018
 
@@ -423,7 +415,6 @@ tabPM25_2018 <- tablaPM25_2018 %>%
 tabPM25_2018$PM_25 <- apply(tabPM25_2018[ ,c(3:33)], 1, mean, na.rm = TRUE)
 
 tabPM25_2018 <- select(.data = tabPM25_2018, PROVINCIA, AÑO, PM_25)
-print(tabPM25_2018)
 
 join2018.1 <- full_join (x=tabAS_2018,y=tabBaP_2018, by=c("PROVINCIA","AÑO"))
 
@@ -437,7 +428,6 @@ join2018.5 <- full_join (x=join2018.4,y=tabPM10_2018, by=c("PROVINCIA","AÑO"))
 
 join2018.6 <- full_join (x=join2018.5,y=tabPM25_2018, by=c("PROVINCIA","AÑO"))
 
-print (join2018.6)
 
 #2017 ----------------------------------------------------------------------------
 
@@ -477,7 +467,6 @@ tabAS_2017$ARSENICO <- apply(tabAS_2017[ ,c(3:33)], 1, mean, na.rm = TRUE)
 
 tabAS_2017 <- select(.data = tabAS_2017, PROVINCIA, AÑO, ARSENICO)
 
-print (tabAS_2017)
 
 ##Benzopireno 2017
 
@@ -492,7 +481,6 @@ tabBaP_2017 <- tablaBaP_2017 %>%
 tabBaP_2017$BENZOPIRENO <- apply(tabBaP_2017[ ,c(3:33)], 1, mean, na.rm = TRUE)
 
 tabBaP_2017 <- select(.data = tabBaP_2017, PROVINCIA, AÑO, BENZOPIRENO)
-print(tabBaP_2017)
 
 ##Cadmio 2017
 
@@ -507,7 +495,6 @@ tabCd_2017 <- tablaCd_2017 %>%
 tabCd_2017$CADMIO <- apply(tabCd_2017[ ,c(3:33)], 1, mean, na.rm = TRUE)
 
 tabCd_2017 <- select(.data = tabCd_2017, PROVINCIA, AÑO, CADMIO)
-print(tabCd_2017)
 
 ##Niquel 2017
 
@@ -522,7 +509,6 @@ tabNi_2017 <- tablaNi_2017 %>%
 tabNi_2017$NIQUEL <- apply(tabNi_2017[ ,c(3:33)], 1, mean, na.rm = TRUE)
 
 tabNi_2017 <- select(.data = tabNi_2017, PROVINCIA, AÑO, NIQUEL)
-print(tabNi_2017)
 
 ##Plomo 2017
 
@@ -537,7 +523,6 @@ tabPb_2017 <- tablaPb_2017 %>%
 tabPb_2017$PLOMO <- apply(tabPb_2017[ ,c(3:33)], 1, mean, na.rm = TRUE)
 
 tabPb_2017 <- select(.data = tabPb_2017, PROVINCIA, AÑO, PLOMO)
-print(tabPb_2017)
 
 ##PM10 2017
 
@@ -552,7 +537,6 @@ tabPM10_2017 <- tablaPM10_2017 %>%
 tabPM10_2017$PM_10 <- apply(tabPM10_2017[ ,c(3:33)], 1, mean, na.rm = TRUE)
 
 tabPM10_2017 <- select(.data = tabPM10_2017, PROVINCIA, AÑO, PM_10)
-print(tabPM10_2017)
 
 ##PM25 2017
 
@@ -567,7 +551,6 @@ tabPM25_2017 <- tablaPM25_2017 %>%
 tabPM25_2017$PM_25 <- apply(tabPM25_2017[ ,c(3:33)], 1, mean, na.rm = TRUE)
 
 tabPM25_2017 <- select(.data = tabPM25_2017, PROVINCIA, AÑO, PM_25)
-print(tabPM25_2017)
 
 join2017.1 <- full_join (x=tabAS_2017,y=tabBaP_2017, by=c("PROVINCIA","AÑO"))
 
@@ -581,7 +564,6 @@ join2017.5 <- full_join (x=join2017.4,y=tabPM10_2017, by=c("PROVINCIA","AÑO"))
 
 join2017.6 <- full_join (x=join2017.5,y=tabPM25_2017, by=c("PROVINCIA","AÑO"))
 
-print (join2017.6)
 #2016
 
 library(readxl)
@@ -612,7 +594,6 @@ tabAS_2016<- tablaAS_2016 %>%
 tabAS_2016$ARSENICO <- apply(tabAS_2016[ ,c(3:33)], 1, mean, na.rm = TRUE)
 
 tabAS_2016 <- select(.data = tabAS_2016, PROVINCIA, AÑO, ARSENICO)
-print(tabAS_2016)
 
 ##Benzopireno 2016
 
@@ -627,7 +608,6 @@ tabBaP_2016<- tablaBaP_2016 %>%
 tabBaP_2016$BENZOPIRENO <- apply(tabBaP_2016[ ,c(3:33)], 1, mean, na.rm = TRUE)
 
 tabBaP_2016 <- select(.data = tabBaP_2016, PROVINCIA, AÑO, BENZOPIRENO)
-print(tabBaP_2016)
 
 ##Cadmio 2016
 
@@ -642,7 +622,6 @@ tabCd_2016<- tablaCd_2016 %>%
 tabCd_2016$CADMIO <- apply(tabCd_2016[ ,c(3:33)], 1, mean, na.rm = TRUE)
 
 tabCd_2016 <- select(.data = tabCd_2016, PROVINCIA, AÑO, CADMIO)
-print(tabCd_2016)
 
 ##Niquel 2016
 
@@ -657,7 +636,6 @@ tabNi_2016<- tablaNi_2016 %>%
 tabNi_2016$NIQUEL <- apply(tabNi_2016[ ,c(3:33)], 1, mean, na.rm = TRUE)
 
 tabNi_2016 <- select(.data = tabNi_2016, PROVINCIA, AÑO, NIQUEL)
-print(tabNi_2016)
 
 ##Plomo 2016
 
@@ -672,7 +650,6 @@ tabPb_2016<- tablaPb_2016 %>%
 tabPb_2016$PLOMO <- apply(tabPb_2016[ ,c(3:33)], 1, mean, na.rm = TRUE)
 
 tabPb_2016 <- select(.data = tabPb_2016, PROVINCIA, AÑO, PLOMO)
-print(tabPb_2016)
 
 ##PM10 2016
 
@@ -687,7 +664,6 @@ tabPM10_2016<- tablaPM10_2016 %>%
 tabPM10_2016$PM_10 <- apply(tabPM10_2016[ ,c(3:33)], 1, mean, na.rm = TRUE)
 
 tabPM10_2016 <- select(.data = tabPM10_2016, PROVINCIA, AÑO, PM_10)
-print(tabPM10_2016)
 
 ##PM25 2016
 
@@ -702,7 +678,6 @@ tabPM25_2016<- tablaPM25_2016 %>%
 tabPM25_2016$PM_25 <- apply(tabPM25_2016[ ,c(3:33)], 1, mean, na.rm = TRUE)
 
 tabPM25_2016 <- select(.data = tabPM25_2016, PROVINCIA, AÑO, PM_25)
-print(tabPM25_2016)
 
 join2016.1 <- full_join (x=tabAS_2016,y=tabBaP_2016, by=c("PROVINCIA","AÑO"))
 
@@ -716,7 +691,6 @@ join2016.5 <- full_join (x=join2016.4,y=tabPM10_2016, by=c("PROVINCIA","AÑO"))
 
 join2016.6 <- full_join (x=join2016.5,y=tabPM25_2016, by=c("PROVINCIA","AÑO"))
 
-print (join2016.6)
 
 
 #union de todas las tablas creadas anteriormente
@@ -842,8 +816,17 @@ Enfermedades %>%
 
 
 #GRAFICOS ejercicio 1:
+
 ejercicio1 <- full_join (x=Neumonia, y= estudioPM_25,by=c("N_CCAA","AÑO"))
 view(ejercicio1)
+## Pasamos la columna total de chr a num
+str(ejercicio1$Total)
+ejercicio1num <-transform(ejercicio1,Total = as.numeric(Total))  
+str(ejercicio1num$Total)
+##Grafico una vez modificado el total
 library(ggplot2)
-ggplot(data = ejercicio1, aes(x = PM_25, y = Total)) +
-  geom_point(aes(colour = AÑO)) 
+ggplot(data = ejercicio1num, aes(x = PM_25, y = Total)) +
+  geom_point(aes(colour = AÑO)) +
+  stat_smooth() +
+  theme_classic()
+
