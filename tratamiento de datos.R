@@ -806,7 +806,7 @@ Enfermedades %>%
 Enfermedades %>%
   filter(Lugar == "Total") %>% 
   filter(Sexo == "Total") %>%
-  filter(Causa_muerte=="066 Insuficiencia respiratoria")-> Insuficiencia_Respiratorio
+  filter(Causa_muerte=="066 Insuficiencia respiratoria")-> Insuficiencia_Respiratoria
 
 
 
