@@ -848,4 +848,4 @@ library(ggplot2)
 ggplot(data = ejercicio1, aes(x = PM_25, y = Total)) +
   geom_point(aes(colour = año)) +
   geom_smooth()
-
+str(ejercicio1$Total)
