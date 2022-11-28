@@ -841,7 +841,7 @@ Enfermedades %>%
   filter(Causa_muerte=="062 Influenza (gripe) (incluye gripe por virus de la influenza pandémica o zoonótica identificados)")-> Gripe
 
 
-#GRAFICOS:
+#GRAFICOS ejercicio 1:
 ejercicio1 <- full_join (x=Neumonia, y= estudioPM_25,by=c("N_CCAA"))
 view(ejercicio1)
 library(ggplot2)
