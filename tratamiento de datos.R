@@ -749,7 +749,7 @@ X49971 <- read_delim("input/data/Enfermedades/49971.csv",
 
 
 #Camniar nombre de las columnas de la base de datos de las enfermedades para su mas facil acceso
-colnames(X49971)<- c('Nacional','CCAA','Causa_muerte','Sexo','Lugar','Año','Total')
+colnames(X49971)<- c('Nacional','CCAA','Causa_muerte','Sexo','Lugar','AÑO','Total')
 Enfermedades <- X49971
 
 Enfermedades <-
@@ -842,10 +842,8 @@ Enfermedades %>%
 
 
 #GRAFICOS ejercicio 1:
-ejercicio1 <- full_join (x=Neumonia, y= estudioPM_25,by=c("N_CCAA"))
+ejercicio1 <- full_join (x=Neumonia, y= estudioPM_25,by=c("N_CCAA","AÑO"))
 view(ejercicio1)
 library(ggplot2)
 ggplot(data = ejercicio1, aes(x = PM_25, y = Total)) +
-  geom_point(aes(colour = año)) +
-  geom_smooth()
-str(ejercicio1$Total)
+  geom_point(aes(colour = AÑO)) 
