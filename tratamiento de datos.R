@@ -8,7 +8,6 @@ library(tidyselect)
 #2020 ---------------------------------------------------------------------------------------------------
 As_DD_2020 <- read_delim("input/data/calidad del aire/2020/As_DD_2020.csv", 
                          delim = ";", escape_double = FALSE, trim_ws = TRUE)
-View(As_DD_2020)
 
 BaP_DD_2020 <- read_delim("input/data/calidad del aire/2020/BaP_DD_2020.csv", 
                           delim = ";", escape_double = FALSE, trim_ws = TRUE)
@@ -807,15 +806,6 @@ Enfermedades %>%
   filter(Lugar == "Total") %>% 
   filter(Sexo == "Total") %>%
   filter(Causa_muerte=="066 Insuficiencia respiratoria")-> Insuficiencia_Respiratorio
-
-
-
-
-
-
-
-
-
 
 Enfermedades %>%
   filter(Lugar == "Total") %>%
