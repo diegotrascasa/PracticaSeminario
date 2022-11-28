@@ -784,6 +784,40 @@ Enfermedades %>%
   filter(Causa_muerte=="062-067 X.Enfermedades del sistema respiratorio")-> Enf1
 
 Enfermedades %>%
+  filter(Lugar == "Total") %>% 
+  filter(Sexo == "Total") %>%
+  filter(Causa_muerte=="062 Influenza (gripe) (incluye gripe por virus de la influenza pandémica o zoonótica identificados)")-> Gripe
+
+Enfermedades %>%
+  filter(Lugar == "Total") %>% 
+  filter(Sexo == "Total") %>%
+  filter(Causa_muerte=="063 Neumonía")-> Neumonia
+
+Enfermedades %>%
+  filter(Lugar == "Total") %>% 
+  filter(Sexo == "Total") %>%
+  filter(Causa_muerte=="064 Enfermedades crónicas de las vías respiratorias inferiores (excepto asma)")-> EnfViasInf
+
+Enfermedades %>%
+  filter(Lugar == "Total") %>% 
+  filter(Sexo == "Total") %>%
+  filter(Causa_muerte=="065 Asma")-> Asma
+
+Enfermedades %>%
+  filter(Lugar == "Total") %>% 
+  filter(Sexo == "Total") %>%
+  filter(Causa_muerte=="066 Insuficiencia respiratoria")-> Insuficiencia_Respiratorio
+
+
+
+
+
+
+
+
+
+
+Enfermedades %>%
   filter(Lugar == "Total") %>%
   filter(Sexo == "Total") %>%
   filter(Causa_muerte=="009-041 II.Tumores")-> Enf2
