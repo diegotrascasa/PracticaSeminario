@@ -798,6 +798,14 @@ EnfTotal <- union_all (EnfTotal1,Enf3)
 View(EnfTotal)
 
 
+
+
+
+
+
+
+
+
 #poner un valor para cada comunidad y año
 estudioPM_25<- calidadFinal %>%
   group_by(N_CCAA,AÑO) %>%
