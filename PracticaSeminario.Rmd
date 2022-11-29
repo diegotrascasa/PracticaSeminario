@@ -823,6 +823,48 @@ En el codigo anterior lo que hemos hecho es importar la tabla con los dos valore
 
 
 
+#PREGUNTA 1
+
+```{r}
+#poner un valor para cada comunidad y año
+estudioPM_25<- calidadFinal %>%
+  group_by(N_CCAA,AÑO) %>%
+  summarise(PM_25 = mean(PM_25, na.rm = TRUE))
+
+#enfermedad a estudiar
+Enfermedades %>%
+  filter(Lugar == "Total") %>% 
+  filter(Sexo == "Total") %>%
+  filter(Causa_muerte=="063 Neumonía")-> Neumonia
+  
+Enfermedades %>%
+  filter(Lugar == "Total") %>% 
+  filter(Sexo == "Total") %>%
+  filter(Causa_muerte=="062 Influenza (gripe) (incluye gripe por virus de la influenza pandémica o zoonótica identificados)")-> Gripe
+
+
+#GRAFICOS ejercicio 1:
+
+ejercicio1 <- full_join (x=Gripe, y= estudioPM_25,by=c("N_CCAA","AÑO"))
+view(ejercicio1)
+## Pasamos la columna total de chr a num
+str(ejercicio1$Total)
+ejercicio1num <-transform(ejercicio1,Total = as.numeric(Total))  
+str(ejercicio1num$Total)
+##Grafico una vez modificado el total
+library(ggplot2)
+ggplot(data = ejercicio1num, aes(x = PM_25, y = Total)) +
+  geom_point(aes(colour = AÑO)) +
+  stat_smooth() +
+  theme_classic() +
+  labs(
+    x = "PM 2'5 (µg/m3)",
+    y = "Numero de muertes",
+    title = 'Muertes por neumonia vs PM 2,5',
+    colour = 'Años'
+  )
+
+```
 
 
 
