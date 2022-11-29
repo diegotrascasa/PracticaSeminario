@@ -38,7 +38,39 @@ print(X49971)
 Con el bloque de codigo anterior obtenemos una tabla con 7 columnas: 
 Nacional, Comunidades y ciudades autónomas, Causa de Muerte, Sexo, Lugar de Ocurrencia, Año y Total. 
 Obtemos un total de 214,200 entradas.
-Esta tabla no va a ser necesario modificarla de momento para su posterior comparación.
+Esta tabla va a ser necesario modificarla para su posterior comparación. Lo que vamos hacer es cambiar el nombre de algunas columnas para evitar confusiones y que el acceso sea más facil.
+
+```{r}
+#Camniar nombre de las columnas de la base de datos de las enfermedades para su mas facil acceso
+colnames(X49971)<- c('Nacional','CCAA','Causa_muerte','Sexo','Lugar','AÑO','Total')
+Enfermedades <- X49971
+print(Enfermedades)
+```
+
+Ahora vamos a cambiar el nombre de todas las comunidades a mayúscula para que coíncida con los datos de calidad de aire:
+```{r}
+Enfermedades <-
+  Enfermedades %>% 
+  mutate(N_CCAA = case_when(CCAA == "Andalucía"  ~ "ANDALUCÍA",
+                            CCAA == "Aragón"  ~ "ARAGÓN",
+                            CCAA == "Asturias, Principado de" ~ "ASTURIAS (PRINCIPADO DE)",
+                            CCAA == "Balears, Illes"  ~ "BALEARES (ISLAS)",
+                            CCAA == "Canarias"  ~ "CANARIAS",
+                            CCAA == "Cantabria"  ~ "CANTABRIA",
+                            CCAA == "Castilla y León" ~ "CASTILLA Y LEÓN",
+                            CCAA == "Castilla-La Mancha"  ~ "CASTILLA-LA MANCHA",
+                            CCAA == "Cataluña"  ~ "CATALUÑA",
+                            CCAA == "Comunitat Valenciana"  ~ "COMUNIDAD VALENCIANA",
+                            CCAA == "Extremadura"  ~ "EXTREMADURA",
+                            CCAA == "Galicia"  ~ "GALICIA",
+                            CCAA == "Madrid, Comunidad de"  ~ "MADRID",
+                            CCAA == "Murcia, Región de"  ~ "MURCIA (REGIÓN DE)",
+                            CCAA == "Navarra, Comunidad Foral de"  ~ "NAVARRA (COMUNIDAD FORAL)",
+                            CCAA == "País Vasco"  ~ "PAÍS VASCO",
+                            CCAA == "Rioja, La"  ~ "RIOJA (LA)",
+                            CCAA == "Ceuta"  ~ "CEUTA",
+                            CCAA == "Melilla"  ~ "MELILLA"))
+```
 
 
 ##Importación de los datos de Calidad de aire.
