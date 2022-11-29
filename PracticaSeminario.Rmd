@@ -14,12 +14,13 @@ output:
 always_allow_html: true
 ---
 
-Comenzamos importando toso
+Comenzamos importando todas las librerías con las que vamos a trabajar en el documento.
 ```{r, warning=FALSE, message=FALSE}
 library(readr)
 library(dplyr)
 library (tidyverse)
 library(tidyselect)
+library(ggplot2)
 ```
 
 
