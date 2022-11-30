@@ -843,3 +843,5 @@ ggplot(data = ejercicio1num, aes(x = PM_25, y = Total)) +
     title = 'Muertes por neumonia vs PM 2,5',
     colour = 'Años'
   )
+
+probando prob
