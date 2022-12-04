@@ -862,3 +862,15 @@ ejercicio2Fin <- union_all(ejercicio2b,ejercicio2.3)
 view(ejercicio2Fin)
 
 
+
+#Ponemos en numerico el numero de muertes ya que sino se altera esa vatiable del grafico
+ejercicio2Fin <-transform(ejercicio2Fin,Total = as.numeric(Total)) 
+
+# como la variable `drv` tiene solo 3 niveles, podemos dividir el gráfico de acorde a ellas
+ggplot(data = ejercicio2Fin, aes(x = PM_10, y = Total)) +
+  geom_point(aes(colour = factor(AÑO))) +
+  facet_wrap( ~ Causa_muerte, nrow = 4)
+
+
+
+
