@@ -792,35 +792,10 @@ Enfermedades %>%
   filter(Sexo == "Total") %>%
   filter(Causa_muerte=="053-061 IX.Enfermedades del sistema circulatorio")-> Enf3
 
-EnfTotal1 <- union_all(Enf1,Enf2)
-EnfTotal <- union_all (EnfTotal1,Enf3)
-
-View(EnfTotal)
-
-
-
-
-
-
-
-
-
-
 #poner un valor para cada comunidad y año
 estudioPM_25<- calidadFinal %>%
   group_by(N_CCAA,AÑO) %>%
   summarise(PM_25 = mean(PM_25, na.rm = TRUE))
-
-#enfermedad a estudiar
-Enfermedades %>%
-  filter(Lugar == "Total") %>% 
-  filter(Sexo == "Total") %>%
-  filter(Causa_muerte=="063 Neumonía")-> Neumonia
-  
-Enfermedades %>%
-  filter(Lugar == "Total") %>% 
-  filter(Sexo == "Total") %>%
-  filter(Causa_muerte=="062 Influenza (gripe) (incluye gripe por virus de la influenza pandémica o zoonótica identificados)")-> Gripe
 
 
 #GRAFICOS ejercicio 1:
