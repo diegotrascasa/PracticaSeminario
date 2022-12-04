@@ -846,6 +846,19 @@ ggplot(data = ejercicio1num, aes(x = PM_25, y = Total)) +
 
 
 #Ejercicio 2
+#poner un valor para cada comunidad y año
+estudioPM_10<- calidadFinal %>%
+  group_by(N_CCAA,AÑO) %>%
+  summarise(PM_10 = mean(PM_10, na.rm = TRUE))
+ejercicio2 <- full_join(x = Asma, y=estudioPM_10)
+ejercicio2.1 <- full_join(x = estudioPM_10, y= Neumonia)
+ejercicio2.2 <- full_join(x = estudioPM_10, y= Gripe)
+ejercicio2.3 <- full_join(x = estudioPM_10, y= EnfViasInf)
+ejercicio2a <- union_all(ejercicio2,ejercicio2.1)
+ejercicio2b <- union_all(ejercicio2a,ejercicio2.2)
+ejercicio2Fin <- union_all(ejercicio2b,ejercicio2.3)
 
+
+view(ejercicio2Fin)
 
 
