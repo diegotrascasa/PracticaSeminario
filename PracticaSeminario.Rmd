@@ -15,6 +15,10 @@ always_allow_html: true
 ---
 
 # EFECTO DE LA CALIDAD DE AIRE EN DISTINTAS ENFERMEDADES.
+Nuestro trabajo busca analizar si existe alguna relación de los parametros de aire, con la cantidad de muertes por distintas enfermedades. Para ello miraremos entre todas las comunidades autónomas y durante 5 años.
+Los datos los hemos obtenido a partir de las páginas web puestas a continuación:
+- Datos de causa de muerte por distintas enfermedades: https://datos.gob.es/es/catalogo/ea0010587-defunciones-por-causa-de-muerte-lista-reducida-comunidad-y-ciudad-autonoma-de-defuncion-lugar-de-ocurrencia-y-sexo-anos-2016-2020-ecm-identificador-api-t15-p417-a2020-covid-l0-02007-px
+- Datos de calidad de aire: https://www.miteco.gob.es/es/calidad-y-evaluacion-ambiental/temas/atmosfera-y-calidad-del-aire/calidad-del-aire/evaluacion-datos/datos/Datos_2001_2019.aspx
 
 Comenzamos importando todas las librerías con las que vamos a trabajar en el documento.
 ```{r, warning=FALSE, message=FALSE}
