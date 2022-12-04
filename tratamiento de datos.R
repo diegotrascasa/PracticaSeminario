@@ -844,6 +844,17 @@ ggplot(data = ejercicio1num, aes(x = PM_25, y = Total)) +
     colour = 'Años'
   )
 
+#PRueba:
+ggplot(data = ejercicio1num, aes(x = PM_25, y = Total)) +
+  geom_point(aes(colour = factor(AÑO))) +
+  facet_wrap( ~ N_CCAA, nrow = 4) +
+  labs(
+    x = "PM 2'5 (µg/m3)",
+    y = "Numero de muertes",
+    title = 'Muertes por neumonia vs PM 2,5',
+    colour = 'Años'
+  )
+
 
 #Ejercicio 2
 #poner un valor para cada comunidad y año
