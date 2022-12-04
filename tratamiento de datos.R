@@ -825,7 +825,7 @@ Enfermedades %>%
 
 #GRAFICOS ejercicio 1:
 
-ejercicio1 <- full_join (x=Gripe, y= estudioPM_25,by=c("N_CCAA","AÑO"))
+ejercicio1 <- full_join (x=Neumonia, y= estudioPM_25,by=c("N_CCAA","AÑO"))
 view(ejercicio1)
 ## Pasamos la columna total de chr a num
 str(ejercicio1$Total)
@@ -843,4 +843,9 @@ ggplot(data = ejercicio1num, aes(x = PM_25, y = Total)) +
     title = 'Muertes por neumonia vs PM 2,5',
     colour = 'Años'
   )
+
+
+#Ejercicio 2
+
+
 
