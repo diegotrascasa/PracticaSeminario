@@ -748,26 +748,36 @@ Enfermedades <-
                             CCAA == "Ceuta"  ~ "CEUTA",
                             CCAA == "Melilla"  ~ "MELILLA"))
 
+
+
+#MUY IMPORTANTE SINO NO SALE BEN LA GRAFICA:
+##Ponemos en numerico el numero de muertes ya que sino se ve alterada esa variable del grafico
+## Pasamos la columna total de chr a num
+str(Enfermedades$Total)
+EnfermedadesFinal <-transform(Enfermedades,Total = as.numeric(Total))  
+str(EnfermedadesFinal$Total)
+
+
 #Filtrado de la base de datos para tener datos mas manejables y los que necesitamos
 #Filtramos para tener datos de ambos sexos en conjunto
 #Filtrado por Total de datos
 #Filtrado de las enfermedades que vamos a  tratar
-Enfermedades %>%
+EnfermedadesFinal %>%
   filter(Lugar == "Total") %>% 
   filter(Sexo == "Total") %>%
   filter(Causa_muerte=="062-067 X.Enfermedades del sistema respiratorio")-> Enf1
 
-Enfermedades %>%
+EnfermedadesFinal %>%
   filter(Lugar == "Total") %>% 
   filter(Sexo == "Total") %>%
   filter(Causa_muerte=="062 Influenza (gripe) (incluye gripe por virus de la influenza pandémica o zoonótica identificados)")-> Gripe
 
-Enfermedades %>%
+EnfermedadesFinal %>%
   filter(Lugar == "Total") %>% 
   filter(Sexo == "Total") %>%
   filter(Causa_muerte=="063 Neumonía")-> Neumonia
 
-Enfermedades %>%
+EnfermedadesFinal %>%
   filter(Lugar == "Total") %>% 
   filter(Sexo == "Total") %>%
   filter(Causa_muerte=="064 Enfermedades crónicas de las vías respiratorias inferiores (excepto asma)")-> EnfViasInf
@@ -777,17 +787,17 @@ Enfermedades %>%
   filter(Sexo == "Total") %>%
   filter(Causa_muerte=="065 Asma")-> Asma
 
-Enfermedades %>%
+EnfermedadesFinal %>%
   filter(Lugar == "Total") %>% 
   filter(Sexo == "Total") %>%
   filter(Causa_muerte=="066 Insuficiencia respiratoria")-> Insuficiencia_Respiratoria
 
-Enfermedades %>%
+EnfermedadesFinal %>%
   filter(Lugar == "Total") %>%
   filter(Sexo == "Total") %>%
   filter(Causa_muerte=="009-041 II.Tumores")-> Enf2
 
-Enfermedades %>%
+EnfermedadesFinal %>%
   filter(Lugar == "Total") %>%
   filter(Sexo == "Total") %>%
   filter(Causa_muerte=="053-061 IX.Enfermedades del sistema circulatorio")-> Enf3
@@ -797,15 +807,11 @@ estudioPM_25<- calidadFinal %>%
   group_by(N_CCAA,AÑO) %>%
   summarise(PM_25 = mean(PM_25, na.rm = TRUE))
 
-
 #GRAFICOS ejercicio 1:
 
 ejercicio1 <- full_join (x=Neumonia, y= estudioPM_25,by=c("N_CCAA","AÑO"))
 view(ejercicio1)
-## Pasamos la columna total de chr a num
-str(ejercicio1$Total)
-ejercicio1num <-transform(ejercicio1,Total = as.numeric(Total))  
-str(ejercicio1num$Total)
+
 ##Grafico una vez modificado el total
 library(ggplot2)
 ggplot(data = ejercicio1num, aes(x = PM_25, y = Total)) +
@@ -847,10 +853,6 @@ ejercicio2Fin <- union_all(ejercicio2b,ejercicio2.3)
 
 view(ejercicio2Fin)
 
-
-
-#Ponemos en numerico el numero de muertes ya que sino se altera esa vatiable del grafico
-ejercicio2Fin <-transform(ejercicio2Fin,Total = as.numeric(Total)) 
 
 # como la variable `drv` tiene solo 3 niveles, podemos dividir el gráfico de acorde a ellas
 ggplot(data = ejercicio2Fin, aes(x = PM_10, y = Total)) +
