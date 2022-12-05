@@ -782,7 +782,7 @@ EnfermedadesFinal %>%
   filter(Sexo == "Total") %>%
   filter(Causa_muerte=="064 Enfermedades crónicas de las vías respiratorias inferiores (excepto asma)")-> EnfViasInf
 
-Enfermedades %>%
+EnfermedadesFinal %>%
   filter(Lugar == "Total") %>% 
   filter(Sexo == "Total") %>%
   filter(Causa_muerte=="065 Asma")-> Asma
