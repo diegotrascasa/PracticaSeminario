@@ -831,18 +831,6 @@ ggplot(data = ejercicio1, aes(x = PM_25, y = Total)) +
     colour = 'Años'
   )
 
-#PRueba:
-ggplot(data = ejercicio1, aes(x = PM_25, y = Total)) +
-  geom_point(aes(colour = factor(AÑO))) +
-  facet_wrap( ~ N_CCAA, nrow = 4) +
-  labs(
-    x = "PM 2'5 (µg/m3)",
-    y = "Numero de muertes",
-    title = 'Muertes por neumonia vs PM 2,5',
-    colour = 'Años'
-  )
-
-
 #Ejercicio 2
 #poner un valor para cada comunidad y año
 estudioPM_10<- calidadFinal %>%
@@ -860,10 +848,18 @@ ejercicio2Fin <- union_all(ejercicio2b,ejercicio2.3)
 view(ejercicio2Fin)
 
 
-# como la variable `drv` tiene solo 3 niveles, podemos dividir el gráfico de acorde a ellas
+#GRAFICO PREGUNTA 2
 ggplot(data = ejercicio2Fin, aes(x = PM_10, y = Total)) +
   geom_point(aes(colour = factor(AÑO))) +
-  facet_wrap( ~ Causa_muerte, nrow = 4)
+  stat_smooth() +
+  facet_wrap( ~ Causa_muerte, nrow = 2)
+
+#GRAFICO PREGUNTA 2 (SIN COLORES POR AÑO)
+ggplot(data = ejercicio2Fin, aes(x = PM_10, y = Total)) +
+  geom_point() +
+  stat_smooth() +
+  facet_wrap( ~ Causa_muerte, nrow = 2)
+
 
 #Pregunta 3
 #Arsenico x Diabetes
@@ -876,8 +872,8 @@ estudioAs<- calidadFinal %>%
 ejercicio3 <- full_join (x=Diabetes, y= estudioAs,by=c("N_CCAA","AÑO"))
 view(ejercicio3)
 
+
 ##Grafico una vez modificado el total
-library(ggplot2)
 ggplot(data = ejercicio3, aes(x = ARSENICO, y = Total)) +
   geom_point(aes(colour = AÑO)) +
   stat_smooth() +
@@ -889,4 +885,31 @@ ggplot(data = ejercicio3, aes(x = ARSENICO, y = Total)) +
     colour = 'Años'
   )
 
+#PREGUNTA 4 CANCER PARA BAP Y ARSENICO
 
+estudioAs<- calidadFinal %>%
+  group_by(N_CCAA,AÑO) %>%
+  summarise(ARSENICO = mean(ARSENICO, na.rm = TRUE))
+
+estudioBaP<- calidadFinal %>%
+  group_by(N_CCAA,AÑO) %>%
+  summarise(BENZOPIRENO = mean(BENZOPIRENO, na.rm = TRUE))
+
+
+ejercicio4.a <- full_join (x=Enf2, y= estudioAs,by=c("N_CCAA","AÑO"))
+ejercicio4.b <- full_join (x=Enf2, y= estudioBaP,by=c("N_CCAA","AÑO"))
+
+ejercicio4 <- union_all(ejercicio4.a,ejercicio4.b)
+view (ejercicio4)
+
+#GRAFICO PREGUNTA 4:
+ejercicio4 %>%
+  select(Causa_muerte,Total,N_CCAA,ARSENICO,BENZOPIRENO)%>%
+  pivot_longer(.,names_to = "Variable", values_to = "Valores", cols = c(ARSENICO:BENZOPIRENO)) -> ej4
+
+view(ej4)
+
+ggplot(data = ej4, aes(x = Valores, y = Total)) +
+  geom_point(aes(colour = factor(Variable))) +
+  stat_smooth() +
+  facet_wrap( ~ Variable, nrow = 2)
