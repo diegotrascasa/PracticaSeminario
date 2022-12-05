@@ -814,7 +814,7 @@ view(ejercicio1)
 
 ##Grafico una vez modificado el total
 library(ggplot2)
-ggplot(data = ejercicio1num, aes(x = PM_25, y = Total)) +
+ggplot(data = ejercicio1, aes(x = PM_25, y = Total)) +
   geom_point(aes(colour = AÑO)) +
   stat_smooth() +
   theme_classic() +
@@ -826,7 +826,7 @@ ggplot(data = ejercicio1num, aes(x = PM_25, y = Total)) +
   )
 
 #PRueba:
-ggplot(data = ejercicio1num, aes(x = PM_25, y = Total)) +
+ggplot(data = ejercicio1, aes(x = PM_25, y = Total)) +
   geom_point(aes(colour = factor(AÑO))) +
   facet_wrap( ~ N_CCAA, nrow = 4) +
   labs(
