@@ -14,6 +14,7 @@ always_allow_html: true
 ---
 
 # EFECTO DE LA CALIDAD DE AIRE EN DISTINTAS ENFERMEDADES.
+
 Nuestro trabajo busca analizar si existe alguna relación de los parametros de aire, con la cantidad de muertes por distintas enfermedades. Para ello miraremos entre todas las comunidades autónomas y durante 5 años.
 
 Los datos los hemos obtenido a partir de las páginas web puestas a continuación:
@@ -21,6 +22,8 @@ Los datos los hemos obtenido a partir de las páginas web puestas a continuació
 * Datos de causa de muerte por distintas enfermedades: https://datos.gob.es/es/catalogo/ea0010587-defunciones-por-causa-de-muerte-lista-reducida-comunidad-y-ciudad-autonoma-de-defuncion-lugar-de-ocurrencia-y-sexo-anos-2016-2020-ecm-identificador-api-t15-p417-a2020-covid-l0-02007-px
 
 * Datos de calidad de aire: https://www.miteco.gob.es/es/calidad-y-evaluacion-ambiental/temas/atmosfera-y-calidad-del-aire/calidad-del-aire/evaluacion-datos/datos/Datos_2001_2019.aspx
+
+## Importar librerias
 
 Comenzamos importando todas las librerías con las que vamos a trabajar en el documento.
 ```{r, warning=FALSE, message=FALSE}
@@ -32,7 +35,9 @@ library(ggplot2)
 ```
 
 
-## Importación de los datos de Enfermedades
+## Datos de Enfermedades
+
+### Importación de los datos
 
 Lo primero que realizamos es la importación de los datos de las enfermedades, lo hacemos a través de un archivo csv.
 
@@ -47,6 +52,8 @@ Nacional, Comunidades y ciudades autónomas, Causa de Muerte, Sexo, Lugar de Ocu
 Obtemos un total de 214,200 entradas.
 Esta tabla va a ser necesario modificarla para su posterior comparación. Lo que vamos hacer es cambiar el nombre de algunas columnas para evitar confusiones y que el acceso sea más facil.
 
+### Cambios en el nombre de columna
+
 ```{r}
 #Cambiar nombre de las columnas de la base de datos de las enfermedades para su mas facil acceso
 colnames(X49971)<- c('Nacional','CCAA','Causa_muerte','Sexo','Lugar','AÑO','Total')
@@ -54,7 +61,7 @@ Enfermedades <- X49971
 print(Enfermedades)
 ```
 
-Ahora vamos a cambiar el nombre de todas las comunidades a mayúscula para que coíncida con los datos de calidad de aire:
+Ahora vamos a cambiar el nombre de todas las comunidades a mayúscula para que coíncida con los datos de calidad de aire, en realidad lo que hacemos es crear una nueva columna con los nombres en el formato correcto.
 ```{r}
 Enfermedades <-
   Enfermedades %>% 
@@ -77,14 +84,18 @@ Enfermedades <-
                             CCAA == "Rioja, La"  ~ "RIOJA (LA)",
                             CCAA == "Ceuta"  ~ "CEUTA",
                             CCAA == "Melilla"  ~ "MELILLA"))
+print(Enfermedades)
 ```
 
 
-## Importación de los datos de Calidad de aire.
+## Datos de Calidad de aire.
 
-En este caso vamos a importar los datos de Calidad del aire de forma separada, se encuentran en varias tablas dependiendo del año y las magnitudes de calidad.
+En este caso vamos a importar los datos de Calidad del aire de forma separada, se encuentran en varias tablas dependiendo del año y las magnitudes de calidad. 
 
-Año 2020:
+### Año 2020
+
+Comenzamos con el año 2020:
+
 ```{r, message=FALSE, warning=FALSE}
 #2020 ---------------------------------------------------------------------------------------------------
 As_DD_2020 <- read_delim("input/data/calidad del aire/2020/As_DD_2020.csv", 
@@ -239,11 +250,10 @@ print (join2020.6)
 A partir del código anterior obtenemos una tabla con 9 columnas que se corresponden a:
 PROVINCIA, AÑO, ARSENICO, BENZOPIRENO, CADMIO, NIQUEL, PLOMO, PM_10, PM_25.
 
-
+### Años 2019, 2018, 2017 y 2016
 Con los otros 4 años realizamos lo mismo. Lo único que cambia es que a la columna "ANNO" de la tabla original le cambiamos el nombre a "AÑO" para evitar errores.
 ```{r, message=FALSE, warning=FALSE}
-#2019 ---------------------------------------------------------------------------------------------
-
+#2019 -------------------------------------------------------------------------------------------
 As_DD_2019 <- read_delim("input/data/calidad del aire/2019/As_DD_2019.csv", 
                          delim = ";", escape_double = FALSE, trim_ws = TRUE)
 
@@ -791,10 +801,11 @@ join2016.6 <- full_join (x=join2016.5,y=tabPM25_2016, by=c("PROVINCIA","AÑO"))
 
 ```
 
-Asi lo que obtenemos son 5 tablas. Cada una de ellas se corresponde a un año de calidad de aire con todas sus magnitudes. Ahora lo que tenemos que hacer es juntarlas. Para ello, coo todas ellas tienen los mismos nombres en las columnas utilzaremos union_all.
+Con todo el bloque de código anterior obtenemos 5 tablas. Cada una de ellas se corresponde a un año de calidad de aire con todas sus magnitudes. Ahora lo que tenemos que hacer es juntarlas. 
 
-### Unión de todos los años en una única tabla
+### Unión de todos los años en una única tabla.
 
+Para ello, coo todas ellas tienen los mismos nombres en las columnas utilzaremos union_all.
 ```{r}
 #union de todas las tablas de años creadas anteriormente
 
@@ -813,10 +824,13 @@ A partir del código anterior obtenemos una única tabla con los datos de calida
 
 ### Cambio de la provincia a su nombre y comunidad.
 
-Ahora en la columna provincia queremos cambiar el número que se corresponde a cada provincia por el nombre de esta. Para ello vamos a emplear una tabla con los dos datos, tanto el número como la provincia. 
+En la columna provincia queremos cambiar el número que se corresponde a cada provincia, por el nombre de esta. 
+
+Para ello vamos a emplear una tabla con los dos datos, tanto el número como la provincia. Importamos la tabla con los números de provicia, su nombre y comunidad.
+
+Hacemos un full_join a partir de la columna PROVINCIA.
 ```{r}
 #cambiar el número de la provincia por el nombre de la provincia y la comunidad.
-
 library(readxl)
 provincia_con_numero <- read_excel("input/data/calidad del aire/provincia con numero.xlsx", 
                                    sheet = "Estaciones evaluación 2019")
@@ -826,52 +840,56 @@ calidadFinal = full_join (x=Calidad4, y=provincia_con_numero, by=c("PROVINCIA"))
 print(calidadFinal)
 ```
 
-En el codigo anterior lo que hemos hecho es importar la tabla con los dos valores y al hacer un full_join con el nombre de provincia conseguimos juntar las dos tablas. Conseguimos una tabla calidadFinal.
+Conseguimos una tabla calidadFinal. La cual es la tabla de Calidad4 anterior a la que se le han añadido 2 columnas correspondientes a los nombres de las provincias y a los de comunidades autónomas.
 
+## PREGUNTA 1: Efecto de la cantidad de PM 2,5 sobre las muertes por Neumonía.
 
-## PREGUNTA 1
+Lo primero que vamos a hacer es cambiar el formato de nuestros datos para poder trabajar con ellos.
+```{r, message=FALSE, warning=FALSE}
+# Pasamos la columna total de chr a num
+str(Enfermedades$Total)
+EnfermedadesFinal <-transform(Enfermedades,Total = as.numeric(Total))  
+str(EnfermedadesFinal$Total)
 
-```{r}
-#poner un valor para cada comunidad y año
+# Seleccionamos la enfermedad a estudiar
+EnfermedadesFinal %>%
+  filter(Lugar == "Total") %>% 
+  filter(Sexo == "Total") %>%
+  filter(Causa_muerte=="063 Neumonía")-> Neumonia
+
+print(Neumonia)
+```
+Con el bloque de código anterior. Cambiamos la columna Total de mi tabla Enfermedades para que sea numérica en vez de ser str. Después hemos seleccionado del total de la tabla enfermedades la Neumonía que es la que vamos a estudiar.
+
+Ahora vamos a hacer una media de nuestros datos de PM 2,5. Buscamos obtener un valor para cada comunidad y año.
+
+```{r, message=FALSE, warning=FALSE}
+# poner un valor para cada comunidad y año
 estudioPM_25<- calidadFinal %>%
   group_by(N_CCAA,AÑO) %>%
   summarise(PM_25 = mean(PM_25, na.rm = TRUE))
 
-#enfermedad a estudiar
-Enfermedades %>%
-  filter(Lugar == "Total") %>% 
-  filter(Sexo == "Total") %>%
-  filter(Causa_muerte=="063 Neumonía")-> Neumonia
-  
-Enfermedades %>%
-  filter(Lugar == "Total") %>% 
-  filter(Sexo == "Total") %>%
-  filter(Causa_muerte=="062 Influenza (gripe) (incluye gripe por virus de la influenza pandémica o zoonótica identificados)")-> Gripe
+print(estudioPM_25)
+```
 
+### Grafico de relación
 
-#GRAFICOS ejercicio 1:
+```{r, message=FALSE, warning=FALSE}
+ejercicio1 <- full_join (x=Neumonia, y= estudioPM_25,by=c("N_CCAA","AÑO"))
+print(ejercicio1)
 
-ejercicio1 <- full_join (x=Gripe, y= estudioPM_25,by=c("N_CCAA","AÑO"))
-view(ejercicio1)
-## Pasamos la columna total de chr a num
-str(ejercicio1$Total)
-ejercicio1num <-transform(ejercicio1,Total = as.numeric(Total))  
-str(ejercicio1num$Total)
-##Grafico una vez modificado el total
-library(ggplot2)
-ggplot(data = ejercicio1num, aes(x = PM_25, y = Total)) +
+##Gráfico
+ggplot(data = ejercicio1, aes(x = PM_25, y = Total)) +
   geom_point(aes(colour = AÑO)) +
   stat_smooth() +
   theme_classic() +
   labs(
     x = "PM 2'5 (µg/m3)",
-    y = "Numero de muertes",
-    title = 'Muertes por neumonia vs PM 2,5',
+    y = "Número de muertes",
+    title = 'Muertes por Neumonía vs PM 2,5',
     colour = 'Años'
   )
-
 ```
-
 
 
 
