@@ -802,6 +802,12 @@ EnfermedadesFinal %>%
   filter(Sexo == "Total") %>%
   filter(Causa_muerte=="053-061 IX.Enfermedades del sistema circulatorio")-> Enf3
 
+EnfermedadesFinal %>%
+  filter(Lugar == "Total") %>%
+  filter(Sexo == "Total") %>%
+  filter(Causa_muerte=="044 Diabetes mellitus")-> Diabetes
+
+
 #poner un valor para cada comunidad y año
 estudioPM_25<- calidadFinal %>%
   group_by(N_CCAA,AÑO) %>%
@@ -859,6 +865,28 @@ ggplot(data = ejercicio2Fin, aes(x = PM_10, y = Total)) +
   geom_point(aes(colour = factor(AÑO))) +
   facet_wrap( ~ Causa_muerte, nrow = 4)
 
+#Pregunta 3
+#Arsenico x Diabetes
+#poner un valor para cada comunidad y año
+estudioAs<- calidadFinal %>%
+  group_by(N_CCAA,AÑO) %>%
+  summarise(ARSENICO = mean(ARSENICO, na.rm = TRUE))
 
+
+ejercicio3 <- full_join (x=Diabetes, y= estudioAs,by=c("N_CCAA","AÑO"))
+view(ejercicio3)
+
+##Grafico una vez modificado el total
+library(ggplot2)
+ggplot(data = ejercicio3, aes(x = ARSENICO, y = Total)) +
+  geom_point(aes(colour = AÑO)) +
+  stat_smooth() +
+  theme_classic() +
+  labs(
+    x = "ARSENICO (µg/m3)",
+    y = "Numero de muertes",
+    title = 'Muertes por diabetes vs ARSENICO',
+    colour = 'Años'
+  )
 
 
