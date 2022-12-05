@@ -80,7 +80,7 @@ Enfermedades <-
 ```
 
 
-##Importación de los datos de Calidad de aire.
+## Importación de los datos de Calidad de aire.
 
 En este caso vamos a importar los datos de Calidad del aire de forma separada, se encuentran en varias tablas dependiendo del año y las magnitudes de calidad.
 
@@ -181,7 +181,6 @@ tabPb_2020$PLOMO <- apply(tabPb_2020[ ,c(3:33)], 1, mean, na.rm = TRUE)
 
 tabPb_2020 <- select(.data = tabPb_2020, PROVINCIA, AÑO, PLOMO)
 
-
 ##PM10 2020
 
 tablaPM10_2020 <- select(.data = PM10_DD_2020, PROVINCIA, ANNO, D01:D31)
@@ -219,6 +218,7 @@ Después, creamos otra tabla haciendo un group by y un summarise para hacer la m
 Por último, hacemos la media de todos los dias de un mes por cada provincia y año. Obtenemos una colunmna con los datos de nuestra magnitud por años y por provincia.
 
 
+### Union de los datos del año 2020.
 
 Para unir las 7 tablas en una única realizamos un full_join de dos en dos. De la siguiente manera:
 ```{r}
@@ -267,7 +267,6 @@ PM10_DD_2019 <- read_delim("input/data/calidad del aire/2019/PM10_DD_2019.csv",
 
 PM25_DD_2019 <- read_delim("input/data/calidad del aire/2019/PM25_DD_2019.csv", 
                            delim = ";", escape_double = FALSE, trim_ws = TRUE)
-
 
 ##Arsenico 2019
 
@@ -794,8 +793,10 @@ join2016.6 <- full_join (x=join2016.5,y=tabPM25_2016, by=c("PROVINCIA","AÑO"))
 
 Asi lo que obtenemos son 5 tablas. Cada una de ellas se corresponde a un año de calidad de aire con todas sus magnitudes. Ahora lo que tenemos que hacer es juntarlas. Para ello, coo todas ellas tienen los mismos nombres en las columnas utilzaremos union_all.
 
+### Unión de todos los años en una única tabla
+
 ```{r}
-#union de todas las tablas creadas anteriormente
+#union de todas las tablas de años creadas anteriormente
 
 Calidad1 <- union_all(join2020.6,join2019.6)
 
@@ -808,9 +809,9 @@ Calidad4 <- union_all(Calidad3,join2016.6)
 print(Calidad4)
 ```
 
+A partir del código anterior obtenemos una única tabla con los datos de calidad de aire de los 5 años. 
 
-A partir del codigo anterior obtenemos una única tabla con los datos de calidad de aire de los 5 años. De la siguiente manera:
-
+### Cambio de la provincia a su nombre y comunidad.
 
 Ahora en la columna provincia queremos cambiar el número que se corresponde a cada provincia por el nombre de esta. Para ello vamos a emplear una tabla con los dos datos, tanto el número como la provincia. 
 ```{r}
@@ -828,9 +829,7 @@ print(calidadFinal)
 En el codigo anterior lo que hemos hecho es importar la tabla con los dos valores y al hacer un full_join con el nombre de provincia conseguimos juntar las dos tablas. Conseguimos una tabla calidadFinal.
 
 
-
-
-#PREGUNTA 1
+## PREGUNTA 1
 
 ```{r}
 #poner un valor para cada comunidad y año
