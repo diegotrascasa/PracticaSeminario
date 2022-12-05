@@ -207,7 +207,7 @@ tabPM25_2020$PM_25 <- apply(tabPM25_2020[ ,c(3:33)], 1, mean, na.rm = TRUE)
 
 tabPM25_2020 <- select(.data = tabPM25_2020, PROVINCIA, AÑO, PM_25)
 
-print(tabAs_2020)
+print(tabAS_2020)
 ```
 
 Por cada magnitud de calidad de aire obtenemos una tabla con tres colummnas: provincia, año y dato. De la siguiente manera.En caso del año 2020 hemos tenido que realizar una modificación que no hemos hecho en las demas para cambiar el año. 
