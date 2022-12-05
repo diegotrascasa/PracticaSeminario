@@ -9,7 +9,6 @@ date: "5º Semestre / Curso 2022-2023"
 output:
   html_document:
     df_print: paged
-  pdf_document: 
     toc: yes
 always_allow_html: true
 ---
@@ -24,7 +23,7 @@ Comenzamos importando todas las librerías con las que vamos a trabajar en el do
 ```{r, warning=FALSE, message=FALSE}
 library(readr)
 library(dplyr)
-library (tidyverse)
+library(tidyverse)
 library(tidyselect)
 library(ggplot2)
 ```
@@ -33,7 +32,7 @@ library(ggplot2)
 ##Importación de los datos de Enfermedades.
 Lo primero que realizamos es la importación de los datos de las enfermedades, lo hacemos a través de un archivo csv.
 
-```{r Datos de Enfermedades}
+```{r Datos de Enfermedades, message=FALSE, warning=FALSE}
 X49971 <- read_delim("input/data/Enfermedades/49971.csv", 
     delim = "\t", escape_double = FALSE, 
     trim_ws = TRUE)
@@ -45,7 +44,7 @@ Obtemos un total de 214,200 entradas.
 Esta tabla va a ser necesario modificarla para su posterior comparación. Lo que vamos hacer es cambiar el nombre de algunas columnas para evitar confusiones y que el acceso sea más facil.
 
 ```{r}
-#Camniar nombre de las columnas de la base de datos de las enfermedades para su mas facil acceso
+#Cambiar nombre de las columnas de la base de datos de las enfermedades para su mas facil acceso
 colnames(X49971)<- c('Nacional','CCAA','Causa_muerte','Sexo','Lugar','AÑO','Total')
 Enfermedades <- X49971
 print(Enfermedades)
@@ -82,7 +81,7 @@ Enfermedades <-
 En este caso vamos a importar los datos de Calidad del aire de forma separada, se encuentran en varias tablas dependiendo del año y las magnitudes de calidad.
 
 Año 2020:
-```{r}
+```{r, message=FALSE, warning=FALSE}
 #2020 ---------------------------------------------------------------------------------------------------
 As_DD_2020 <- read_delim("input/data/calidad del aire/2020/As_DD_2020.csv", 
                          delim = ";", escape_double = FALSE, trim_ws = TRUE)
@@ -109,7 +108,7 @@ print(As_DD_2020)
 
 Ahora tenemos que modificar las distintas tablas importadas anteriormente para conseguir tratar los datos de calidad de aire en una única tabla.
 
-```{r}
+```{r, message=FALSE, warning=FALSE}
 ##Arsenico 2020
 tablaAS_2020 <- select(.data = As_DD_2020, PROVINCIA, ANNO, D01:D31 )
 
@@ -238,7 +237,7 @@ PROVINCIA, AÑO, ARSENICO, BENZOPIRENO, CADMIO, NIQUEL, PLOMO, PM_10, PM_25.
 
 
 Con los otros 4 años realizamos lo mismo. Lo único que cambia es que a la columna "ANNO" de la tabla original le cambiamos el nombre a "AÑO" para evitar errores.
-```{r}
+```{r, message=FALSE, warning=FALSE}
 #2019 ---------------------------------------------------------------------------------------------
 
 As_DD_2019 <- read_delim("input/data/calidad del aire/2019/As_DD_2019.csv", 
