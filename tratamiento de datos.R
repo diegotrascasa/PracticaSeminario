@@ -897,9 +897,7 @@ estudioBaP<- calidadFinal %>%
 
 
 ejercicio4.a <- full_join (x=Enf2, y= estudioAs,by=c("N_CCAA","AÑO"))
-ejercicio4.b <- full_join (x=Enf2, y= estudioBaP,by=c("N_CCAA","AÑO"))
-
-ejercicio4 <- union_all(ejercicio4.a,ejercicio4.b)
+ejercicio4.b <- full_join (x=ejercicio4.a, y= estudioBaP,by=c("N_CCAA","AÑO"))
 view (ejercicio4)
 
 #GRAFICO PREGUNTA 4:
@@ -912,4 +910,4 @@ view(ej4)
 ggplot(data = ej4, aes(x = Valores, y = Total)) +
   geom_point(aes(colour = factor(Variable))) +
   stat_smooth() +
-  facet_wrap( ~ Variable, nrow = 2)
+  facet_wrap( ~ Variable, nrow = 2,scales = "free_y")
