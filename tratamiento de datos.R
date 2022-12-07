@@ -717,17 +717,16 @@ view(calidadFinal)
 
 #Importar datos de las enfermedades
 library(readr)
-X49971 <- read_delim("input/data/Enfermedades/49971.csv", 
-                     delim = "\t", escape_double = FALSE, 
-                     trim_ws = TRUE)
+X49971 <- read_delim("input/data/Enfermedades/49971-2.csv", 
+                       delim = ";", escape_double = FALSE, trim_ws = TRUE)
+View(X49971_2)
 
 
 #Camniar nombre de las columnas de la base de datos de las enfermedades para su mas facil acceso
 colnames(X49971)<- c('Nacional','CCAA','Causa_muerte','Sexo','Lugar','AÑO','Total')
 Enfermedades <- X49971
 
-Enfermedades <-
-  Enfermedades %>% 
+Enfermedades <- Enfermedades %>% 
   mutate(N_CCAA = case_when(CCAA == "Andalucía"  ~ "ANDALUCÍA",
                             CCAA == "Aragón"  ~ "ARAGÓN",
                             CCAA == "Asturias, Principado de" ~ "ASTURIAS (PRINCIPADO DE)",
