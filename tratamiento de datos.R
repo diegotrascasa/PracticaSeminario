@@ -754,13 +754,11 @@ Enfermedades <- Enfermedades %>%
                             CCAA == "Melilla"  ~ "MELILLA"))
 
 
-
+EnfermedadesFinal<-EnfermedadesFinal[!is.na(EnfermedadesFinal$N_CCAA),]
 #MUY IMPORTANTE SINO NO SALE BEN LA GRAFICA:
 ##Ponemos en numerico el numero de muertes ya que sino se ve alterada esa variable del grafico
 ## Pasamos la columna total de chr a num
-str(Enfermedades$Total)
-EnfermedadesFinal <-transform(Enfermedades,Total = as.numeric(Total))  
-str(EnfermedadesFinal$Total)
+
 
 
 #Filtrado de la base de datos para tener datos mas manejables y los que necesitamos
