@@ -819,7 +819,6 @@ estudioPM_25<- calidadFinal %>%
 #GRAFICOS ejercicio 1:
 
 ejercicio1 <- full_join (x=Neumonia, y= estudioPM_25,by=c("N_CCAA","AÑO"))
-view(ejercicio1)
 
 ##Grafico una vez modificado el total
 library(ggplot2)
@@ -848,7 +847,6 @@ ejercicio2b <- union_all(ejercicio2a,ejercicio2.2)
 ejercicio2Fin <- union_all(ejercicio2b,ejercicio2.3)
 
 
-view(ejercicio2Fin)
 
 
 #GRAFICO PREGUNTA 2
@@ -901,17 +899,14 @@ estudioBaP<- calidadFinal %>%
 
 ejercicio4.a <- full_join (x=Enf2, y= estudioAs,by=c("N_CCAA","AÑO"))
 ejercicio4 <- full_join (x=ejercicio4.a, y= estudioBaP,by=c("N_CCAA","AÑO"))
-view (ejercicio4)
 
 #GRAFICO PREGUNTA 4:
 ejercicio4 %>%
   select(Causa_muerte,Total,N_CCAA,ARSENICO,BENZOPIRENO)%>%
   pivot_longer(.,names_to = "Variable", values_to = "Valores", cols = c(ARSENICO:BENZOPIRENO)) -> ej4
 
-view(ej4)
 
-ggplot(data = ej4, aes(x = Valores, y = (Total)*1000)) +
+ggplot(data = ej4, aes(x = Valores, y = Total)) +
   geom_point(aes(colour = factor(Variable)),na.rm = TRUE) +
   stat_smooth(na.rm = TRUE) +
-  facet_wrap( ~ Variable, nrow = 2,scales = "free_y")+
-  lims(y=c(0,2000))
+  facet_wrap( ~ Variable, nrow = 2)
