@@ -725,13 +725,18 @@ X49971.2 <- read_delim("input/data/Enfermedades/enf3.txt",
                                     Total2 = col_double()), trim_ws = TRUE)
 
 
+#Debido a los problemas que hemos tenido con los simbolos raros hemos cogido una parte de
+#cada tabla modificada para tener una con lo necesario que queremos trabajar
 TabEnf1 <- select(.data= X49971.1, Nacional:AÑO)
 TabEnf2 <- select(.data= X49971.2, Total)
+
+#Union de ambas tablas
 
 Enfermedades <- cbind(TabEnf1,TabEnf2)
 
 
-
+#Cambio de nombre en la variable de CCAA para que se igual al nombre de la tabla de la calidad del
+#aire y asi poder hacer el join por año y ccaa.
 Enfermedades <- Enfermedades %>% 
   mutate(N_CCAA = case_when(CCAA == "Andalucía"  ~ "ANDALUCÍA",
                             CCAA == "Aragón"  ~ "ARAGÓN",
@@ -754,16 +759,17 @@ Enfermedades <- Enfermedades %>%
                             CCAA == "Melilla"  ~ "MELILLA"))
 
 
-EnfermedadesFinal<-EnfermedadesFinal[!is.na(EnfermedadesFinal$N_CCAA),]
 #MUY IMPORTANTE SINO NO SALE BEN LA GRAFICA:
-##Ponemos en numerico el numero de muertes ya que sino se ve alterada esa variable del grafico
-## Pasamos la columna total de chr a num
+##Tenemos que eliminar las final del total de España ya que no tenemos datos del aire para ellos
+##Y al tener numeros de muertes muy altos (porque es la suma de todo)aunque no se representa en los
+## Graficos queda un eje de las Y muy grande que lo deja con muy poco zoom el grafico
+EnfermedadesFinal<-EnfermedadesFinal[!is.na(EnfermedadesFinal$N_CCAA),]
 
 
 
 #Filtrado de la base de datos para tener datos mas manejables y los que necesitamos
 #Filtramos para tener datos de ambos sexos en conjunto
-#Filtrado por Total de datos
+#Filtrado por Total de lugares de donde se han obtenido estos datos
 #Filtrado de las enfermedades que vamos a  tratar
 EnfermedadesFinal %>%
   filter(Lugar == "Total") %>% 
