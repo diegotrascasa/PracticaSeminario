@@ -719,14 +719,19 @@ view(calidadFinal)
 library(readr)
 X49971 <- read_delim("input/data/Enfermedades/49971-2.csv", 
                        delim = ";", escape_double = FALSE, trim_ws = TRUE)
-View(X49971_2)
+View(X49971)
+X49971 <- read_delim("input/data/Enfermedades/enf3.txt", 
+                   delim = "\t", escape_double = FALSE, 
+                   col_types = cols(Total = col_double(), 
+                                    Total2 = col_double()), trim_ws = TRUE)
+str(X49971)
 
-
+plot(X49971$Total,X49971$Total2)
 #Camniar nombre de las columnas de la base de datos de las enfermedades para su mas facil acceso
 colnames(X49971)<- c('Nacional','CCAA','Causa_muerte','Sexo','Lugar','AÑO','Total')
 Enfermedades <- X49971
-
-Enfermedades <- Enfermedades %>% 
+view(Enfermedades)
+Enfermedades1 <- Enfermedades %>% 
   mutate(N_CCAA = case_when(CCAA == "Andalucía"  ~ "ANDALUCÍA",
                             CCAA == "Aragón"  ~ "ARAGÓN",
                             CCAA == "Asturias, Principado de" ~ "ASTURIAS (PRINCIPADO DE)",
@@ -896,7 +901,7 @@ estudioBaP<- calidadFinal %>%
 
 
 ejercicio4.a <- full_join (x=Enf2, y= estudioAs,by=c("N_CCAA","AÑO"))
-ejercicio4.b <- full_join (x=ejercicio4.a, y= estudioBaP,by=c("N_CCAA","AÑO"))
+ejercicio4 <- full_join (x=ejercicio4.a, y= estudioBaP,by=c("N_CCAA","AÑO"))
 view (ejercicio4)
 
 #GRAFICO PREGUNTA 4:
@@ -906,7 +911,8 @@ ejercicio4 %>%
 
 view(ej4)
 
-ggplot(data = ej4, aes(x = Valores, y = Total)) +
-  geom_point(aes(colour = factor(Variable))) +
-  stat_smooth() +
-  facet_wrap( ~ Variable, nrow = 2,scales = "free_y")
+ggplot(data = ej4, aes(x = Valores, y = (Total)*1000)) +
+  geom_point(aes(colour = factor(Variable)),na.rm = TRUE) +
+  stat_smooth(na.rm = TRUE) +
+  facet_wrap( ~ Variable, nrow = 2,scales = "free_y")+
+  lims(y=c(0,2000))
