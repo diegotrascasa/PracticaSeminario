@@ -730,7 +730,8 @@ plot(X49971$Total,X49971$Total2)
 #Camniar nombre de las columnas de la base de datos de las enfermedades para su mas facil acceso
 colnames(X49971)<- c('Nacional','CCAA','Causa_muerte','Sexo','Lugar','AÑO','Total')
 Enfermedades <- X49971
-view(Enfermedades)
+
+
 Enfermedades1 <- Enfermedades %>% 
   mutate(N_CCAA = case_when(CCAA == "Andalucía"  ~ "ANDALUCÍA",
                             CCAA == "Aragón"  ~ "ARAGÓN",
