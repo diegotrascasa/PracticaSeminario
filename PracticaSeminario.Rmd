@@ -802,6 +802,8 @@ X49971.2 <- read_delim("input/data/Enfermedades/enf3.txt",
                    col_types = cols(Total = col_double(), 
                                     Total2 = col_double()), trim_ws = TRUE)
 ```
+
+### Unión de las partes que nos interesan.
 El problema que nos ha surgido mientras realizabamos el trabajo es que la tabla X49971.1 considera los datos en formato character. Al pasar estos datos a numérico R considera el "." como una coma y no como separador de miles, esto provoca que haya datos incorrectos en nuestro set.
 
 Por ello, hemos decidido cambiar el formato de los datos directamente en un fichero excel sin puntos ni comas, se corresponde al fichero X49971.2. Con ello surge otro problema y es que los caracteres extraños como letras con tilde o ñ, aparecen con un símbolo como este �. 
@@ -815,26 +817,26 @@ TabEnf2 <- select(.data= X49971.2, Total)
 #Union de ambas tablas
 Enfermedades <- cbind(TabEnf1,TabEnf2)
 ```
-
-
-Con el bloque de codigo anterior obtenemos una tabla con 7 columnas: 
+Obtenemos una tabla con 7 columnas: 
 Nacional, Comunidades y ciudades autónomas, Causa de Muerte, Sexo, Lugar de Ocurrencia, Año y Total. 
 Obtemos un total de 214,200 entradas.
+
 Esta tabla va a ser necesario modificarla para su posterior comparación. Lo que vamos hacer es cambiar el nombre de algunas columnas para evitar confusiones y que el acceso sea más facil.
 
-### Cambios en el nombre de columna
+### Cambios en los nombres de columna.
 
 ```{r}
-#Cambiar nombre de las columnas de la base de datos de las enfermedades para su mas facil acceso
-colnames(X49971)<- c('Nacional','CCAA','Causa_muerte','Sexo','Lugar','AÑO','Total')
-Enfermedades <- X49971
+#Cambiar nombre de las columnas
+colnames(Enfermedades) <- c('NACIONAL','CCAA','Causa_muerte','Sexo','Lugar','AÑO','Total')
 print(Enfermedades)
 ```
 
-Ahora vamos a cambiar el nombre de todas las comunidades a mayúscula para que coíncida con los datos de calidad de aire, en realidad lo que hacemos es crear una nueva columna con los nombres en el formato correcto.
+### Nombres correctos para comunidades.
+
+Ahora vamos a cambiar el nombre de todas las comunidades a mayúscula para que coincida con los datos de calidad de aire, en realidad lo que hacemos es crear una nueva columna con los nombres en el formato correcto.
+
 ```{r}
-Enfermedades <-
-  Enfermedades %>% 
+Enfermedades <- Enfermedades %>% 
   mutate(N_CCAA = case_when(CCAA == "Andalucía"  ~ "ANDALUCÍA",
                             CCAA == "Aragón"  ~ "ARAGÓN",
                             CCAA == "Asturias, Principado de" ~ "ASTURIAS (PRINCIPADO DE)",
@@ -854,7 +856,6 @@ Enfermedades <-
                             CCAA == "Rioja, La"  ~ "RIOJA (LA)",
                             CCAA == "Ceuta"  ~ "CEUTA",
                             CCAA == "Melilla"  ~ "MELILLA"))
-print(Enfermedades)
 ```
 
 
