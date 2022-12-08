@@ -733,12 +733,9 @@ TabEnf2 <- select(.data= X49971.2, Total)
 #Union de ambas tablas
 Enfermedades <- cbind(TabEnf1,TabEnf2)
 
-<<<<<<< HEAD
-colnames(Enfermedades) <- c('Nacional','CCAA','Causa_muerte','Sexo','Lugar','AÑO','Total')
-=======
 #Cambiar nombre de las columnas
 colnames(Enfermedades) <- c('NACIONAL','CCAA','Causa_muerte','Sexo','Lugar','AÑO','Total')
->>>>>>> 1722df0002d0e43996073f5c8f3ffbebb130dd09
+
 
 #Cambio de nombre en la variable de CCAA para que se igual al nombre de la tabla de la calidad del
 #aire y asi poder hacer el join por año y ccaa.
@@ -768,8 +765,8 @@ EnfermedadesFinal <- Enfermedades %>%
 ##Tenemos que eliminar las final del total de España ya que no tenemos datos del aire para ellos
 ##Y al tener numeros de muertes muy altos (porque es la suma de todo)aunque no se representa en los
 ## Graficos queda un eje de las Y muy grande que lo deja con muy poco zoom el grafico
-EnfermedadesFinal<-Enfermedades[!is.na(Enfermedades$N_CCAA),]
 
+EnfermedadesFinal<-Enfermedades[!is.na(Enfermedades$N_CCAA),]
 
 
 #Filtrado de la base de datos para tener datos mas manejables y los que necesitamos
