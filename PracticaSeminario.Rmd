@@ -876,6 +876,7 @@ Para realizar esta pregunta vamos a describir los conceptos:
 * PM2,5: Material particulado respirable presente en la atmósfera de nuestras ciudades en forma sólida o líquida (polvo, cenizas, hollín, partículas metálicas, cemento y polen, entre otras). Las PM2,5 de diámetro aerodinámico inferior o igual a los 2,5 micrómetros. Su origen está principalmente en fuentes de carácter antropogénico como las emisiones de los vehículos diesel.
 
 Lo que vamos a buscar es si existe alguna relación entre las dos. Para ello, lo primero que vamos a hacer es seleccionar de nuestra tabla de EnfermedadesFinal la Neumonía.
+
 ```{r, message=FALSE, warning=FALSE}
 # Seleccionamos la enfermedad a estudiar
 EnfermedadesFinal %>%
@@ -916,9 +917,21 @@ ggplot(data = ejercicio1, aes(x = PM_25, y = Total)) +
   )
 ```
 
+## PREGUNTA 2: Efecto de la cantidad de PM 10 sobre 4 enfermedades.
 
+Para realizar esta pregunta vamos a describir los conceptos:
 
+* Las PM10 son partículas sólidas o líquidas de polvo, cenizas, hollín, partículas metálicas, cemento o polen, dispersas en la atmósfera, y cuyo diámetro varía entre 2,5 y 10 µm. Son compuestos inorgánicos como silicatos y aluminatos, metales pesados entre otros, y material orgánico asociado a partículas de carbono (hollín). Se caracterizan por poseer un pH básico debido a la combustión no controlada de materiales.
 
+* Asma: Es una enfermedad crónica que provoca que las vías respiratorias de los pulmones se hinchen y se estrechen. Esto hace que se presente dificultad para respirar como sibilancias, falta de aliento, opresión en el pecho y tos.
+
+* Neumonía: Inflamación de los pulmones, causada por la infección de un virus o una bacteria, que se caracteriza por la presencia de fiebre alta, escalofríos, dolor intenso en el costado afectado del tórax, tos y expectoración.
+
+* Bronquitis aguda y bronquiolitis:
+La bronquitis aguda es una infección a corto plazo de las vías respiratorias.
+La bronquiolitis es una infección de las vías respiratorias bajas que afecta a bebés y niños menores de 2 años. Es la causa más común de ingreso hospitalario de bebés menores de un año.
+
+* La gripe es una enfermedad infecciosa aguda, que afecta al aparato respiratorio y produce también una serie de síntomas generales característicos. Suele aparecer en brotes u oleadas, varias a lo largo de cada invierno, y es una enfermedad de distribución mundial.
 
 
 
