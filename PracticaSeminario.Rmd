@@ -858,16 +858,25 @@ Enfermedades <- Enfermedades %>%
                             CCAA == "Melilla"  ~ "MELILLA"))
 ```
 
+### Eliminar NA en CCAA
+
+Para que nuestras graficas en las preguntas posteriores aparezcan correctamente, tenemos que eliminar los NA en las comunidades para evitar que salgan los totales nacionales. 
+
+```{r, warning=FALSE, message=FALSE}
+EnfermedadesFinal<-Enfermedades[!is.na(Enfermedades$N_CCAA),]
+```
+
 
 ## PREGUNTA 1: Efecto de la cantidad de PM 2,5 sobre las muertes por Neumonía.
 
-Lo primero que vamos a hacer es cambiar el formato de nuestros datos para poder trabajar con ellos.
-```{r, message=FALSE, warning=FALSE}
-# Pasamos la columna total de chr a num
-str(Enfermedades$Total)
-EnfermedadesFinal <-transform(Enfermedades,Total = as.numeric(Total))  
-str(EnfermedadesFinal$Total)
+Para realizar esta pregunta vamos a describir los conceptos:
 
+* Neumonía: Inflamación de los pulmones, causada por la infección de un virus o una bacteria, que se caracteriza por la presencia de fiebre alta, escalofríos, dolor intenso en el costado afectado del tórax, tos y expectoración.
+
+* PM2,5: Material particulado respirable presente en la atmósfera de nuestras ciudades en forma sólida o líquida (polvo, cenizas, hollín, partículas metálicas, cemento y polen, entre otras). Las PM2,5 de diámetro aerodinámico inferior o igual a los 2,5 micrómetros. Su origen está principalmente en fuentes de carácter antropogénico como las emisiones de los vehículos diesel.
+
+Lo que vamos a buscar es si existe alguna relación entre las dos. Para ello, lo primero que vamos a hacer es seleccionar de nuestra tabla de EnfermedadesFinal la Neumonía.
+```{r, message=FALSE, warning=FALSE}
 # Seleccionamos la enfermedad a estudiar
 EnfermedadesFinal %>%
   filter(Lugar == "Total") %>% 
@@ -876,7 +885,6 @@ EnfermedadesFinal %>%
 
 print(Neumonia)
 ```
-Con el bloque de código anterior. Cambiamos la columna Total de mi tabla Enfermedades para que sea numérica en vez de ser str. Después hemos seleccionado del total de la tabla enfermedades la Neumonía que es la que vamos a estudiar.
 
 Ahora vamos a hacer una media de nuestros datos de PM 2,5. Buscamos obtener un valor para cada comunidad y año.
 
