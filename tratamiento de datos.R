@@ -861,6 +861,7 @@ ejercicio2Fin <- union_all(ejercicio2b,ejercicio2.3)
 ggplot(data = ejercicio2Fin, aes(x = PM_10, y = Total)) +
   geom_point(aes(colour = factor(AÑO)),na.rm = TRUE) +
   stat_smooth(na.rm = TRUE) +
+  theme_minimal() +
   facet_wrap( ~ Causa_muerte, nrow = 2)+
   labs(
     x = "PM 10 (µg/m3)",
@@ -873,6 +874,7 @@ ggplot(data = ejercicio2Fin, aes(x = PM_10, y = Total)) +
 ggplot(data = ejercicio2Fin, aes(x = PM_10, y = Total)) +
   geom_point() +
   stat_smooth() +
+  theme_minimal() +
   facet_wrap( ~ Causa_muerte, nrow = 2)
 
 
@@ -925,7 +927,7 @@ ggplot(data = ej4, aes(x = Valores, y = Total)) +
   stat_smooth(na.rm = TRUE) +
   theme_light()+
   facet_wrap( ~ Variable, nrow = 2)+
-  coord_cartesian(xlim = c(0, 0.73), expand = TRUE)
+  coord_cartesian(xlim = c(0, 0.73), expand = TRUE)+
   labs(
     x = "Valores (µg/m3)",
     y = "Numero de muertes",
