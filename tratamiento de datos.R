@@ -736,6 +736,7 @@ Enfermedades <- cbind(TabEnf1,TabEnf2)
 #Cambiar nombre de las columnas
 colnames(Enfermedades) <- c('NACIONAL','CCAA','Causa_muerte','Sexo','Lugar','AÑO','Total')
 
+
 #Cambio de nombre en la variable de CCAA para que se igual al nombre de la tabla de la calidad del
 #aire y asi poder hacer el join por año y ccaa.
 Enfermedades <- Enfermedades %>% 
@@ -764,8 +765,8 @@ Enfermedades <- Enfermedades %>%
 ##Tenemos que eliminar las final del total de España ya que no tenemos datos del aire para ellos
 ##Y al tener numeros de muertes muy altos (porque es la suma de todo)aunque no se representa en los
 ## Graficos queda un eje de las Y muy grande que lo deja con muy poco zoom el grafico
-EnfermedadesFinal<-Enfermedades[!is.na(Enfermedades$N_CCAA),]
 
+EnfermedadesFinal<-Enfermedades[!is.na(Enfermedades$N_CCAA),]
 
 
 #Filtrado de la base de datos para tener datos mas manejables y los que necesitamos
@@ -830,8 +831,8 @@ ejercicio1 <- full_join (x=Neumonia, y= estudioPM_25,by=c("N_CCAA","AÑO"))
 ##Grafico una vez modificado el total
 library(ggplot2)
 ggplot(data = ejercicio1, aes(x = PM_25, y = Total)) +
-  geom_point(aes(colour = AÑO)) +
-  stat_smooth() +
+  geom_point(aes(colour = AÑO),na.rm = TRUE) +
+  stat_smooth(na.rm = TRUE) +
   theme_classic() +
   labs(
     x = "PM 2'5 (µg/m3)",
@@ -858,14 +859,22 @@ ejercicio2Fin <- union_all(ejercicio2b,ejercicio2.3)
 
 #GRAFICO PREGUNTA 2
 ggplot(data = ejercicio2Fin, aes(x = PM_10, y = Total)) +
-  geom_point(aes(colour = factor(AÑO))) +
-  stat_smooth() +
-  facet_wrap( ~ Causa_muerte, nrow = 2)
+  geom_point(aes(colour = factor(AÑO)),na.rm = TRUE) +
+  stat_smooth(na.rm = TRUE) +
+  theme_minimal() +
+  facet_wrap( ~ Causa_muerte, nrow = 2)+
+  labs(
+    x = "PM 10 (µg/m3)",
+    y = "Numero de muertes",
+    title = 'Muertes por Enfermedades Respiratorias vs PM 10',
+    colour = 'Años'
+  )
 
 #GRAFICO PREGUNTA 2 (SIN COLORES POR AÑO)
 ggplot(data = ejercicio2Fin, aes(x = PM_10, y = Total)) +
   geom_point() +
   stat_smooth() +
+  theme_minimal() +
   facet_wrap( ~ Causa_muerte, nrow = 2)
 
 
@@ -916,4 +925,13 @@ ejercicio4 %>%
 ggplot(data = ej4, aes(x = Valores, y = Total)) +
   geom_point(aes(colour = factor(Variable)),na.rm = TRUE) +
   stat_smooth(na.rm = TRUE) +
-  facet_wrap( ~ Variable, nrow = 2)
+  theme_light()+
+  facet_wrap( ~ Variable, nrow = 2)+
+  coord_cartesian(xlim = c(0, 0.73), expand = TRUE)+
+  labs(
+    x = "Valores (µg/m3)",
+    y = "Numero de muertes",
+    title = 'Muertes por cancer comparando niveles de ARSENICO Y BENZOPIRENO',
+    colour = 'Variables'
+  )
+  
