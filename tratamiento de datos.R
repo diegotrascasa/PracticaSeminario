@@ -859,9 +859,15 @@ ejercicio2Fin <- union_all(ejercicio2b,ejercicio2.3)
 
 #GRAFICO PREGUNTA 2
 ggplot(data = ejercicio2Fin, aes(x = PM_10, y = Total)) +
-  geom_point(aes(colour = factor(AÑO))) +
-  stat_smooth() +
-  facet_wrap( ~ Causa_muerte, nrow = 2)
+  geom_point(aes(colour = factor(AÑO)),na.rm = TRUE) +
+  stat_smooth(na.rm = TRUE) +
+  facet_wrap( ~ Causa_muerte, nrow = 2)+
+  labs(
+    x = "PM 10 (µg/m3)",
+    y = "Numero de muertes",
+    title = 'Muertes por Enfermedades Respiratorias vs PM 10',
+    colour = 'Años'
+  )
 
 #GRAFICO PREGUNTA 2 (SIN COLORES POR AÑO)
 ggplot(data = ejercicio2Fin, aes(x = PM_10, y = Total)) +
