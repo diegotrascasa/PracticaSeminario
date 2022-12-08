@@ -34,60 +34,6 @@ library(tidyselect)
 library(ggplot2)
 ```
 
-
-## Datos de Enfermedades
-
-### Importación de los datos
-
-Lo primero que realizamos es la importación de los datos de las enfermedades, lo hacemos a través de un archivo csv.
-
-```{r Datos de Enfermedades, message=FALSE, warning=FALSE}
-X49971 <- read_delim("input/data/Enfermedades/49971.csv", 
-    delim = "\t", escape_double = FALSE, 
-    trim_ws = TRUE)
-print(X49971)
-```
-Con el bloque de codigo anterior obtenemos una tabla con 7 columnas: 
-Nacional, Comunidades y ciudades autónomas, Causa de Muerte, Sexo, Lugar de Ocurrencia, Año y Total. 
-Obtemos un total de 214,200 entradas.
-Esta tabla va a ser necesario modificarla para su posterior comparación. Lo que vamos hacer es cambiar el nombre de algunas columnas para evitar confusiones y que el acceso sea más facil.
-
-### Cambios en el nombre de columna
-
-```{r}
-#Cambiar nombre de las columnas de la base de datos de las enfermedades para su mas facil acceso
-colnames(X49971)<- c('Nacional','CCAA','Causa_muerte','Sexo','Lugar','AÑO','Total')
-Enfermedades <- X49971
-print(Enfermedades)
-```
-
-Ahora vamos a cambiar el nombre de todas las comunidades a mayúscula para que coíncida con los datos de calidad de aire, en realidad lo que hacemos es crear una nueva columna con los nombres en el formato correcto.
-```{r}
-Enfermedades <-
-  Enfermedades %>% 
-  mutate(N_CCAA = case_when(CCAA == "Andalucía"  ~ "ANDALUCÍA",
-                            CCAA == "Aragón"  ~ "ARAGÓN",
-                            CCAA == "Asturias, Principado de" ~ "ASTURIAS (PRINCIPADO DE)",
-                            CCAA == "Balears, Illes"  ~ "BALEARES (ISLAS)",
-                            CCAA == "Canarias"  ~ "CANARIAS",
-                            CCAA == "Cantabria"  ~ "CANTABRIA",
-                            CCAA == "Castilla y León" ~ "CASTILLA Y LEÓN",
-                            CCAA == "Castilla-La Mancha"  ~ "CASTILLA-LA MANCHA",
-                            CCAA == "Cataluña"  ~ "CATALUÑA",
-                            CCAA == "Comunitat Valenciana"  ~ "COMUNIDAD VALENCIANA",
-                            CCAA == "Extremadura"  ~ "EXTREMADURA",
-                            CCAA == "Galicia"  ~ "GALICIA",
-                            CCAA == "Madrid, Comunidad de"  ~ "MADRID",
-                            CCAA == "Murcia, Región de"  ~ "MURCIA (REGIÓN DE)",
-                            CCAA == "Navarra, Comunidad Foral de"  ~ "NAVARRA (COMUNIDAD FORAL)",
-                            CCAA == "País Vasco"  ~ "PAÍS VASCO",
-                            CCAA == "Rioja, La"  ~ "RIOJA (LA)",
-                            CCAA == "Ceuta"  ~ "CEUTA",
-                            CCAA == "Melilla"  ~ "MELILLA"))
-print(Enfermedades)
-```
-
-
 ## Datos de Calidad de aire.
 
 En este caso vamos a importar los datos de Calidad del aire de forma separada, se encuentran en varias tablas dependiendo del año y las magnitudes de calidad. 
@@ -842,15 +788,95 @@ print(calidadFinal)
 
 Conseguimos una tabla calidadFinal. La cual es la tabla de Calidad4 anterior a la que se le han añadido 2 columnas correspondientes a los nombres de las provincias y a los de comunidades autónomas.
 
+## Datos de Enfermedades
+
+### Importación de los datos
+
+Lo primero que realizamos es la importación de los datos de las enfermedades, lo hacemos a través de un archivo csv y un archivo txt. En realidad son los mismos sets de datos pero con formatos diferentes.
+
+```{r Datos de Enfermedades, message=FALSE, warning=FALSE}
+X49971.1 <- read_delim("input/data/Enfermedades/49971-2.csv", 
+                       delim = ";", escape_double = FALSE, trim_ws = TRUE)
+X49971.2 <- read_delim("input/data/Enfermedades/enf3.txt", 
+                   delim = "\t", escape_double = FALSE, 
+                   col_types = cols(Total = col_double(), 
+                                    Total2 = col_double()), trim_ws = TRUE)
+```
+
+### Unión de las partes que nos interesan.
+El problema que nos ha surgido mientras realizabamos el trabajo es que la tabla X49971.1 considera los datos en formato character. Al pasar estos datos a numérico R considera el "." como una coma y no como separador de miles, esto provoca que haya datos incorrectos en nuestro set.
+
+Por ello, hemos decidido cambiar el formato de los datos directamente en un fichero excel sin puntos ni comas, se corresponde al fichero X49971.2. Con ello surge otro problema y es que los caracteres extraños como letras con tilde o ñ, aparecen con un símbolo como este �. 
+
+Hemos decidido por tanto, unir de cada una de las tablas una parte para conseguir una unica con los datos que nos interesan. Lo hacemos mediante el siguiente código:
+
+```{r, message=FALSE, warning=FALSE}
+TabEnf1 <- select(.data= X49971.1, Nacional:año)
+TabEnf2 <- select(.data= X49971.2, Total)
+
+#Union de ambas tablas
+Enfermedades <- cbind(TabEnf1,TabEnf2)
+```
+Obtenemos una tabla con 7 columnas: 
+Nacional, Comunidades y ciudades autónomas, Causa de Muerte, Sexo, Lugar de Ocurrencia, Año y Total. 
+Obtemos un total de 214,200 entradas.
+
+Esta tabla va a ser necesario modificarla para su posterior comparación. Lo que vamos hacer es cambiar el nombre de algunas columnas para evitar confusiones y que el acceso sea más facil.
+
+### Cambios en los nombres de columna.
+
+```{r}
+#Cambiar nombre de las columnas
+colnames(Enfermedades) <- c('NACIONAL','CCAA','Causa_muerte','Sexo','Lugar','AÑO','Total')
+print(Enfermedades)
+```
+
+### Nombres correctos para comunidades.
+
+Ahora vamos a cambiar el nombre de todas las comunidades a mayúscula para que coincida con los datos de calidad de aire, en realidad lo que hacemos es crear una nueva columna con los nombres en el formato correcto.
+
+```{r}
+Enfermedades <- Enfermedades %>% 
+  mutate(N_CCAA = case_when(CCAA == "Andalucía"  ~ "ANDALUCÍA",
+                            CCAA == "Aragón"  ~ "ARAGÓN",
+                            CCAA == "Asturias, Principado de" ~ "ASTURIAS (PRINCIPADO DE)",
+                            CCAA == "Balears, Illes"  ~ "BALEARES (ISLAS)",
+                            CCAA == "Canarias"  ~ "CANARIAS",
+                            CCAA == "Cantabria"  ~ "CANTABRIA",
+                            CCAA == "Castilla y León" ~ "CASTILLA Y LEÓN",
+                            CCAA == "Castilla-La Mancha"  ~ "CASTILLA-LA MANCHA",
+                            CCAA == "Cataluña"  ~ "CATALUÑA",
+                            CCAA == "Comunitat Valenciana"  ~ "COMUNIDAD VALENCIANA",
+                            CCAA == "Extremadura"  ~ "EXTREMADURA",
+                            CCAA == "Galicia"  ~ "GALICIA",
+                            CCAA == "Madrid, Comunidad de"  ~ "MADRID",
+                            CCAA == "Murcia, Región de"  ~ "MURCIA (REGIÓN DE)",
+                            CCAA == "Navarra, Comunidad Foral de"  ~ "NAVARRA (COMUNIDAD FORAL)",
+                            CCAA == "País Vasco"  ~ "PAÍS VASCO",
+                            CCAA == "Rioja, La"  ~ "RIOJA (LA)",
+                            CCAA == "Ceuta"  ~ "CEUTA",
+                            CCAA == "Melilla"  ~ "MELILLA"))
+```
+
+### Eliminar NA en CCAA
+
+Para que nuestras graficas en las preguntas posteriores aparezcan correctamente, tenemos que eliminar los NA en las comunidades para evitar que salgan los totales nacionales. 
+
+```{r, warning=FALSE, message=FALSE}
+EnfermedadesFinal<-Enfermedades[!is.na(Enfermedades$N_CCAA),]
+```
+
+
 ## PREGUNTA 1: Efecto de la cantidad de PM 2,5 sobre las muertes por Neumonía.
 
-Lo primero que vamos a hacer es cambiar el formato de nuestros datos para poder trabajar con ellos.
-```{r, message=FALSE, warning=FALSE}
-# Pasamos la columna total de chr a num
-str(Enfermedades$Total)
-EnfermedadesFinal <-transform(Enfermedades,Total = as.numeric(Total))  
-str(EnfermedadesFinal$Total)
+Para realizar esta pregunta vamos a describir los conceptos:
 
+* Neumonía: Inflamación de los pulmones, causada por la infección de un virus o una bacteria, que se caracteriza por la presencia de fiebre alta, escalofríos, dolor intenso en el costado afectado del tórax, tos y expectoración.
+
+* PM2,5: Material particulado respirable presente en la atmósfera de nuestras ciudades en forma sólida o líquida (polvo, cenizas, hollín, partículas metálicas, cemento y polen, entre otras). Las PM2,5 de diámetro aerodinámico inferior o igual a los 2,5 micrómetros. Su origen está principalmente en fuentes de carácter antropogénico como las emisiones de los vehículos diesel.
+
+Lo que vamos a buscar es si existe alguna relación entre las dos. Para ello, lo primero que vamos a hacer es seleccionar de nuestra tabla de EnfermedadesFinal la Neumonía.
+```{r, message=FALSE, warning=FALSE}
 # Seleccionamos la enfermedad a estudiar
 EnfermedadesFinal %>%
   filter(Lugar == "Total") %>% 
@@ -859,7 +885,6 @@ EnfermedadesFinal %>%
 
 print(Neumonia)
 ```
-Con el bloque de código anterior. Cambiamos la columna Total de mi tabla Enfermedades para que sea numérica en vez de ser str. Después hemos seleccionado del total de la tabla enfermedades la Neumonía que es la que vamos a estudiar.
 
 Ahora vamos a hacer una media de nuestros datos de PM 2,5. Buscamos obtener un valor para cada comunidad y año.
 
