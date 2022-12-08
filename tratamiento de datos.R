@@ -727,13 +727,14 @@ X49971.2 <- read_delim("input/data/Enfermedades/enf3.txt",
 
 #Debido a los problemas que hemos tenido con los simbolos raros hemos cogido una parte de
 #cada tabla modificada para tener una con lo necesario que queremos trabajar
-TabEnf1 <- select(.data= X49971.1, Nacional:AÑO)
+TabEnf1 <- select(.data= X49971.1, Nacional:año)
 TabEnf2 <- select(.data= X49971.2, Total)
 
 #Union de ambas tablas
-
 Enfermedades <- cbind(TabEnf1,TabEnf2)
 
+#Cambiar nombre de las columnas
+colnames(Enfermedades) <- c('NACIONAL','CCAA','Causa_muerte','Sexo','Lugar','AÑO','Total')
 
 #Cambio de nombre en la variable de CCAA para que se igual al nombre de la tabla de la calidad del
 #aire y asi poder hacer el join por año y ccaa.
@@ -763,7 +764,7 @@ Enfermedades <- Enfermedades %>%
 ##Tenemos que eliminar las final del total de España ya que no tenemos datos del aire para ellos
 ##Y al tener numeros de muertes muy altos (porque es la suma de todo)aunque no se representa en los
 ## Graficos queda un eje de las Y muy grande que lo deja con muy poco zoom el grafico
-EnfermedadesFinal<-EnfermedadesFinal[!is.na(EnfermedadesFinal$N_CCAA),]
+EnfermedadesFinal<-Enfermedades[!is.na(Enfermedades$N_CCAA),]
 
 
 
