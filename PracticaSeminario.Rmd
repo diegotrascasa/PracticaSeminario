@@ -197,6 +197,7 @@ A partir del código anterior obtenemos una tabla con 9 columnas que se correspo
 PROVINCIA, AÑO, ARSENICO, BENZOPIRENO, CADMIO, NIQUEL, PLOMO, PM_10, PM_25.
 
 ### Años 2019, 2018, 2017 y 2016
+
 Con los otros 4 años realizamos lo mismo. Lo único que cambia es que a la columna "ANNO" de la tabla original le cambiamos el nombre a "AÑO" para evitar errores.
 ```{r, message=FALSE, warning=FALSE}
 #2019 -------------------------------------------------------------------------------------------
@@ -933,10 +934,69 @@ La bronquiolitis es una infección de las vías respiratorias bajas que afecta a
 
 * La gripe es una enfermedad infecciosa aguda, que afecta al aparato respiratorio y produce también una serie de síntomas generales característicos. Suele aparecer en brotes u oleadas, varias a lo largo de cada invierno, y es una enfermedad de distribución mundial.
 
+Una vez definidos estos conceptos vamos a extraer las enfermedades anteriores de nuestra tabla de EnfermedadesFinal, filtrandolo para que coja el total de sexos y el total del lugar. Es decir, que los datos sean tanto hombres como mujeres y que la causa de muerte se haya producido en todos los lugares. 
 
+```{r, message=FALSE, warning=FALSE}
+EnfermedadesFinal %>%
+  filter(Lugar == "Total") %>% 
+  filter(Sexo == "Total") %>%
+  filter(Causa_muerte=="062 Influenza (gripe) (incluye gripe por virus de la influenza pandémica o zoonótica identificados)")-> Gripe
 
+EnfermedadesFinal %>%
+  filter(Lugar == "Total") %>% 
+  filter(Sexo == "Total") %>%
+  filter(Causa_muerte=="063 Neumonía")-> Neumonia
 
+EnfermedadesFinal %>%
+  filter(Lugar == "Total") %>% 
+  filter(Sexo == "Total") %>%
+  filter(Causa_muerte=="064 Enfermedades crónicas de las vías respiratorias inferiores (excepto asma)")-> EnfViasInf
 
+EnfermedadesFinal %>%
+  filter(Lugar == "Total") %>% 
+  filter(Sexo == "Total") %>%
+  filter(Causa_muerte=="065 Asma")-> Asma
+```
+Obtenemos así 4 tablas correspondientes a las 4 enfermedades a estudiar.
+
+Ahora vamos a seleccionar de nuestra tabla de calidadFinal de aire las PM10, lo que necesitamos es tener un único valor por comunidad y por año. Creamos una tabla que se llame estudioPM_10 con la media de las PM1o agrupadas por año y comunidad.
+
+```{r, message=FALSE, warning=FALSE}
+#poner un valor para cada comunidad y año
+estudioPM_10<- calidadFinal %>%
+  group_by(N_CCAA,AÑO) %>%
+  summarise(PM_10 = mean(PM_10, na.rm = TRUE))
+```
+
+Como queremos estudiar 4 enfermedades en un único grafico. Lo que vamos a hacer es un full_join de la tabla de cada enfermedad con la tabla de PM10. Una vez hecho esto unimos el resultado en una única tabla mediante union_all.
+```{r, warning=FALSE, message=FALSE}
+ejercicio2 <- full_join(x = estudioPM_10, y=Asma)
+ejercicio2.1 <- full_join(x = estudioPM_10, y= Neumonia)
+ejercicio2.2 <- full_join(x = estudioPM_10, y= Gripe)
+ejercicio2.3 <- full_join(x = estudioPM_10, y= EnfViasInf)
+
+ejercicio2a <- union_all(ejercicio2,ejercicio2.1)
+ejercicio2b <- union_all(ejercicio2a,ejercicio2.2)
+ejercicio2Fin <- union_all(ejercicio2b,ejercicio2.3)
+
+print(ejercicio2Fin)
+```
+
+### Grafico de relación
+
+```{r}
+ggplot(data = ejercicio2Fin, aes(x = PM_10, y = Total)) +
+  geom_point() +
+  stat_smooth() +
+  theme_minimal() +
+  facet_wrap( ~ Causa_muerte, nrow = 2)+
+  labs(
+    x = "PM 10 (µg/m3)",
+    y = "Numero de muertes",
+    title = 'Muertes por Enfermedades Respiratorias vs PM 10',
+    colour = 'Años'
+  )
+```
 
 
 

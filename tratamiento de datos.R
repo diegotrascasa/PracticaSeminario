@@ -846,7 +846,7 @@ ggplot(data = ejercicio1, aes(x = PM_25, y = Total)) +
 estudioPM_10<- calidadFinal %>%
   group_by(N_CCAA,AÑO) %>%
   summarise(PM_10 = mean(PM_10, na.rm = TRUE))
-ejercicio2 <- full_join(x = Asma, y=estudioPM_10)
+ejercicio2 <- full_join(x = estudioPM_10, y=Asma)
 ejercicio2.1 <- full_join(x = estudioPM_10, y= Neumonia)
 ejercicio2.2 <- full_join(x = estudioPM_10, y= Gripe)
 ejercicio2.3 <- full_join(x = estudioPM_10, y= EnfViasInf)
@@ -875,7 +875,14 @@ ggplot(data = ejercicio2Fin, aes(x = PM_10, y = Total)) +
   geom_point() +
   stat_smooth() +
   theme_minimal() +
-  facet_wrap( ~ Causa_muerte, nrow = 2)
+  facet_wrap( ~ Causa_muerte, nrow = 2)+
+  labs(
+    x = "PM 10 (µg/m3)",
+    y = "Numero de muertes",
+    title = 'Muertes por Enfermedades Respiratorias vs PM 10',
+    colour = 'Años'
+  )
+
 
 
 #Pregunta 3
