@@ -1061,3 +1061,34 @@ estudioBaP<- calidadFinal %>%
   summarise(BENZOPIRENO = mean(BENZOPIRENO, na.rm = TRUE))
 ```
 
+Ahora vamos a juntar las 3 variables a estudiar en una tabla para poder graficarlo
+```{r}
+ejercicio4.a <- full_join (x=Enf2, y= estudioAs,by=c("N_CCAA","AÑO"))
+ejercicio4 <- full_join (x=ejercicio4.a, y= estudioBaP,by=c("N_CCAA","AÑO"))
+```
+
+### Grafico de relación.
+
+```{r}
+ejercicio4 %>%
+  select(Causa_muerte,Total,N_CCAA,ARSENICO,BENZOPIRENO)%>%
+  pivot_longer(.,names_to = "Variable", values_to = "Valores", cols = c(ARSENICO:BENZOPIRENO)) -> ej4
+
+
+ggplot(data = ej4, aes(x = Valores, y = Total)) +
+  geom_point(aes(colour = factor(Variable)),na.rm = TRUE) +
+  stat_smooth(na.rm = TRUE) +
+  theme_light()+
+  facet_wrap( ~ Variable, nrow = 2)+
+  coord_cartesian(xlim = c(0, 0.73), expand = TRUE)+
+  labs(
+    x = "Valores (µg/m3)",
+    y = "Numero de muertes",
+    title = 'Muertes por cancer comparando niveles de ARSENICO Y BENZOPIRENO',
+    colour = 'Variables'
+  )
+```
+
+
+
+
