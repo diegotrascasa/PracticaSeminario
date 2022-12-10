@@ -894,7 +894,7 @@ estudioAs<- calidadFinal %>%
 
 
 ejercicio3 <- full_join (x=Diabetes, y= estudioAs,by=c("N_CCAA","AÑO"))
-view(ejercicio3)
+
 
 
 ##Grafico una vez modificado el total
