@@ -957,6 +957,7 @@ EnfermedadesFinal %>%
   filter(Sexo == "Total") %>%
   filter(Causa_muerte=="065 Asma")-> Asma
 ```
+
 Obtenemos así 4 tablas correspondientes a las 4 enfermedades a estudiar.
 
 Ahora vamos a seleccionar de nuestra tabla de calidadFinal de aire las PM10, lo que necesitamos es tener un único valor por comunidad y por año. Creamos una tabla que se llame estudioPM_10 con la media de las PM1o agrupadas por año y comunidad.
@@ -998,6 +999,65 @@ ggplot(data = ejercicio2Fin, aes(x = PM_10, y = Total)) +
   )
 ```
 
+## PREGUNTA 3: Efecto del Arsenico sobre la diabetes.
+
+Queremos ver si el arsénico tiene algún efecto sobre la diabetes. Lo primero que vamos a hacer es definir los dos conceptos:
+
+* El arsénico es un elemento natural que se encuentra en la tierra y entre los minerales. Los componentes del arsénico se usan para preservar la madera, como plaguicidas y en ciertas industrias. El arsénico forma parte del aire, el agua y la tierra a través del polvo que se lleva el viento.
+
+* La diabetes es una enfermedad en la que los niveles de glucosa (azúcar) de la sangre están muy altos. La glucosa proviene de los alimentos que consume. 
+
+Ahora lo que vamos a hacer es poner un único valor de arsénico por cada comunidad y año:
+
+```{r, warning=FALSE,  message=FALSE}
+#poner un valor para cada comunidad y año
+estudioAs<- calidadFinal %>%
+  group_by(N_CCAA,AÑO) %>%
+  summarise(ARSENICO = mean(ARSENICO, na.rm = TRUE))
+```
+
+El siguiente paso es juntar los dos datos en una única tabla, para poder realizar el gráfico. Lo haremos mediante un full_join.
+```{r, warning=FALSE, message=FALSE}
+ejercicio3 <- full_join (x=Diabetes, y= estudioAs,by=c("N_CCAA","AÑO"))
+```
 
 
+### Grafico de relación.
+
+```{r, warning=FALSE, message=FALSE}
+##Grafico una vez modificado el total
+ggplot(data = ejercicio3, aes(x = ARSENICO, y = Total)) +
+  geom_point() +
+  stat_smooth() +
+  theme_classic() +
+  labs(
+    x = "ARSENICO (µg/m3)",
+    y = "Numero de muertes",
+    title = 'Muertes por diabetes vs ARSENICO',
+    
+  )
+```
+
+## PREGUNTA 4: Cancer vs Benzopireno y Arsénico
+
+Lo que buscamos es ver cual de las dos magnitudes del aire tienen un efecto mayor sobre las muertes producidas por cáncer. Conceptos:
+
+* El arsénico es un elemento natural que se encuentra en la tierra y entre los minerales. Los componentes del arsénico se usan para preservar la madera, como plaguicidas y en ciertas industrias. El arsénico forma parte del aire, el agua y la tierra a través del polvo que se lleva el viento.
+
+* El benzopireno es un hidrocarburo policíclico aromático potencialmente carcinógeno (α-benzopireno) y que contienen algunos alimentos, como las carnes y el pescado.
+
+* El cáncer se caracterizan por el desarrollo de células anormales que se dividen sin control y tienen la capacidad de infiltrarse y destruir el tejido corporal normal.  
+
+
+Lo primero que vamos a hacer es coger los datos de Benzopireno y Arsénico de nuestra tabla de Calidad de Aire. Buscamos un único valor por comunidad y año.
+
+```{r, warning=FALSE, message=FALSE}
+estudioAs<- calidadFinal %>%
+  group_by(N_CCAA,AÑO) %>%
+  summarise(ARSENICO = mean(ARSENICO, na.rm = TRUE))
+
+estudioBaP<- calidadFinal %>%
+  group_by(N_CCAA,AÑO) %>%
+  summarise(BENZOPIRENO = mean(BENZOPIRENO, na.rm = TRUE))
+```
 
