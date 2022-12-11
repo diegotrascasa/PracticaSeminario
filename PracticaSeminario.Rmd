@@ -32,6 +32,7 @@ library(dplyr)
 library(tidyverse)
 library(tidyselect)
 library(ggplot2)
+library(DT)
 ```
 
 ## Datos de Calidad de aire.
@@ -64,7 +65,8 @@ PM10_DD_2020 <- read_delim("input/data/calidad del aire/2020/PM10_DD_2020.csv",
 
 PM25_DD_2020 <- read_delim("input/data/calidad del aire/2020/PM25_DD_2020.csv", 
                            delim = ";", escape_double = FALSE, trim_ws = TRUE)
-print(As_DD_2020)
+
+DT::datatable(As_DD_2020)
 ```
 
 Ahora tenemos que modificar las distintas tablas importadas anteriormente para conseguir tratar los datos de calidad de aire en una única tabla.
@@ -166,7 +168,7 @@ tabPM25_2020$PM_25 <- apply(tabPM25_2020[ ,c(3:33)], 1, mean, na.rm = TRUE)
 
 tabPM25_2020 <- select(.data = tabPM25_2020, PROVINCIA, AÑO, PM_25)
 
-print(tabAS_2020)
+DT::datatable(tabAS_2020)
 ```
 
 Por cada magnitud de calidad de aire obtenemos una tabla con tres colummnas: provincia, año y dato. De la siguiente manera.En caso del año 2020 hemos tenido que realizar una modificación que no hemos hecho en las demas para cambiar el año. 
@@ -191,7 +193,8 @@ join2020.4 <- full_join (x=join2020.3,y=tabPb_2020, by=c("PROVINCIA","AÑO"))
 join2020.5 <- full_join (x=join2020.4,y=tabPM10_2020, by=c("PROVINCIA","AÑO"))
 
 join2020.6 <- full_join (x=join2020.5,y=tabPM25_2020, by=c("PROVINCIA","AÑO"))
-print (join2020.6)
+
+DT::datatable(join2020.6)
 ```
 A partir del código anterior obtenemos una tabla con 9 columnas que se corresponden a:
 PROVINCIA, AÑO, ARSENICO, BENZOPIRENO, CADMIO, NIQUEL, PLOMO, PM_10, PM_25.
@@ -603,7 +606,6 @@ tabPM25_2017 <- tablaPM25_2017 %>%
 tabPM25_2017$PM_25 <- apply(tabPM25_2017[ ,c(3:33)], 1, mean, na.rm = TRUE)
 
 tabPM25_2017 <- select(.data = tabPM25_2017, PROVINCIA, AÑO, PM_25)
-print(tabPM25_2017)
 
 #union de las 7 tablas 2017
 join2017.1 <- full_join (x=tabAS_2017,y=tabBaP_2017, by=c("PROVINCIA","AÑO"))
@@ -764,6 +766,7 @@ Calidad3 <- union_all(Calidad2,join2017.6)
 
 Calidad4 <- union_all(Calidad3,join2016.6)
 
+DT::datatable(Calidad4)
 ```
 
 A partir del código anterior obtenemos una única tabla con los datos de calidad de aire de los 5 años. 
@@ -776,14 +779,13 @@ Para ello vamos a emplear una tabla con los dos datos, tanto el número como la 
 
 Hacemos un full_join a partir de la columna PROVINCIA.
 ```{r, message=FALSE, warning=FALSE}
-#cambiar el número de la provincia por el nombre de la provincia y la comunidad.
 library(readxl)
 provincia_con_numero <- read_excel("input/data/calidad del aire/provincia con numero.xlsx", 
                                    sheet = "Estaciones evaluación 2019")
 
 calidadFinal = full_join (x=Calidad4, y=provincia_con_numero, by=c("PROVINCIA"))
 
-print(calidadFinal)
+DT::datatable(calidadFinal)
 ```
 
 Conseguimos una tabla calidadFinal. La cual es la tabla de Calidad4 anterior a la que se le han añadido 2 columnas correspondientes a los nombres de las provincias y a los de comunidades autónomas.
@@ -854,6 +856,8 @@ Enfermedades <- Enfermedades %>%
                             CCAA == "Rioja, La"  ~ "RIOJA (LA)",
                             CCAA == "Ceuta"  ~ "CEUTA",
                             CCAA == "Melilla"  ~ "MELILLA"))
+
+DT::datatable(Enfermedades)
 ```
 
 ### Eliminar NA en CCAA
@@ -875,31 +879,30 @@ Para realizar esta pregunta vamos a describir los conceptos:
 Lo que vamos a buscar es si existe alguna relación entre las dos. Para ello, lo primero que vamos a hacer es seleccionar de nuestra tabla de EnfermedadesFinal la Neumonía.
 
 ```{r, message=FALSE, warning=FALSE}
-# Seleccionamos la enfermedad a estudiar
 EnfermedadesFinal %>%
   filter(Lugar == "Total") %>% 
   filter(Sexo == "Total") %>%
   filter(Causa_muerte=="063 Neumonía")-> Neumonia
 
-print(Neumonia)
+DT::datatable(Neumonia)
 ```
 
 Ahora vamos a hacer una media de nuestros datos de PM 2,5. Buscamos obtener un valor para cada comunidad y año.
 
 ```{r, message=FALSE, warning=FALSE}
-# poner un valor para cada comunidad y año
 estudioPM_25<- calidadFinal %>%
   group_by(N_CCAA,AÑO) %>%
   summarise(PM_25 = mean(PM_25, na.rm = TRUE))
 
-print(estudioPM_25)
+DT::datatable(estudioPM_25)
 ```
 
 ### Grafico de relación
 
 ```{r, message=FALSE, warning=FALSE}
 ejercicio1 <- full_join (x=Neumonia, y= estudioPM_25,by=c("N_CCAA","AÑO"))
-print(ejercicio1)
+
+DT::datatable(ejercicio1)
 
 ##Gráfico
 ggplot(data = ejercicio1, aes(x = PM_25, y = Total)) +
@@ -959,7 +962,6 @@ Obtenemos así 4 tablas correspondientes a las 4 enfermedades a estudiar.
 Ahora vamos a seleccionar de nuestra tabla de calidadFinal de aire las PM10, lo que necesitamos es tener un único valor por comunidad y por año. Creamos una tabla que se llame estudioPM_10 con la media de las PM1o agrupadas por año y comunidad.
 
 ```{r, message=FALSE, warning=FALSE}
-#poner un valor para cada comunidad y año
 estudioPM_10<- calidadFinal %>%
   group_by(N_CCAA,AÑO) %>%
   summarise(PM_10 = mean(PM_10, na.rm = TRUE))
@@ -981,7 +983,7 @@ print(ejercicio2Fin)
 
 ### Grafico de relación
 
-```{r}
+```{r, warning=FALSE, message=FALSE}
 ggplot(data = ejercicio2Fin, aes(x = PM_10, y = Total)) +
   geom_point() +
   stat_smooth() +
@@ -1006,7 +1008,6 @@ Queremos ver si el arsénico tiene algún efecto sobre la diabetes. Lo primero q
 Ahora lo que vamos a hacer es poner un único valor de arsénico por cada comunidad y año:
 
 ```{r, warning=FALSE,  message=FALSE}
-#poner un valor para cada comunidad y año
 estudioAs<- calidadFinal %>%
   group_by(N_CCAA,AÑO) %>%
   summarise(ARSENICO = mean(ARSENICO, na.rm = TRUE))
@@ -1014,7 +1015,7 @@ estudioAs<- calidadFinal %>%
 
 Tenemos que extraer de nuestra tabla de enfermedades los datos correspondientes a la diabetes, lo haremos mediante el siguiente bloque de código: 
 
-```{r}
+```{r, message=FALSE, warning=FALSE}
 EnfermedadesFinal %>%
   filter(Lugar == "Total") %>%
   filter(Sexo == "Total") %>%
@@ -1031,7 +1032,6 @@ ejercicio3 <- full_join (x=Diabetes, y= estudioAs,by=c("N_CCAA","AÑO"))
 ### Grafico de relación.
 
 ```{r, warning=FALSE, message=FALSE}
-##Grafico una vez modificado el total
 ggplot(data = ejercicio3, aes(x = ARSENICO, y = Total)) +
   geom_point() +
   stat_smooth() +
@@ -1040,7 +1040,6 @@ ggplot(data = ejercicio3, aes(x = ARSENICO, y = Total)) +
     x = "ARSENICO (µg/m3)",
     y = "Numero de muertes",
     title = 'Muertes por diabetes vs ARSENICO',
-    
   )
 ```
 
@@ -1068,7 +1067,7 @@ estudioBaP<- calidadFinal %>%
 ```
 
 Ahora vamos a extraer de nuestra tabla de enfermedades los datos correspondientes a tumores.
-```{r}
+```{r, warning=FALSE, message=FALSE}
 EnfermedadesFinal %>%
   filter(Lugar == "Total") %>%
   filter(Sexo == "Total") %>%
@@ -1076,14 +1075,14 @@ EnfermedadesFinal %>%
 ```
 
 Ahora vamos a juntar las 3 variables a estudiar en una tabla para poder graficarlo
-```{r}
+```{r, warning=FALSE, message=FALSE}
 ejercicio4.a <- full_join (x=Cancer, y= estudioAs,by=c("N_CCAA","AÑO"))
 ejercicio4 <- full_join (x=ejercicio4.a, y= estudioBaP,by=c("N_CCAA","AÑO"))
 ```
 
 ### Grafico de relación.
 
-```{r}
+```{r, warning=FALSE, message=FALSE}
 ejercicio4 %>%
   select(Causa_muerte,Total,N_CCAA,ARSENICO,BENZOPIRENO)%>%
   pivot_longer(.,names_to = "Variable", values_to = "Valores", cols = c(ARSENICO:BENZOPIRENO)) -> ej4
