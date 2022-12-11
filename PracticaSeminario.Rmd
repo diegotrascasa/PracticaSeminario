@@ -917,6 +917,14 @@ ggplot(data = ejercicio1, aes(x = PM_25, y = Total)) +
   )
 ```
 
+### Explicación del gráfico 1:
+
+Para responder a la primera pregunta sobre si la neumonía se ve afectada por los niveles de PM25 hemos reflejado esta grafica en la que compramos los niveles anuales de PM25 cada comunidad autónoma con el número de muertes anuales por neumonía de cada comunidad autónoma.
+
+Una vez realizado el grafico pasamos a su análisis en el que podemos ver una clara correlación ya que cuanto mayor es la cantidad de PM25 hay más muertes por neumonía con esto podemos intuir que las pequeñas partículas sólidas o líquidas de polvo, cenizas, hollín, partículas metálicas, cemento o polen, dispersas en la atmósfera, y cuyo diámetro aerodinámico es menor que 2,5 µm tienen un efecto sobre la neumonía.
+
+Un aspecto interesante a analizar es que parece como que al final se dispara la pendiente de la gráfica lo que podría indicar que hasta unos niveles como 12,5 los niveles de PM25 no son nocivos para el ser humano y no tiene influencia sobre la neumonía pero a partir de esos valores si que tienen un claro efecto negativo sobre la salud de las personas mas en concreto sobre la neumonía, aunque esto no se puede comprobar y para ello necesitaríamos de valores de una ciudad en la que los niveles de PM25 sean mas altos para intentar buscar esa correlación que hablamos.
+
 ## PREGUNTA 2: Efecto de la cantidad de PM 10 sobre 4 enfermedades.
 
 Para realizar esta pregunta vamos a describir los conceptos:
@@ -978,7 +986,7 @@ ejercicio2a <- union_all(ejercicio2,ejercicio2.1)
 ejercicio2b <- union_all(ejercicio2a,ejercicio2.2)
 ejercicio2Fin <- union_all(ejercicio2b,ejercicio2.3)
 
-print(ejercicio2Fin)
+DT::datatable(ejercicio2Fin)
 ```
 
 ### Grafico de relación
@@ -996,6 +1004,16 @@ ggplot(data = ejercicio2Fin, aes(x = PM_10, y = Total)) +
     colour = 'Años'
   )
 ```
+
+### Explicación del gráfico 2:
+
+En este grafico creado con las partículas menores de 10µm contra el numero de muertes que ha habido en España durante 5 años por enfermedades que consideramos que afectan al sistema respiratorio.
+
+Los resultados obtenidos podemos apreciar una correlación en la mayoría de ellas en la que a mayores cantidades de PM 10 aumentan las muertes por estas enfermedades salvo al final de estas cuando se alcanzan los niveles de PM10 mas altos que en este caso el numero de muertes se reduce en los 4 casos que hemos tomado.
+
+Nuestra interpretación de estos gráficos es que hay una clara correlación entre las partículas del aire menores de 10µm y que el hecho de que esa correlación se pueda ver afectada cuando se alcanzan los valores máximos de PM10 y el numero de muertes baja se puede ver influenciado porque en los lugares donde hay peor calidad del aire (datos del aire con PM10 mas altos) hay menos habitantes por este factor de que la calidad del aire es baja y por consecuente hay un menor número de muertes.
+
+Podemos concluir con que la exposición al PM10 puede provocar efectos nocivos en el sistema respiratorio
 
 ## PREGUNTA 3: Efecto del Arsenico sobre la diabetes.
 
@@ -1027,7 +1045,6 @@ El siguiente paso es juntar los dos datos en una única tabla, para poder realiz
 ```{r, warning=FALSE, message=FALSE}
 ejercicio3 <- full_join (x=Diabetes, y= estudioAs,by=c("N_CCAA","AÑO"))
 ```
-
 
 ### Grafico de relación.
 
@@ -1087,6 +1104,7 @@ ejercicio4 %>%
   select(Causa_muerte,Total,N_CCAA,ARSENICO,BENZOPIRENO)%>%
   pivot_longer(.,names_to = "Variable", values_to = "Valores", cols = c(ARSENICO:BENZOPIRENO)) -> ej4
 
+DT::datatable(ej4)
 
 ggplot(data = ej4, aes(x = Valores, y = Total)) +
   geom_point(aes(colour = factor(Variable)),na.rm = TRUE) +
@@ -1101,6 +1119,12 @@ ggplot(data = ej4, aes(x = Valores, y = Total)) +
     colour = 'Variables'
   )
 ```
+
+### Explicación del gráfico 4:
+
+En este estamos sacando la correlación que tiene el cáncer con algunas de los componentes del aire, en los que por su composición intuimos que pueden tener mayor relevancia en las muertes por cáncer en España.
+
+Y claramente podemos observar como cada grafico tiene una tendencia diferente, en el caso de la relación de los niveles altos de arsénico con el número de muertes por cáncer, podemos apreciar una clara correlación en el que cuando se alcanzan los niveles más altos de arsénico también alcanzamos los niveles mas altos de muertes por cáncer en España, en cambio en el grafico construido con los datos de mortalidad por cáncer contra los niveles de benzopireno podemos observar que al inicio si que hay un crecimiento que puede llevar correlación entre el numero de muertes por cáncer y los niveles de benzopireno pero a medida que estos niveles de benzopireno crecen más el numero de muertes desciendes levemente.
 
 
 
