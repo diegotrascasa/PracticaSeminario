@@ -1,21 +1,29 @@
 ---
-title: Seminario de Fuentes de datos biomédicas y web semántica
-author:    | 
- | **David Sainz Gonzalo**
- | *[email](mailto:dsg1003@alu.ubu.es)*
- | **Diego Trascasa García**
- | *[email](mailto:dtg1003@alu.ubu.es)*
+title: "Seminario de Fuentes de datos biomédicas y web semántica. EFECTO DE LA CALIDAD DE AIRE EN DISTINTAS ENFERMEDADES"
+author: |
+  | **David Sainz Gonzalo**
+  | **Diego Trascasa García**
+  | *[email](mailto:dsg1003@alu.ubu.es)*
+  | *[email](mailto:dtg1003@alu.ubu.es)*
 date: "5º Semestre / Curso 2022-2023"
 output:
+  pdf_document:
+    toc: yes
   html_document:
     df_print: paged
     toc: yes
-always_allow_html: true
+always_allow_html: yes
 ---
 
 # EFECTO DE LA CALIDAD DE AIRE EN DISTINTAS ENFERMEDADES.
 
-Nuestro trabajo busca analizar si existe alguna relación de los parametros de aire, con la cantidad de muertes por distintas enfermedades. Para ello miraremos entre todas las comunidades autónomas y durante 5 años.
+## 1.Introducción
+
+En este seminario estamos en búsqueda de la relación entre los niveles de diferentes parámetros de los componentes del aire y las muertes que ocurren en España por comunidades autónomas diferenciadas por su causa. 
+
+El resultado que pretendemos obtener es que cuanto mayor sean los niveles de los diferentes parámetros del aire mayor deberá ser el numero de muerte, esto en principio indicara que hay una cierta relación en que la muerte puede estar causada por una enfermedad que ha sido expresada por un nivel alto de PM 2.5 o arsénico, por ejemplo.
+
+De las 4 preguntas que hemos realizado, previos estudios nos indican que hay una cierta correlación entre los niveles de arsénico y el cáncer, esto ocurre porque el arsénico su principal efecto nocivo será el cáncer de piel, esto veremos si se ve reflejado en nuestro estudio. También ocurre con el estudio de como se ve afectada la neumonía por el PM 2,5 ya que en estudios testados nos indican que una mayor exposición a contaminantes ambientales como el PM 2,5 y PM10 es un factor de riesgo para pacientes por neumonía.
 
 Los datos los hemos obtenido a partir de las páginas web puestas a continuación:
 
@@ -23,7 +31,19 @@ Los datos los hemos obtenido a partir de las páginas web puestas a continuació
 
 * Datos de calidad de aire: https://www.miteco.gob.es/es/calidad-y-evaluacion-ambiental/temas/atmosfera-y-calidad-del-aire/calidad-del-aire/evaluacion-datos/datos/Datos_2001_2019.aspx
 
-## Importar librerias
+## 2.Objetivos
+
+El objetivo principal es encontrar cualquier efecto de la calidad de aire entre las distintas enfermedades:
+
+* Encontrar el efecto de la cantidad de PM 2,5 sobre las muertes por Neumonía.
+
+* Encontrar el efecto de la cantidad de PM 10 sobre las muertes por 4 enfermedades, Asma, Gripe, Neumonia y Enfermedades en las Vias Inferiores.
+
+* Encontrar el efecto de la cantidad de Arsénico sobre las muertes por diabetes.
+
+* Encontrar algún tipo de correlación entre el Benzopireno y Arsénico sobre las muertes producidas por Cáncer. Ver cual de las dos variables tiene más influencia sobre las muertes producidas por Cáncer.
+
+## 3.Importar librerias
 
 Comenzamos importando todas las librerías con las que vamos a trabajar en el documento.
 ```{r, warning=FALSE, message=FALSE}
@@ -35,7 +55,7 @@ library(ggplot2)
 library(DT)
 ```
 
-## Datos de Calidad de aire.
+## 4.Datos de Calidad de aire.
 
 En este caso vamos a importar los datos de Calidad del aire de forma separada, se encuentran en varias tablas dependiendo del año y las magnitudes de calidad. 
 
@@ -790,7 +810,7 @@ DT::datatable(calidadFinal)
 
 Conseguimos una tabla calidadFinal. La cual es la tabla de Calidad4 anterior a la que se le han añadido 2 columnas correspondientes a los nombres de las provincias y a los de comunidades autónomas.
 
-## Datos de Enfermedades
+## 4.Datos de Enfermedades
 
 ### Importación de los datos
 
