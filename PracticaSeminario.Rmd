@@ -7,8 +7,6 @@ author: |
   | *[email](mailto:dtg1003@alu.ubu.es)*
 date: "5º Semestre / Curso 2022-2023"
 output:
-  pdf_document:
-    toc: yes
   html_document:
     df_print: paged
     toc: yes
@@ -810,7 +808,7 @@ DT::datatable(calidadFinal)
 
 Conseguimos una tabla calidadFinal. La cual es la tabla de Calidad4 anterior a la que se le han añadido 2 columnas correspondientes a los nombres de las provincias y a los de comunidades autónomas.
 
-## 4.Datos de Enfermedades
+## 5.Datos de Enfermedades
 
 ### Importación de los datos
 
