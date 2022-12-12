@@ -13,9 +13,7 @@ output:
 always_allow_html: yes
 ---
 
-# EFECTO DE LA CALIDAD DE AIRE EN DISTINTAS ENFERMEDADES.
-
-## 1.Introducción
+# 1. Introducción
 
 En este seminario estamos en búsqueda de la relación entre los niveles de diferentes parámetros de los componentes del aire y las muertes que ocurren en España por comunidades autónomas diferenciadas por su causa. 
 
@@ -29,7 +27,7 @@ Los datos los hemos obtenido a partir de las páginas web puestas a continuació
 
 * Datos de calidad de aire: https://www.miteco.gob.es/es/calidad-y-evaluacion-ambiental/temas/atmosfera-y-calidad-del-aire/calidad-del-aire/evaluacion-datos/datos/Datos_2001_2019.aspx
 
-## 2.Objetivos
+# 2. Objetivos
 
 El objetivo principal es encontrar cualquier efecto de la calidad de aire entre las distintas enfermedades:
 
@@ -41,7 +39,7 @@ El objetivo principal es encontrar cualquier efecto de la calidad de aire entre 
 
 * Encontrar algún tipo de correlación entre el Benzopireno y Arsénico sobre las muertes producidas por Cáncer. Ver cual de las dos variables tiene más influencia sobre las muertes producidas por Cáncer.
 
-## 3.Importar librerias
+# 3. Importar librerias
 
 Comenzamos importando todas las librerías con las que vamos a trabajar en el documento.
 ```{r, warning=FALSE, message=FALSE}
@@ -53,11 +51,11 @@ library(ggplot2)
 library(DT)
 ```
 
-## 4.Datos de Calidad de aire.
+# 4. Datos de Calidad de aire.
 
 En este caso vamos a importar los datos de Calidad del aire de forma separada, se encuentran en varias tablas dependiendo del año y las magnitudes de calidad. 
 
-### Año 2020
+## Año 2020
 
 Comenzamos con el año 2020:
 
@@ -195,7 +193,7 @@ Después, creamos otra tabla haciendo un group by y un summarise para hacer la m
 Por último, hacemos la media de todos los dias de un mes por cada provincia y año. Obtenemos una colunmna con los datos de nuestra magnitud por años y por provincia.
 
 
-### Union de los datos del año 2020.
+## Union de los datos del año 2020.
 
 Para unir las 7 tablas en una única realizamos un full_join de dos en dos. De la siguiente manera:
 ```{r}
@@ -217,7 +215,7 @@ DT::datatable(join2020.6)
 A partir del código anterior obtenemos una tabla con 9 columnas que se corresponden a:
 PROVINCIA, AÑO, ARSENICO, BENZOPIRENO, CADMIO, NIQUEL, PLOMO, PM_10, PM_25.
 
-### Años 2019, 2018, 2017 y 2016
+## Años 2019, 2018, 2017 y 2016
 
 Con los otros 4 años realizamos lo mismo. Lo único que cambia es que a la columna "ANNO" de la tabla original le cambiamos el nombre a "AÑO" para evitar errores.
 ```{r, message=FALSE, warning=FALSE}
@@ -770,7 +768,7 @@ join2016.6 <- full_join (x=join2016.5,y=tabPM25_2016, by=c("PROVINCIA","AÑO"))
 
 Con todo el bloque de código anterior obtenemos 5 tablas. Cada una de ellas se corresponde a un año de calidad de aire con todas sus magnitudes. Ahora lo que tenemos que hacer es juntarlas. 
 
-### Unión de todos los años en una única tabla.
+## Unión de todos los años en una única tabla.
 
 Para ello, coo todas ellas tienen los mismos nombres en las columnas utilzaremos union_all.
 ```{r}
@@ -789,7 +787,7 @@ DT::datatable(Calidad4)
 
 A partir del código anterior obtenemos una única tabla con los datos de calidad de aire de los 5 años. 
 
-### Cambio de la provincia a su nombre y comunidad.
+## Cambio de la provincia a su nombre y comunidad.
 
 En la columna provincia queremos cambiar el número que se corresponde a cada provincia, por el nombre de esta. 
 
@@ -808,9 +806,9 @@ DT::datatable(calidadFinal)
 
 Conseguimos una tabla calidadFinal. La cual es la tabla de Calidad4 anterior a la que se le han añadido 2 columnas correspondientes a los nombres de las provincias y a los de comunidades autónomas.
 
-## 5.Datos de Enfermedades
+# 5. Datos de Enfermedades
 
-### Importación de los datos
+## Importación de los datos
 
 Lo primero que realizamos es la importación de los datos de las enfermedades, lo hacemos a través de un archivo csv y un archivo txt. En realidad son los mismos sets de datos pero con formatos diferentes.
 
@@ -823,7 +821,7 @@ X49971.2 <- read_delim("input/data/Enfermedades/enf3.txt",
                                     Total2 = col_double()), trim_ws = TRUE)
 ```
 
-### Unión de las partes que nos interesan.
+## Unión de las partes que nos interesan.
 El problema que nos ha surgido mientras realizabamos el trabajo es que la tabla X49971.1 considera los datos en formato character. Al pasar estos datos a numérico R considera el "." como una coma y no como separador de miles, esto provoca que haya datos incorrectos en nuestro set.
 
 Por ello, hemos decidido cambiar el formato de los datos directamente en un fichero excel sin puntos ni comas, se corresponde al fichero X49971.2. Con ello surge otro problema y es que los caracteres extraños como letras con tilde o ñ, aparecen con un símbolo como este �. 
@@ -843,13 +841,13 @@ Obtemos un total de 214,200 entradas.
 
 Esta tabla va a ser necesario modificarla para su posterior comparación. Lo que vamos hacer es cambiar el nombre de algunas columnas para evitar confusiones y que el acceso sea más facil.
 
-### Cambios en los nombres de columna.
+## Cambios en los nombres de columna.
 
 ```{r, message=FALSE, warning=FALSE}
 colnames(Enfermedades) <- c('NACIONAL','CCAA','Causa_muerte','Sexo','Lugar','AÑO','Total')
 ```
 
-### Nombres correctos para comunidades.
+## Nombres correctos para comunidades.
 
 Ahora vamos a cambiar el nombre de todas las comunidades a mayúscula para que coincida con los datos de calidad de aire, en realidad lo que hacemos es crear una nueva columna con los nombres en el formato correcto.
 
@@ -878,7 +876,7 @@ Enfermedades <- Enfermedades %>%
 DT::datatable(Enfermedades)
 ```
 
-### Eliminar NA en CCAA
+## Eliminar NA en CCAA
 
 Para que nuestras graficas en las preguntas posteriores aparezcan correctamente, tenemos que eliminar los NA en las comunidades para evitar que salgan los totales nacionales. 
 
@@ -886,7 +884,9 @@ Para que nuestras graficas en las preguntas posteriores aparezcan correctamente,
 EnfermedadesFinal<-Enfermedades[!is.na(Enfermedades$N_CCAA),]
 ```
 
-## PREGUNTA 1: Efecto de la cantidad de PM 2,5 sobre las muertes por Neumonía.
+# 6. PREGUNTAS
+
+## 6.1. PREGUNTA 1: Efecto de la cantidad de PM 2,5 sobre las muertes por Neumonía.
 
 Para realizar esta pregunta vamos a describir los conceptos:
 
@@ -943,7 +943,7 @@ Una vez realizado el grafico pasamos a su análisis en el que podemos ver una cl
 
 Un aspecto interesante a analizar es que parece como que al final se dispara la pendiente de la gráfica lo que podría indicar que hasta unos niveles como 12,5 los niveles de PM25 no son nocivos para el ser humano y no tiene influencia sobre la neumonía pero a partir de esos valores si que tienen un claro efecto negativo sobre la salud de las personas mas en concreto sobre la neumonía, aunque esto no se puede comprobar y para ello necesitaríamos de valores de una ciudad en la que los niveles de PM25 sean mas altos para intentar buscar esa correlación que hablamos.
 
-## PREGUNTA 2: Efecto de la cantidad de PM 10 sobre 4 enfermedades.
+## 6.2. PREGUNTA 2: Efecto de la cantidad de PM 10 sobre 4 enfermedades.
 
 Para realizar esta pregunta vamos a describir los conceptos:
 
@@ -1007,7 +1007,7 @@ ejercicio2Fin <- union_all(ejercicio2b,ejercicio2.3)
 DT::datatable(ejercicio2Fin)
 ```
 
-### Grafico de relación
+### Gráfico de relación
 
 ```{r, warning=FALSE, message=FALSE}
 ggplot(data = ejercicio2Fin, aes(x = PM_10, y = Total)) +
@@ -1033,7 +1033,7 @@ Nuestra interpretación de estos gráficos es que hay una clara correlación ent
 
 Podemos concluir con que la exposición al PM10 puede provocar efectos nocivos en el sistema respiratorio
 
-## PREGUNTA 3: Efecto del Arsenico sobre la diabetes.
+## 6.3. PREGUNTA 3: Efecto del Arsenico sobre la diabetes.
 
 Queremos ver si el arsénico tiene algún efecto sobre la diabetes. Lo primero que vamos a hacer es definir los dos conceptos:
 
@@ -1064,7 +1064,7 @@ El siguiente paso es juntar los dos datos en una única tabla, para poder realiz
 ejercicio3 <- full_join (x=Diabetes, y= estudioAs,by=c("N_CCAA","AÑO"))
 ```
 
-### Grafico de relación.
+### Gráfico de relación.
 
 ```{r, warning=FALSE, message=FALSE}
 ggplot(data = ejercicio3, aes(x = ARSENICO, y = Total)) +
@@ -1078,7 +1078,7 @@ ggplot(data = ejercicio3, aes(x = ARSENICO, y = Total)) +
   )
 ```
 
-## PREGUNTA 4: Cancer vs Benzopireno y Arsénico
+## 6.4. PREGUNTA 4: Cancer vs Benzopireno y Arsénico
 
 Lo que buscamos es ver cual de las dos magnitudes del aire tienen un efecto mayor sobre las muertes producidas por cáncer. Conceptos:
 
